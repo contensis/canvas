@@ -1,0 +1,15 @@
+div.content {
+	margin: auto;
+	width: 75%;
+}
+
+div.output {
+	margin: 30px;
+	padding: 30px;
+	border: solid 5px gray;
+}
+
+p.lead::first-letter {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

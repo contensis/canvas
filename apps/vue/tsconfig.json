@@ -1,0 +1,29 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "importsNotUsedAsValues": "remove",
+    "preserveValueImports": false,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@contensis-canvas/types": [
+        "../../packages/types/src"
+      ],
+      "@contensis-canvas/dom": [
+        "../../packages/dom/src"
+      ]
+    }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

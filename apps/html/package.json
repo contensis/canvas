@@ -1,0 +1,14 @@
+{
+  "name": "@contensis-canvas-demo/html",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
+    "vite-tsconfig-paths": "^4.0.5"
+  }
+}

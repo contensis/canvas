@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "paths": {
+      "@contensis-canvas/dom": [
+        "../dom/src"
+      ],
+      "@contensis-canvas/types": [
+        "../types/src"
+      ]
+    }
+  }
+}

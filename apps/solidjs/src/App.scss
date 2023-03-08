@@ -1,0 +1,9 @@
+div.content {
+	margin: auto;
+	width: 75%;
+}
+
+p.lead::first-letter {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
