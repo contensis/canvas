@@ -164,7 +164,6 @@ class DomWriter<TNode, TFragment> {
     }
 
     _component(props: WriteComposedItemProps<ComponentComposedItem>, ...children: Child<TNode>[]) {
-        // todo: should components have there own lookup??      
         const { item, context } = props;
         const component = item.properties?.component;
         const Component = this.componentItemWriters?.[component];

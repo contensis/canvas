@@ -5,8 +5,10 @@ import * as CanvasData from './canvas-data';
 import { MyHtmlHeading, MyHtmlParagraph, MyHtmlFragment, MyHtmlTable, MyHtmlPanel, MyHtmlImage, MyHtmlCode, MyHtmlList, MyHtmlListItem, MyHtmlAuthorComponent, MyHtmlBookComponent } from './elements-html';
 import { MyDomHeading, MyDomParagraph, MyDomFragment, MyDomTable, MyDomPanel, MyDomImage, MyDomCode, MyDomList, MyDomListItem, MyDomAuthorComponent, MyDomBookComponent } from './elements-dom';
 
+
 const htmlWriter = createHtmlWriter({
     items: {
+        _heading: MyHtmlHeading,
         _code: MyHtmlCode,
         _fragment: MyHtmlFragment,
         _heading: MyHtmlHeading,

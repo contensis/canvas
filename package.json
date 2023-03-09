@@ -12,6 +12,7 @@
 		"apps\\solidjs",
 		"apps\\html",
 		"apps\\react",
-		"apps\\vue"
+		"apps\\vue",
+		"apps\\node"
 	]
 }

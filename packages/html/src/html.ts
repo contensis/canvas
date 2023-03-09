@@ -69,7 +69,9 @@ function join(child: Child | Child[]) {
     }
 }
 
-export function h(type: string | Function, props?: Record<string, any>, ...children: Child[]) {
+type Type = string | ((props?: Record<string, any>) => string);
+
+export function h(type: Type, props?: Record<string, any>, ...children: Child[]) {
     if (typeof type === 'function') {
         props = props || {};
         if (children.length) {

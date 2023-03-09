@@ -1,7 +1,8 @@
 import './App.css';
-import { useState, createContext, useContext, useEffect } from 'react'
+import { useState, createContext, useContext, useEffect, createElement } from 'react'
 import * as CanvasData from './canvas-data';
-import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem } from '@contensis-canvas/react';
+import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem, Strong } from '@contensis-canvas/react';
+import { ComposedItem } from '@contensis-canvas/types';
 
 declare var Prism: any;
 
@@ -83,6 +84,10 @@ export function MyCode(props: any) {
         }
     }, [isCollapsed]);
 
+    useEffect(() => {
+        Prism.highlightAll();
+    }, []);
+
     const codeElement = !!caption
         ? (
             <figure className={'figure'} style={{ display: 'block' }}>
@@ -110,7 +115,7 @@ export function MyBookComponent(props: any) {
                 <div className="col-md-8">
                     <div className="card-body">
                         <h5 className="card-title">{props.item?.value?.name}</h5>
-                        <p className="card-text">{props.item?.value?.name}</p>                        
+                        <p className="card-text">{props.item?.value?.name}</p>
                     </div>
                 </div>
                 <div className="col-md-4">
@@ -131,7 +136,7 @@ export function MyAuthorComponent(props: any) {
                 <div className="col-md-8">
                     <div className="card-body">
                         <h5 className="card-title">{props.item?.value?.name}</h5>
-                        <p className="card-text">{props.item?.value?.name}</p>                        
+                        <p className="card-text">{props.item?.value?.name}</p>
                     </div>
                 </div>
             </div>
@@ -144,18 +149,29 @@ function MyList(props: any) {
     return <List {...props} className={cssClass} />
 }
 
+export function Al() {
+    return <div>I am a n Al component</div>
+}
+
+export function StrongAl(props: any) {
+    // return <Strong {...props} style={{ backgroundColor: 'red'}} />;
+
+    return <code><Strong.Children {...props} /></code>;
+}
 
 function MyListItem(props: any) {
     return <ListItem {...props} className={'list-group-item'} />
 }
 
-function App() {
-    const [data] = useState(CanvasData.data);
+function SimpleWriter({ data }: { data: ComposedItem[] }) {
+    return (<Writer data={data} />)
+}
 
+function ExtendedWriter({ data }: { data: ComposedItem[] }) {
     return (
-        <div className="content">
-            <WriteContextProvider items={{
-                _code: MyCode,              
+        <WriteContextProvider
+            items={{
+                _code: MyCode,                                
                 _fragment: MyFragment,
                 _heading: MyHeading,
                 _image: MyImage,
@@ -167,10 +183,24 @@ function App() {
             }}
             components={{
                 'author': MyAuthorComponent,
-                'book': MyBookComponent
-            }}>
-                <Writer data={data} />
-            </WriteContextProvider>
+                'book': MyBookComponent,
+                'alTest': Al
+            }}
+            decorators={{
+                strong: StrongAl
+            }}
+        >
+            <Writer data={data} />
+        </WriteContextProvider>
+    );
+}
+
+function App() {
+    const [data] = useState(CanvasData.data); // todo: load data through a rest call
+
+    return (
+        <div className="content">
+            <ExtendedWriter data={data} />
         </div>
     );
 }

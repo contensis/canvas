@@ -36,7 +36,9 @@ function append(parent: Node, child: Child | Child[]) {
     }
 }
 
-export function h(type: string | Function, props?: Record<string, any>, ...children: Child[]): Node {
+type Type = string | ((props?: Record<string, any>) => Node);
+
+export function h(type: Type, props?: Record<string, any>, ...children: Child[]): Node {
     if (typeof type === 'function') {
         props = props || {};
         if (children.length) {
