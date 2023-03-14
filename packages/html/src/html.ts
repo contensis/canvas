@@ -71,6 +71,7 @@ function join(child: Child | Child[]) {
 
 type Type = string | ((props?: Record<string, any>) => string);
 
+// todo: what about html encoding of text content????
 export function h(type: Type, props?: Record<string, any>, ...children: Child[]) {
     if (typeof type === 'function') {
         props = props || {};

@@ -13,6 +13,7 @@
 		"apps\\html",
 		"apps\\react",
 		"apps\\vue",
-		"apps\\node"
+		"apps\\node",
+		"apps\\e2e"
 	]
 }

@@ -8,7 +8,6 @@ import { MyDomHeading, MyDomParagraph, MyDomFragment, MyDomTable, MyDomPanel, My
 
 const htmlWriter = createHtmlWriter({
     items: {
-        _heading: MyHtmlHeading,
         _code: MyHtmlCode,
         _fragment: MyHtmlFragment,
         _heading: MyHtmlHeading,

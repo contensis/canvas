@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <title>
+        <%= entry?.entryTitle || sitemap?.displayName %>
+    </title>
+    <style>
+        div.content {
+            margin: auto;
+            width: 75%;
+        }
+
+        p.lead::first-letter {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <% if (sitemap) { %>
+                <%= sitemap?.displayName %>
+                    <ul>
+                        <% for(let node of sitemap?.children) { %>
+                            <li><a href="<%= node.path %>">
+                                    <%= node.displayName %>
+                                </a></li>
+                            <%} %>
+                    </ul>
+                <% } %>
+            </div>
+            <div class="col-9"><%- content %></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup-templating.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-handlebars.min.js"></script>
+    
+</body>
+
+</html>

@@ -150,7 +150,7 @@ function MyList(props: any) {
 }
 
 export function Al() {
-    return <div>I am a n Al component</div>
+    return <div>I am an Al component</div>
 }
 
 export function StrongAl(props: any) {

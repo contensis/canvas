@@ -159,8 +159,8 @@ class DomWriter<TNode, TFragment> {
         }
     }
 
-    _codeChildren = function (props: WriteComposedItemProps<CodeComposedItem>) {
-        return this.toFragment([props.item?.value?.code]);
+    _codeChildren(props: WriteComposedItemProps<CodeComposedItem>) {
+        return this.toFragment([this.encode(props.item?.value?.code)]);
     }
 
     _component(props: WriteComposedItemProps<ComponentComposedItem>, ...children: Child<TNode>[]) {
@@ -185,7 +185,7 @@ class DomWriter<TNode, TFragment> {
     }
 
     _componentChildren(props: WriteComposedItemProps<ComponentComposedItem>) {
-        return this.toFragment([`Component: ${props.item?.properties?.component}`]);
+        return this.toFragment([this.encode(`Component: ${props.item?.properties?.component}`)]);
     }
 
     _divider(props: WriteComposedItemProps<DividerComposedItem>) {
@@ -272,7 +272,7 @@ class DomWriter<TNode, TFragment> {
 
     _inlineEntryChildren(props: WriteComposedItemProps<InlineEntryComposedItem>) {
         const entryTitle = props?.item?.value?.entryTitle || '';
-        return this.toFragment([entryTitle]);
+        return this.toFragment([this.encode(entryTitle)]);
     }
 
     _link(props: WriteComposedItemProps<LinkComposedItem>, ...children: Child<TNode>[]) {
@@ -659,6 +659,21 @@ class DomWriter<TNode, TFragment> {
         return this.toFragment(this.writeItems({ items: data, context }));
     }
 
+    private encode(value: string) {
+        // todo this should be passed in as it is not needed for dom / vue versions only html string version
+        /*
+        function htmlEncode(string) {
+  return string.replace(/&/g, '&amp;')
+  			.replace(/</g, '&lt;')
+  			.replace(/>/g, '&gt;')
+  			.replace(/'/g, '&#39;')
+  			.replace(/"/g, '&#34;')
+  			.replace(/\//, '&#x2F;');
+}
+        */
+        return value;
+    }
+
     private toFragment(children: Child<TNode>[]) {
         return this.h(this.hFragment, {}, ...children);
     }
@@ -688,7 +703,7 @@ class DomWriter<TNode, TFragment> {
     }
 
     private writeText(props: WriteTextProps) {
-        return this.toFragment([props.text]);
+        return this.toFragment([this.encode(props.text)]);
     }
 
     private decorators(props: DecoratorProps): TNode {
