@@ -32,6 +32,9 @@
       ],
       "@contensis-canvas/html-dom": [
         "../../packages/html-dom/src"
+      ],
+      "@contensis-canvas/markdown": [
+        "../../packages/markdown/src"
       ]
     }
   },

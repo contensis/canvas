@@ -90,7 +90,7 @@ export const data: ComposedItem[] = [
         ]
     },
     {
-        "id": "79c663fd",
+        "id": "79c663fe",
         "type": "_paragraph",
         "value": [
             {
@@ -165,6 +165,11 @@ export const data: ComposedItem[] = [
                 "value": "ctrl-a"
             }
         ]
+    },
+    {
+        "id": "79c663fe",
+        "type": "_paragraph",
+        "value": "0 < 1 & 2 > 1 & \"4 / 2\" = '2'"
     },
     {
         "id": "5a7704d3",
@@ -294,7 +299,7 @@ export const data: ComposedItem[] = [
                     {
                         "id": "2b449952",
                         "type": "_fragment",
-                        "value": "Item b\n"
+                        "value": "Item b"
                     },
                     {
                         "id": "94b04332",
@@ -312,7 +317,33 @@ export const data: ComposedItem[] = [
                             {
                                 "id": "852da88d",
                                 "type": "_listItem",
-                                "value": "Item b2"
+                                "value": [
+                                    {
+                                        "id": "2b449952",
+                                        "type": "_fragment",
+                                        "value": "Item b2"
+                                    },
+                                    {
+                                        "id": "94b04332",
+                                        "type": "_list",
+                                        "properties": {
+                                            "listType": "ordered",
+                                            "start": 99
+                                        },
+                                        "value": [
+                                            {
+                                                "id": "bb7ed01",
+                                                "type": "_listItem",
+                                                "value": "Item b21"
+                                            },
+                                            {
+                                                "id": "852da88d",
+                                                "type": "_listItem",
+                                                "value": "Item b22"
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }

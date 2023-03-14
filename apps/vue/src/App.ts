@@ -13,7 +13,9 @@ const VueFragment = (props: any, context: any) => {
     return contents(context);
 }
 
-const { createWriter, Heading, Paragraph, Fragment, Table, Panel, Code, Image } = createDomWriterFactory(h, VueFragment as any);
+const Text = (text: any)  => text;
+
+const { createWriter, Heading, Paragraph, Fragment, Table, Panel, Code, Image } = createDomWriterFactory(h, VueFragment as any, Text);
 
 
 function MyHeading(props: any) {

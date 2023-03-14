@@ -40,7 +40,8 @@ const {
     Variable
 } = createDomWriterFactory(
     h, 
-    h.fragment
+    h.fragment,
+    h.text
 );
 
 export {

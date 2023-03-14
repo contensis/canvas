@@ -167,6 +167,11 @@ export const data: ComposedItem[] = [
         ]
     },
     {
+        "id": "79c663fe",
+        "type": "_paragraph",
+        "value": "0 < 1 & 2 > 1 & \"4 / 2\" = '2'"
+    },
+    {
         "id": "5a7704d3",
         "type": "_paragraph",
         "value": "aa bbb"

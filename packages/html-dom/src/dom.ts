@@ -65,6 +65,14 @@ h.fragment = function (props?: Record<string, any> & { children: Child[] }) {
     return fragment;
 };
 
+h.text = function (text: any) {
+    if ((typeof text === 'boolean') || (text === null) || (typeof text === 'undefined')) {
+        return '';
+    } else {
+        return document.createTextNode(String(text));
+    }
+}
+
 function setProperties(el: Node, properties: Record<string, any>) {
     if (!properties) {
         return;

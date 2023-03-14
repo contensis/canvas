@@ -71,7 +71,6 @@ function join(child: Child | Child[]) {
 
 type Type = string | ((props?: Record<string, any>) => string);
 
-// todo: what about html encoding of text content????
 export function h(type: Type, props?: Record<string, any>, ...children: Child[]) {
     if (typeof type === 'function') {
         props = props || {};
@@ -97,6 +96,19 @@ export function h(type: Type, props?: Record<string, any>, ...children: Child[])
 h.fragment = function (props?: Record<string, any> & { children: Child[] }) {
     return props?.children ? join(props.children) : '';
 };
+
+h.text = function (text: any) {
+    if ((typeof text === 'boolean') || (text === null) || (typeof text === 'undefined')) {
+        return '';
+    } else {
+        return String(text).replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/'/g, '&#39;')
+            .replace(/"/g, '&#34;')
+            .replace(/\//, '&#x2F;');
+    }
+}
 
 function toHtmlAttributes(properties: Record<string, any>) {
     if (!properties) {
