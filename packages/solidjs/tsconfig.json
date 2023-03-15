@@ -8,11 +8,6 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "noEmit": true,
-    "isolatedModules": true,
-    "paths": {
-      "@contensis-canvas/types": [
-        "../types/src"
-      ]
-    }
+    "isolatedModules": true
   }
 }

@@ -18,15 +18,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "@contensis-canvas/types": [
-        "../../packages/types/src"
-      ],
-      "@contensis-canvas/react": [
-        "../../packages/react/src"
-      ]
-    }
+    "jsx": "react-jsx"
   },
   "include": [
     "src"

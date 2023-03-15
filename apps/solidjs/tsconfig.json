@@ -7,16 +7,10 @@
     "esModuleInterop": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "types": ["vite/client"],
+    "types": [
+      "vite/client"
+    ],
     "noEmit": true,
-    "isolatedModules": true,
-    "paths": {
-      "@contensis-canvas/types": [
-        "../../packages/types/src"
-      ],
-      "@contensis-canvas/solid-js": [
-        "../../packages/solidjs/src"
-      ]
-    }
+    "isolatedModules": true
   }
 }

@@ -1,5 +1,8 @@
 {
   "name": "@contensis/canvas-markdown",
   "version": "0.0.1",
-  "main": "src/index.ts"
+  "main": "src/index.ts",
+  "dependencies": {
+    "@contensis/canvas-types": "^0.0.1"
+  }
 }

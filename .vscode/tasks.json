@@ -6,13 +6,28 @@
       {
         "label": "demo",
         "dependsOn": [
-          "demo:html"
+          "demo:e2e",
+          "demo:html",
+          "demo:node",
+          "demo:react",
+          "demo:solidjs",
+          "demo:vue"
         ],
         "group": {
           "kind": "build",
           "isDefault": true
         },
         "problemMatcher": []
+      },
+      {
+        "label": "demo:e2e",
+        "command": "npm run dev",
+        "group": "build",
+        "type": "shell",
+        "problemMatcher": [],
+        "options": {
+            "cwd": "${workspaceFolder}/apps/e2e"
+          }
       },
       {
         "label": "demo:html",
@@ -22,6 +37,46 @@
         "problemMatcher": [],
         "options": {
             "cwd": "${workspaceFolder}/apps/html"
+          }
+      },
+      {
+        "label": "demo:node",
+        "command": "npm run dev",
+        "group": "build",
+        "type": "shell",
+        "problemMatcher": [],
+        "options": {
+            "cwd": "${workspaceFolder}/apps/node"
+          }
+      },
+      {
+        "label": "demo:react",
+        "command": "npm run dev",
+        "group": "build",
+        "type": "shell",
+        "problemMatcher": [],
+        "options": {
+            "cwd": "${workspaceFolder}/apps/react"
+          }
+      },
+      {
+        "label": "demo:solidjs",
+        "command": "npm run dev",
+        "group": "build",
+        "type": "shell",
+        "problemMatcher": [],
+        "options": {
+            "cwd": "${workspaceFolder}/apps/solidjs"
+          }
+      },
+      {
+        "label": "demo:vue",
+        "command": "npm run dev",
+        "group": "build",
+        "type": "shell",
+        "problemMatcher": [],
+        "options": {
+            "cwd": "${workspaceFolder}/apps/vue"
           }
       }
     ]

@@ -12,12 +12,6 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "@contensis-canvas/types": [
-        "../../packages/types/src"
-      ],
-      "@contensis-canvas/dom": [
-        "../../packages/dom/src"
       ]
     }
   },

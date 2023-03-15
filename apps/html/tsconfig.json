@@ -19,24 +19,7 @@
     "skipLibCheck": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "jsxFragmentFactory": "h.fragment",
-    "paths": {
-      "@contensis-canvas/types": [
-        "../../packages/types/src"
-      ],
-      "@contensis-canvas/dom": [
-        "../../packages/dom/src"
-      ],
-      "@contensis-canvas/html": [
-        "../../packages/html/src"
-      ],
-      "@contensis-canvas/html-dom": [
-        "../../packages/html-dom/src"
-      ],
-      "@contensis-canvas/markdown": [
-        "../../packages/markdown/src"
-      ]
-    }
+    "jsxFragmentFactory": "h.fragment"
   },
   "include": [
     "src"

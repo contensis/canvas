@@ -9,6 +9,7 @@
     "vite-plugin-solid": "^2.6.1"
   },
   "dependencies": {
+    "@contensis/canvas-types": "^0.0.1",
     "solid-js": "^1.6.12"
   }
 }

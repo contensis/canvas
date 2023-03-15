@@ -5,11 +5,6 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "noEmit": true,
-    "paths": {
-      "@contensis-canvas/types": [
-        "../types/src"
-      ]
-    }
+    "noEmit": true
   }
 }
