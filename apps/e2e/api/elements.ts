@@ -1,4 +1,4 @@
-import { h, Heading, Table, Panel, Image, Code } from '@contensis-canvas/html';
+import { h, Heading, Table, Panel, Image, Code } from '@contensis/canvas-html';
 
 export function MyHeading(props: any) {
     const cssClass = `display-${props.item?.properties?.level || '1'}`;

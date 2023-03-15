@@ -1,4 +1,4 @@
-import { h, Heading, Paragraph, Fragment, Table, Panel, Image, Code, List, ListItem } from '@contensis-canvas/html-dom';
+import { h, Heading, Paragraph, Fragment, Table, Panel, Image, Code, List, ListItem } from '@contensis/canvas-html-dom';
 
 declare global {
     namespace JSX {

@@ -1,6 +1,7 @@
 {
-  "name": "@contensis-canvas/solidjs",
+  "name": "@contensis/canvas-solid-js",
   "version": "0.0.1",
+  "main": "src/index.ts",
   "devDependencies": {
     "sass": "^1.58.3",
     "typescript": "^4.9.5",

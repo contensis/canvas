@@ -1,6 +1,6 @@
 import { h } from 'vue';
 import * as CanvasData from './canvas-data';
-import { createDomWriterFactory } from '@contensis-canvas/dom';
+import { createDomWriterFactory } from '@contensis/canvas-dom';
 
 function contents(context: any) {
     return (typeof context.slots.default === 'function')

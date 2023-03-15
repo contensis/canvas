@@ -1,4 +1,4 @@
-import { ComposedItem } from '@contensis-canvas/types';
+import { ComposedItem } from '@contensis/canvas-types';
 
 export const data: ComposedItem[] = [
     {

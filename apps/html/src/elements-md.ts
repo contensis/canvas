@@ -1,4 +1,4 @@
-import { Paragraph, Fragment, Text } from '@contensis-canvas/markdown';
+import { Paragraph, Fragment, Text } from '@contensis/canvas-markdown';
 
 export function MyMdParagraph(props: any) {
     if (props.item?.properties?.paragraphType === 'lede') {

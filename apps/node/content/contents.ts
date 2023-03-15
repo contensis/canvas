@@ -1,6 +1,6 @@
-import { createWriter } from '@contensis-canvas/html';
+import { createWriter } from '@contensis/canvas-html';
 import { MyHeading, MyParagraph, MyFragment, MyTable, MyPanel, MyImage, MyCode, MyList, MyListItem, MyAuthorComponent, MyBookComponent } from './elements';
-import { ComposedItem } from '@contensis-canvas/types';
+import { ComposedItem } from '@contensis/canvas-types';
 
 const writer = createWriter({
     items: {

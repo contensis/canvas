@@ -1,4 +1,4 @@
-import { h, Heading, Paragraph, Fragment, Table, Panel, Image, Code, List, ListItem } from '@contensis-canvas/html';
+import { h, Heading, Paragraph, Fragment, Table, Panel, Image, Code, List, ListItem } from '@contensis/canvas-html';
 
 export function MyHtmlHeading(props: any) {
     const cssClass = `display-${props.item?.properties?.level || '1'}`;

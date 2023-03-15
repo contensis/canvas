@@ -1,0 +1,28 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "demo",
+        "dependsOn": [
+          "demo:html"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "demo:html",
+        "command": "npm run dev",
+        "group": "build",
+        "type": "shell",
+        "problemMatcher": [],
+        "options": {
+            "cwd": "${workspaceFolder}/apps/html"
+          }
+      }
+    ]
+  }

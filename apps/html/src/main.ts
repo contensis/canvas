@@ -1,7 +1,7 @@
 import './style.css';
-import { createWriter as createHtmlWriter } from '@contensis-canvas/html';
-import { createWriter as createDomWriter } from '@contensis-canvas/html-dom';
-import { createWriter as createMdWriter } from '@contensis-canvas/markdown';
+import { createWriter as createHtmlWriter } from '@contensis/canvas-html';
+import { createWriter as createDomWriter } from '@contensis/canvas-html-dom';
+import { createWriter as createMdWriter } from '@contensis/canvas-markdown';
 import * as CanvasData from './canvas-data';
 import { MyHtmlHeading, MyHtmlParagraph, MyHtmlFragment, MyHtmlTable, MyHtmlPanel, MyHtmlImage, MyHtmlCode, MyHtmlList, MyHtmlListItem, MyHtmlAuthorComponent, MyHtmlBookComponent } from './elements-html';
 import { MyDomHeading, MyDomParagraph, MyDomFragment, MyDomTable, MyDomPanel, MyDomImage, MyDomCode, MyDomList, MyDomListItem, MyDomAuthorComponent, MyDomBookComponent } from './elements-dom';
@@ -20,7 +20,7 @@ const htmlWriter = createHtmlWriter({
         _table: MyHtmlTable
     },
     components: {
-        book: MyHtmlAuthorComponent, 
+        book: MyHtmlAuthorComponent,
         author: MyHtmlBookComponent
     }
 });
@@ -41,7 +41,7 @@ const domWriter = createDomWriter({
         _table: MyDomTable
     },
     components: {
-        book: MyDomAuthorComponent, 
+        book: MyDomAuthorComponent,
         author: MyDomBookComponent
     }
 });
@@ -50,9 +50,9 @@ const dom = domWriter({ data: CanvasData.data });
 document.getElementById('domApp')?.appendChild(dom);
 
 
-const mdWriter = createMdWriter({   
+const mdWriter = createMdWriter({
     items: {
-        _fragment: MyMdFragment, 
+        _fragment: MyMdFragment,
         _paragraph: MyMdParagraph
     },
     components: {
@@ -64,17 +64,3 @@ const mdWriter = createMdWriter({
 const md = mdWriter({ data: CanvasData.data });
 
 document.getElementById('markdownApp')!.innerHTML = md;
-
-// `
-// # Heading
-
-// Paragraph
-
-// * List Item 1
-// * List Item 2
-// * List Item 3
-
-// \`\`\`javascript
-// console.log('hello');
-// \`\`\`
-// `;

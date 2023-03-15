@@ -1,4 +1,4 @@
-import { createDomWriterFactory } from '../../dom/src';
+import { createDomWriterFactory } from '@contensis/canvas-dom';
 import { h } from './dom';
 
 const {

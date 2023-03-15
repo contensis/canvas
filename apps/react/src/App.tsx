@@ -1,8 +1,8 @@
 import './App.css';
 import { useState, createContext, useContext, useEffect, createElement } from 'react'
 import * as CanvasData from './canvas-data';
-import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem, Strong } from '@contensis-canvas/react';
-import { ComposedItem } from '@contensis-canvas/types';
+import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem, Strong } from '@contensis/canvas-react';
+import { ComposedItem } from '@contensis/canvas-types';
 
 declare var Prism: any;
 

@@ -1,7 +1,7 @@
 import './App.scss';
 import { createSignal, createContext, useContext, Show, createEffect } from 'solid-js';
 import * as CanvasData from './canvas-data';
-import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem } from '@contensis-canvas/solid-js';
+import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem } from '@contensis/canvas-solid-js';
 
 declare var Prism: any;
 

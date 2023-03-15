@@ -1,5 +1,5 @@
 {
-	"name": "@contensis-canvas/node",
+	"name": "@contensis-canvas-demo/node",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite",

@@ -1,5 +1,5 @@
-import { createWriter } from '@contensis-canvas/html';
-import { ComposedItem } from '@contensis-canvas/types';
+import { createWriter } from '@contensis/canvas-html';
+import { ComposedItem } from '@contensis/canvas-types';
 import { MyHeading, MyTable, MyPanel, MyImage, MyCode } from './elements';
 
 const writer = createWriter({

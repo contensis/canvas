@@ -3,7 +3,7 @@ import {
     HeadingComposedItem, ImageComposedItem, InlineEntryComposedItem, ListComposedItem, ListItemComposedItem, ParagraphComposedItem,
     TableComposedItem, TableHeaderComposedItem, TableBodyComposedItem, TableFooterComposedItem, TableRowComposedItem, TableHeaderCellComposedItem,
     TableCellComposedItem, TableCaptionComposedItem, PanelComposedItem, DecoratorType, DecoratorTypeMap, LinkComposedItem, ComposedItemType
-} from '@contensis-canvas/types';
+} from '@contensis/canvas-types';
 
 type Attributes = Record<string, any>;
 type WriteContext = Record<string, any>;
