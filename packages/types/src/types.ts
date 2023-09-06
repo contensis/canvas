@@ -51,7 +51,7 @@ export type ListType = 'ordered' | 'unordered';
 
 export type PanelType = 'info' | 'note' | 'warning' | 'success' | 'error';
 
-export type ParagraphType = 'lede';
+export type ParagraphType = 'lead';
 
 export type GenericComposedItem<TType extends ComposedItemType, TValue, TProperties extends ComposedItemProperties = ComposedItemProperties> = {
     id: string,

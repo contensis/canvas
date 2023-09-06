@@ -1,14 +1,14 @@
 import { Paragraph, Fragment, Text } from '@contensis/canvas-markdown';
 
 export function MyMdParagraph(props: any) {
-    if (props.item?.properties?.paragraphType === 'lede') {
-        props.context.inLede = true;
+    if (props.item?.properties?.paragraphType === 'lead') {
+        props.context.inLead = true;
     }
     return Paragraph(props);
 }
 
 export function MyMdFragment(props: any) {
-    return (props.context.inLede)
+    return (props.context.inLead)
         ? Fragment.Children(props)
         : Fragment(props);
 }

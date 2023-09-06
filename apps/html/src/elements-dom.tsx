@@ -24,15 +24,15 @@ export function MyDomHeading(props: any) {
 }
 
 export function MyDomParagraph(props: any) {
-    if (props.item?.properties?.paragraphType === 'lede') {
-        props.context.inLede = true;
+    if (props.item?.properties?.paragraphType === 'lead') {
+        props.context.inLead = true;
     }
     const cssClass = props.item?.properties?.paragraphType ? 'lead' : null;
     return <Paragraph {...props} className={cssClass} />;
 }
 
 export function MyDomFragment(props: any) {
-    return (props.context.inLede)
+    return (props.context.inLead)
         ? (<Fragment.Children {...props} />)
         : (<Fragment {...props} />);
 }

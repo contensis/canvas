@@ -295,7 +295,7 @@ class DomWriter<TNode, TFragment> {
         children = this.getChildren(children, () => this._linkChildren({ item, context }));
         return !!href
             ? this.h('a', attributes, ...children)
-            : this.toFragment(children)
+            : this.toFragment(children);
     }
 
     _linkChildren(props: WriteComposedItemProps<LinkComposedItem>) {

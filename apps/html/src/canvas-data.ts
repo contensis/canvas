@@ -1,6 +1,6 @@
 import { ComposedItem } from '@contensis/canvas-types';
 
-export const data: ComposedItem[] = [
+const data: ComposedItem[] = [
     {
         "id": "c891f455",
         "type": "_heading",
@@ -13,7 +13,7 @@ export const data: ComposedItem[] = [
         "id": "79c663fd",
         "type": "_paragraph",
         "properties": {
-            "paragraphType": "lede"
+            "paragraphType": "lead"
         },
         "value": [
             {
@@ -646,3 +646,9 @@ export const data: ComposedItem[] = [
         ]
     }
 ];
+
+export function getEntry() {
+    return {
+        content: data
+    };
+}

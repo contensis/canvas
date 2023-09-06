@@ -13,7 +13,7 @@ export const data: ComposedItem[] = [
         "id": "79c663fd",
         "type": "_paragraph",
         "properties": {
-            "paragraphType": "lede"
+            "paragraphType": "lead"
         },
         "value": [
             {

@@ -5,7 +5,7 @@ import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Pane
 
 declare var Prism: any;
 
-const ParagraphContext = createContext<null | { inLede: boolean }>(null);
+const ParagraphContext = createContext<null | { inLead: boolean }>(null);
 
 function MyHeading(props: any) {
     const cssClass = () => `display-${props.item?.properties?.level || '1'}`;
@@ -15,7 +15,7 @@ function MyHeading(props: any) {
 function MyParagraph(props: any) {
     const cssClass = () => props.item?.properties?.paragraphType ? 'lead' : null;
     return (
-        <ParagraphContext.Provider value={{ inLede: (props.item?.properties?.paragraphType === 'lede') }}>
+        <ParagraphContext.Provider value={{ inLead: (props.item?.properties?.paragraphType === 'lead') }}>
             <Paragraph {...props} class={cssClass()} />
         </ParagraphContext.Provider>
     );
@@ -23,7 +23,7 @@ function MyParagraph(props: any) {
 
 function MyFragment(props: any) {
     const paragraphContext = useContext(ParagraphContext);
-    return (paragraphContext?.inLede)
+    return (paragraphContext?.inLead)
         ? (<Fragment.Children {...props} />)
         : (<Fragment {...props} />);
 }
