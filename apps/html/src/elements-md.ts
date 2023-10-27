@@ -1,32 +1,32 @@
-import { Paragraph, Fragment, Text } from '@contensis/canvas-markdown';
+import { paragraph, fragment, text } from '@contensis/canvas-markdown';
 
-export function MyMdParagraph(props: any) {
+export function myMdParagraph(props: any) {
     if (props.item?.properties?.paragraphType === 'lead') {
         props.context.inLead = true;
     }
-    return Paragraph(props);
+    return paragraph(props);
 }
 
-export function MyMdFragment(props: any) {
+export function myMdFragment(props: any) {
     return (props.context.inLead)
-        ? Fragment.Children(props)
-        : Fragment(props);
+        ? fragment.children(props)
+        : fragment(props);
 }
 
-export function MyMdBookComponent(props: any) {
+export function myMdBookComponent(props: any) {
     return [
-        `##### ${Text(props.item?.value?.name)}`,
-        Text(props.item?.value?.name),
-        `![](${Text(props.item?.value?.cover)})`,
+        `##### ${text(props.item?.value?.name)}`,
+        text(props.item?.value?.name),
+        `![](${text(props.item?.value?.cover)})`,
         ''
     ].join('\n\n')
 }
 
-export function MyMdAuthorComponent(props: any) {
+export function myMdAuthorComponent(props: any) {
     return [
-        `![](${Text(props.item?.value?.cover)})`,
-        `##### ${Text(props.item?.value?.name)}`,
-        Text(props.item?.value?.name),
+        `![](${text(props.item?.value?.cover)})`,
+        `##### ${text(props.item?.value?.name)}`,
+        text(props.item?.value?.name),
         ''
     ].join('\n\n');
 }

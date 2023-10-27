@@ -206,7 +206,9 @@ export const data: ComposedItem[] = [
                 "id": "b7c3afe",
                 "type": "_link",
                 "properties": {
-                    "url": "https://www.bbc.co.uk"
+                    "sys": {
+                        "uri": "https://www.bbc.co.uk"
+                    }
                 },
                 "value": "link to the BBC"
             }
@@ -224,7 +226,11 @@ export const data: ComposedItem[] = [
         "id": "336f2698",
         "type": "_image",
         "value": {
-            "url": "https://ichef.bbci.co.uk/live-experience/cps/800/cpsprodpb/6AA5/production/_125810372_mediaitem125810371.jpg",
+            "asset": {
+                "sys": {
+                    "uri": "https://ichef.bbci.co.uk/live-experience/cps/800/cpsprodpb/6AA5/production/_125810372_mediaitem125810371.jpg"
+                }
+            },
             "altText": "Boris Johnson",
             "caption": "Boris Johnson"
         }
@@ -418,7 +424,9 @@ export const data: ComposedItem[] = [
                 "id": "c32e16aa",
                 "type": "_link",
                 "properties": {
-                    "url": "http://www.bbc.co.uk"
+                    "sys": {
+                        "uri": "https://www.bbc.co.uk"
+                    }
                 },
                 "value": "A link to the BBC"
             }
@@ -437,12 +445,11 @@ export const data: ComposedItem[] = [
                 "id": "687ec378",
                 "type": "_link",
                 "properties": {
-                    "entry": {
-                        "entryTitle": "Roald Dahl",
-                        "sys": {
-                            "id": "de28a378-c4b8-493e-a407-cfb56a15c5ca",
-                            "language": "en-GB"
-                        }
+                    "entryTitle": "Roald Dahl",
+                    "sys": {
+                        "id": "de28a378-c4b8-493e-a407-cfb56a15c5ca",
+                        "language": "en-GB",
+                        "uri": "/path/to/an/entry"
                     }
                 },
                 "value": "Roald Dahl"
@@ -464,6 +471,9 @@ export const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "b20ab3ef-ab3e-425d-b3e0-71de6280e248"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "Roald Dahl"
@@ -483,7 +493,8 @@ export const data: ComposedItem[] = [
                 "id": "bedac78b",
                 "type": "_link",
                 "properties": {
-                    "anchor": "my-anchor"
+                    "anchor": "my-anchor",
+                    "sys": null
                 },
                 "value": "my anchor"
             }
@@ -526,7 +537,9 @@ export const data: ComposedItem[] = [
                 "id": "e5d173aa",
                 "type": "_link",
                 "properties": {
-                    "url": "http://localhost:4200/projects/website/entries/85af1a11-f418-49e8-bbf1-85697e90949f/en-GB"
+                    "sys": {
+                        "uri": "http://localhost:4200/projects/website/entries/85af1a11-f418-49e8-bbf1-85697e90949f/en-GB"
+                    }
                 },
                 "value": "ENTRY"
             }
@@ -540,12 +553,11 @@ export const data: ComposedItem[] = [
                 "id": "4a853901",
                 "type": "_link",
                 "properties": {
-                    "entry": {
-                        "entryTitle": "This is in en-GB when there was just en-GB and de-DE",
-                        "sys": {
-                            "id": "85af1a11-f418-49e8-bbf1-85697e90949f",
-                            "language": "en-GB"
-                        }
+                    "entryTitle": "This is in en-GB when there was just en-GB and de-DE",
+                    "sys": {
+                        "id": "85af1a11-f418-49e8-bbf1-85697e90949f",
+                        "language": "en-GB",
+                        "uri": "/path/to/an/entry"
                     }
                 },
                 "value": "ENTRY"
@@ -562,6 +574,9 @@ export const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "f2c9dc39-efd4-4e7d-af82-86041f83eab6"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "NODE"
@@ -576,7 +591,9 @@ export const data: ComposedItem[] = [
                 "id": "48c2850f",
                 "type": "_link",
                 "properties": {
-                    "url": "http://localhost:4200/projects/website/siteview/2ef30aba-021f-4834-bb63-ecc08a4ae031?treeOrdering=folders"
+                    "sys": {
+                        "uri": "http://localhost:4200/projects/website/siteview/2ef30aba-021f-4834-bb63-ecc08a4ae031?treeOrdering=folders"
+                    }
                 },
                 "value": "NODE"
             }
@@ -592,6 +609,9 @@ export const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "NODE"
@@ -608,6 +628,9 @@ export const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "NODE"
@@ -667,5 +690,3 @@ export const data: ComposedItem[] = [
         ]
     }
 ];
-
-//export const data = [{ "id": "a654847", "type": "_heading", "properties": { "id": "main-heading", "level": 1 }, "value": "Mystic Meg: Astrologer dies aged 80" }, { "id": "1696b891", "type": "_image", "value": { "url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/16A47/production/_128934729_xxgettyimages-1314750052.jpg.webp", "altText": "The Sun's editor Victoria Newton said Mystic Meg's death was \"devastating news\"", "caption": "The Sun's editor Victoria Newton said Mystic Meg's death was \"devastating news\"" } }, { "id": "dc81e597", "type": "_paragraph", "properties": { "paragraphType": "lead" }, "value": "TV astrologer Margaret Lake, better known as Mystic Meg, has died aged 80." }, { "id": "49599d30", "type": "_paragraph", "value": "She was a well-known TV figure in the 1990s, appearing on the National Lottery, and has written horoscopes for the Sun for more than two decades." }, { "id": "1e69b6d8", "type": "_paragraph", "value": "According to the newspaper, Lake died in the early hours of Thursday morning after being admitted to hospital last month after suffering from flu." }, { "id": "1a89ce5e", "type": "_paragraph", "value": "Her agent Dave Shapland said: \"Without any question, she was Britain's most famous astrologer by a million miles." }, { "id": "52b6e0c7", "type": "_paragraph", "value": "\"Nobody came close to Meg in that respect. She was followed by millions in this country and also around the world." }, { "id": "6828166f", "type": "_paragraph", "value": "\"She even became part of the English language - if a politician, somebody from showbiz or ordinary people in the street are asked a tricky question they will say 'Who do you think I am, Mystic Meg?'" }, { "id": "6aed9b14", "type": "_paragraph", "value": "\"It shows what an impact she made.\"" }, { "id": "f23750e4", "type": "_paragraph", "value": [{ "id": "b8517050", "type": "_fragment", "value": "Illusionist and magician " }, { "id": "c7d4025a", "type": "_link", "properties": { "url": "https://twitter.com/theurigeller/status/1633776067637915649" }, "value": "Uri Geller led the tributes" }, { "id": "1428fe57", "type": "_fragment", "value": " to Mystic Meg on social media, noting that she was \"so identifiable by name and image\"." }] }, { "id": "c15a7ab", "type": "_paragraph", "value": "\"The quintessential fortune teller who brought mystery and mystique to millions of believers. She defied the dreary sceptics, as did her fans,\" he wrote. \"Much love and positive energy, Meg, on your onward journey.\"" }];

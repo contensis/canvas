@@ -1,1 +1,1 @@
-export * from './writer';
+export * from './markdown-writer';

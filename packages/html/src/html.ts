@@ -1,5 +1,3 @@
-type Child = string | number | boolean;
-
 const DOM_PROPERTIES = {
     acceptCharset: 'accept-charset',
     accessKey: 'accesskey',
@@ -28,41 +26,41 @@ const DOM_PROPERTIES = {
 };
 
 const BOOLEAN_ATTRIBUTES = {
-    'autofocus': true,
-    'checked': true,
-    'disabled': true,
-    'hidden': true,
-    'multiple': true,
-    'readonly': true,
-    'required': true,
-    'selected': true
+    autofocus: true,
+    checked: true,
+    disabled: true,
+    hidden: true,
+    multiple: true,
+    readonly: true,
+    required: true,
+    selected: true
 };
 
 const VOID_TAGS = {
-    'area': true,
-    'base': true,
-    'br': true,
-    'col': true,
-    'command': true,
-    'embed': true,
-    'hr': true,
-    'img': true,
-    'input': true,
-    'keygen': true,
-    'link': true,
-    'meta': true,
-    'param': true,
-    'source': true,
-    'track': true,
-    'wbr': true
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    command: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    keygen: true,
+    link: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true
 };
 
-function join(child: Child | Child[]) {
+function join(child: any): string {
     if (Array.isArray(child)) {
-        return child.map(nestedChild => join(nestedChild)).join('');
+        return child.map((nestedChild) => join(nestedChild)).join('');
     } else if (typeof child === 'string') {
         return child;
-    } else if ((typeof child === 'boolean') || (child === null) || (typeof child === 'undefined')) {
+    } else if (typeof child === 'boolean' || child === null || typeof child === 'undefined') {
         return '';
     } else {
         return String(child);
@@ -71,7 +69,7 @@ function join(child: Child | Child[]) {
 
 type Type = string | ((props?: Record<string, any>) => string);
 
-export function h(type: Type, props?: Record<string, any>, ...children: Child[]) {
+export function h(type: Type, props?: Record<string, any>, ...children: string[]) {
     if (typeof type === 'function') {
         props = props || {};
         if (children.length) {
@@ -84,7 +82,7 @@ export function h(type: Type, props?: Record<string, any>, ...children: Child[])
     }
     const attributes = toHtmlAttributes(props);
     let attributeString = toAttributesString(attributes);
-    attributeString = !!attributeString ? ` ${attributeString}` : '';
+    attributeString = attributeString ? ` ${attributeString}` : '';
     if (isVoid(type)) {
         return `<${type}${attributeString}>`;
     }
@@ -93,17 +91,17 @@ export function h(type: Type, props?: Record<string, any>, ...children: Child[])
     return `<${type}${attributeString}>${contents}</${type}>`;
 }
 
-h.fragment = function (props?: Record<string, any> & { children: Child[] }) {
+h.fragment = function (props?: Record<string, any> & { children: string[] }) {
     return props?.children ? join(props.children) : '';
 };
 
 h.text = function (text: any) {
-    if ((typeof text === 'boolean') || (text === null) || (typeof text === 'undefined')) {
+    if (typeof text === 'boolean' || text === null || typeof text === 'undefined') {
         return '';
     } else {
         return htmlEncode(String(text));
     }
-}
+};
 
 function toHtmlAttributes(properties: Record<string, any>) {
     if (!properties) {
@@ -114,8 +112,8 @@ function toHtmlAttributes(properties: Record<string, any>) {
         return undefined;
     }
     return keys.reduce((prev, key) => {
-        let value = properties[key];
-        if ((value === null) || (typeof value === 'undefined')) {
+        const value = properties[key];
+        if (value === null || typeof value === 'undefined') {
             return prev;
         }
         const name = DOM_PROPERTIES[key] || key;
@@ -133,16 +131,16 @@ function toHtmlAttributes(properties: Record<string, any>) {
 }
 
 function styleToString(style: any): any {
-    if (!style || (typeof style === 'string')) {
+    if (!style || typeof style === 'string') {
         return style;
     }
     return Object.keys(style)
-        .map(key => [toSnakeCase(key), style[key]].join(': '))
+        .map((key) => [toSnakeCase(key), style[key]].join(': '))
         .join(';');
 }
 
 function toSnakeCase(value: any) {
-    return `${String(value)}`.replace(/[A-Z]/g, s => `-${s.toLowerCase()}`);
+    return `${String(value)}`.replace(/[A-Z]/g, (s) => `-${s.toLowerCase()}`);
 }
 
 function toAttributesString(attributes: Record<string, any>) {
@@ -153,11 +151,11 @@ function toAttributesString(attributes: Record<string, any>) {
     if (!keys.length) {
         return '';
     }
-    return keys.map(key => {
-        return BOOLEAN_ATTRIBUTES[key]
-            ? key
-            : `${key}="${attributes[key]}"`
-    }).join(' ');
+    return keys
+        .map((key) => {
+            return BOOLEAN_ATTRIBUTES[key] ? key : `${key}="${attr(attributes[key])}"`;
+        })
+        .join(' ');
 }
 
 function isVoid(tagName: string) {
@@ -236,4 +234,8 @@ function htmlEncode(value: string) {
             const charCode = match.charCodeAt(0);
             return encodeMap[charCode] || `&#${charCode};`;
         });
+}
+
+export function attr(attribute: string) {
+    return String(attribute).replace(/"/g, '&quot;');
 }

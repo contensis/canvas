@@ -1,30 +1,17 @@
-import NodeFetch from 'node-fetch';
 import { Client as DeliveryClient } from 'contensis-delivery-api';
-import { Client as ManagementClient } from 'contensis-management-api';
 
 const deliveryClient = DeliveryClient.create({
-    rootUrl: 'https://cms-develop.cloud.contensis.com',
-    accessToken: '4O5Jvs0gWpAqBdjGZzzlMLVqfU5QXhT5w4NRlPxjhGcr9Vl2',
+    rootUrl: 'https://cms-field-normalization.cloud.contensis.com',
+    accessToken: 'v749dErwA3N77dVDkBwH9vqk56T4W12NFJjoE1CGB0jn2gsb8',
     projectId: 'dan',
     language: 'en-GB',
     pageSize: 50
 });
 
-const managementClient = ManagementClient.create({
-    clientType: 'client_credentials',
-    clientDetails: {
-        clientId: 'd2fcb7ab-1a2e-4f4a-b12f-ecfb72204535',
-        clientSecret: 'bfe5863bc7a84bedb9b7da9061197306-15666c800fe3490288b825e296943632-691c32818d22401fb2febb9609473439',
-    },
-    projectId: 'dan',
-    rootUrl: 'https://cms-develop.cloud.contensis.com'
-}, NodeFetch as any);
-
-
-export async function getSitemap() {
+export async function getRoot() {
     try {
-        let node: any = await deliveryClient.nodes.get({
-            path: '/en-gb/blogs',
+        const node = await deliveryClient.nodes.get({
+            path: '/en-gb',
             depth: 1
         });
         return node;
@@ -35,10 +22,55 @@ export async function getSitemap() {
     }
 }
 
-export async function getEntry(id: string, language: string) {
+export async function getMenu(path: string) {
     try {
-        const entry = await managementClient.entries.get({ id, language });
-        return entry;
+        const node = await deliveryClient.nodes.get({ path });
+        if (node.childCount) {
+            const children = await deliveryClient.nodes.getChildren(node);
+            return [
+                node, 
+                ...children
+            ];
+        } else {
+            const parent = await deliveryClient.nodes.getParent(node);
+            const siblings = await deliveryClient.nodes.getChildren(parent);
+            return siblings;
+        }
+
+
+    } catch (e) {
+        console.log('ERROR.....');
+        console.log(e);
+        return null;
+    }
+}
+
+export async function getBreadcrumb(path: string) {
+    try {
+        const node = await deliveryClient.nodes.get({ path });
+        const ancestors = await deliveryClient.nodes.getAncestors(node);
+        return [
+            ...ancestors,
+            node
+        ];
+    } catch (e) {
+        console.log('ERROR.....');
+        console.log(e);
+        return null;
+    }
+}
+
+export async function getEntry(path: string) {
+    try {
+        const node = await deliveryClient.nodes.get({ path });
+        let entry = null;
+        if (node.entry) {
+            entry = await deliveryClient.entries.get({ id: node.entry.sys.id, language: node.entry.sys.language });
+        }
+        return {
+            node,
+            entry
+        };
     } catch (e) {
         console.log('ERROR.....');
         console.log(e);

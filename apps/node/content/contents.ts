@@ -1,22 +1,22 @@
 import { createWriter } from '@contensis/canvas-html';
-import { MyHeading, MyParagraph, MyFragment, MyTable, MyPanel, MyImage, MyCode, MyList, MyListItem, MyAuthorComponent, MyBookComponent } from './elements';
+import { myHtmlHeading, myHtmlParagraph, myHtmlFragment, myHtmlTable, myHtmlPanel, myHtmlImage, myHtmlCode, myHtmlList, myHtmlListItem, myHtmlAuthorComponent, myHtmlBookComponent } from './elements';
 import { ComposedItem } from '@contensis/canvas-types';
 
 const writer = createWriter({
     items: {
-        _code: MyCode,
-        _fragment: MyFragment,
-        _heading: MyHeading,
-        _image: MyImage,
-        _list: MyList,
-        _listItem: MyListItem,
-        _panel: MyPanel,
-        _paragraph: MyParagraph,
-        _table: MyTable
+        _code: myHtmlCode,
+        _fragment: myHtmlFragment,
+        _heading: myHtmlHeading,
+        _image: myHtmlImage,
+        _list: myHtmlList,
+        _listItem: myHtmlListItem,
+        _panel: myHtmlPanel,
+        _paragraph: myHtmlParagraph,
+        _table: myHtmlTable
     },
     components: {
-        book: MyAuthorComponent,
-        author: MyBookComponent
+        book: myHtmlAuthorComponent,
+        author: myHtmlBookComponent
     }
 });
 

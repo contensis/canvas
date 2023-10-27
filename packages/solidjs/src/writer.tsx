@@ -1,11 +1,12 @@
-import { Show, For, Switch, Match, JSX, createContext, useContext, splitProps } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 import {
-    ComposedItem, ComposedItemTypeMap, AnchorComposedItem, CodeComposedItem, ComponentComposedItem, DividerComposedItem, FragmentComposedItem,
-    HeadingComposedItem, ImageComposedItem, InlineEntryComposedItem, ListComposedItem, ListItemComposedItem, ParagraphComposedItem,
-    TableComposedItem, TableHeaderComposedItem, TableBodyComposedItem, TableFooterComposedItem, TableRowComposedItem, TableHeaderCellComposedItem,
-    TableCellComposedItem, TableCaptionComposedItem, PanelComposedItem, DecoratorType, DecoratorTypeMap, LinkComposedItem, ComposedItemType
+    AnchorComposedItem, CodeComposedItem, ComponentComposedItem, ComposedItem, DecoratorType, DividerComposedItem,
+    FragmentComposedItem, HeadingComposedItem, ImageComposedItem, InlineEntryComposedItem, LinkComposedItem,
+    ListComposedItem, ListItemComposedItem, PanelComposedItem, ParagraphComposedItem, TableBodyComposedItem,
+    TableCaptionComposedItem, TableCellComposedItem, TableComposedItem, TableFooterComposedItem, 
+    TableHeaderCellComposedItem, TableHeaderComposedItem, TableRowComposedItem
 } from '@contensis/canvas-types';
+import { For, JSX, Match, Show, Switch, createContext, splitProps, useContext } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 
 type Attributes = Record<string, any>;
 type WithChildren = { children?: JSX.Element };
@@ -22,13 +23,13 @@ type WriteTextProps = { text: string };
 type DecoratorProps = { item: FragmentComposedItem, decorators: DecoratorType[] };
 
 type ComposedItemWriter<T extends ComposedItem> = (props: WriteComposedItemPropsWithChildren<T>) => JSX.Element;
-type ComposedItemWriters = ComposedItemTypeMap<ComposedItemWriter<ComposedItem>>;
+type ComposedItemWriters = Record<ComposedItem['type'], ComposedItemWriter<ComposedItem>>;
 
 type WriteDecoratorProps = { item: FragmentComposedItem, decorator: DecoratorType, otherDecorators: DecoratorType[] };
 type WriteDecoratorPropsWithChildren = WriteDecoratorProps & WithChildren & Attributes;
 
 type DecoratorWriter = (props: WriteDecoratorPropsWithChildren) => JSX.Element;
-type DecoratorWriters = DecoratorTypeMap<DecoratorWriter>;
+type DecoratorWriters = Record<DecoratorType, DecoratorWriter>;
 
 type ComponentItemWriter = (props: WriteComposedItemPropsWithChildren<ComponentComposedItem>) => JSX.Element;
 type ComponentItemWriters = Record<string, ComponentItemWriter>;
@@ -54,7 +55,7 @@ export function WriteContextProvider(props: WriterContextProviderProps) {
         const overrideItems = props.items;
         const items = Object.keys(ITEM_WRITERS)
             .reduce((prev, type) => {
-                const itemType = type as ComposedItemType;
+                const itemType = type as ComposedItem['type'];
                 prev[itemType] = overrideItems?.[itemType] || ITEM_WRITERS[itemType];
                 return prev;
             }, {} as ComposedItemWriters);
@@ -300,7 +301,7 @@ export function Heading(props: WriteComposedItemPropsWithChildren<HeadingCompose
 Heading.Children = WriteComposedItemChildrenFactory<HeadingComposedItem>();
 
 export function Image(props: WriteComposedItemPropsWithChildren<ImageComposedItem>) {
-    const src = () => props.item?.value?.asset?.sys?.uri || props.item?.value?.url;
+    const src = () => props.item?.value?.asset?.sys?.uri;
     const attributes = getAttributes(props, () => ({
         src: src(),
         alt: props.item?.value?.altText,
@@ -341,9 +342,7 @@ InlineEntry.Children = function (props: WriteComposedItemProps<InlineEntryCompos
 export function Link(props: WriteComposedItemPropsWithChildren<LinkComposedItem>) {
     const href = () => {
         const value = props?.item?.properties;
-        return value?.node?.path
-            || value?.entry?.sys?.uri
-            || value?.url
+        return value?.sys?.uri
             || (value?.anchor ? `#${value.anchor}` : null);
     };
     const attributes = getAttributes(props, () => ({

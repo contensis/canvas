@@ -1,219 +1,347 @@
+type InlineComposedItem = FragmentComposedItem | AnchorComposedItem | LinkComposedItem | InlineEntryComposedItem;
 
+type InlineChildren = string | InlineComposedItem[];
 
-export type ComposedItemTypeMap<T> = {
-    _code: T,
-    _component: T,
-    _divider: T,
-    _heading: T,
-    _image: T,
-    _list: T,
-    _listItem: T,
-    _panel: T,
-    _paragraph: T,
-    _table: T,
-    _tableBody: T,
-    _tableCaption: T,
-    _tableCell: T,
-    _tableFooter: T,
-    _tableHeader: T,
-    _tableHeaderCell: T,
-    _tableRow: T,
-
-    // inline
-    _anchor: T,
-    _fragment: T,
-    _link: T,
-    _inlineEntry: T,
+type DecoratorTypeMap<T> = {
+    code: T;
+    delete: T;
+    emphasis: T;
+    insert: T;
+    keyboard: T;
+    linebreak: T;
+    mark: T;
+    strong: T;
+    strikethrough: T;
+    subscript: T;
+    superscript: T;
+    underline: T;
+    variable: T;
 };
 
-export type ComposedItemType = keyof ComposedItemTypeMap<any>;
-export type ComposedItemProperties = { id?: string };
+type DecoratorType = keyof DecoratorTypeMap<any>;
 
-export type DecoratorTypeMap<T> = {
-    code: T,
-    delete: T,
-    emphasis: T,
-    insert: T,
-    keyboard: T,
-    linebreak: T,
-    mark: T,
-    strong: T,
-    strikethrough: T,
-    subscript: T,
-    superscript: T,
-    underline: T,
-    variable: T,
+type BaseSys = {
+    id?: string;
+    uri?: string;
+    language?: string;
+    contentTypeId?: string;
+    projectId?: string;
+    dataFormat?: string;
 };
 
-export type DecoratorType = keyof DecoratorTypeMap<any>;
-
-export type ListType = 'ordered' | 'unordered';
-
-export type PanelType = 'info' | 'note' | 'warning' | 'success' | 'error';
-
-export type ParagraphType = 'lead';
-
-export type GenericComposedItem<TType extends ComposedItemType, TValue, TProperties extends ComposedItemProperties = ComposedItemProperties> = {
-    id: string,
-    type: TType,
-    value?: TValue,
-    properties?: TProperties
+type BaseEntry<TSys extends BaseSys> = {
+    sys: null | TSys;
+    entryTitle?: string;
+    entryDescription?: string;
+    entryThumbnail?: ImageLink;
 };
 
-export type FragmentComposedItem = GenericComposedItem<'_fragment', InlineChildren, FragmentProperties>;
-
-export type FragmentProperties = {
-    id?: string,
-    decorators?: DecoratorType[]
+type EntrySys = {
+    id?: string;
+    uri?: string;
+    language?: string;
+    contentTypeId?: string;
+    projectId?: string;
+    dataFormat?: 'entry';
 };
 
-export type LinkComposedItem = GenericComposedItem<'_link', InlineChildren, LinkProperties>;
+type EntryLink = BaseEntry<EntrySys>;
 
-export type EntryLink = {
-    sys: {
-        id?: string;
-        uri?: string;
-        language?: string;
-    },
-    entryTitle?: string,
-    entryDescription?: string
-};
-
-export type NodeLink = {
-    id: string,
-    language?: string
-    path?: string
-};
-
-type AssetLink = EntryLink;
-
-export type LinkProperties = {
-    id?: string,
-    entry?: EntryLink,
-    node?: NodeLink,
-    url?: string,
-    anchor?: string,
-    newTab?: boolean
-};
-
-export type AnchorComposedItem = GenericComposedItem<'_anchor', InlineChildren>;
-
-export type InlineEntryComposedItem = GenericComposedItem<'_inlineEntry', InlineEntryValue>;
-
-export type InlineEntryValue = EntryLink;
-
-export type ImageComposedItem = GenericComposedItem<'_image', ImageValue>;
-
-export type ImageValue = {
+type ImageLink = {
     asset?: AssetLink;
     caption?: string;
     transformations?: Transformations;
     altText?: string;
-    url?: string
 };
 
-export type Transformations = {
-    size?: { width?: number, height?: number },
-    flip?: null | 'h' | 'v' | 'both',
-    rotate?: number,
-    crop?: { width?: number, height?: number, x?: number, y?: number },
+type AssetSys = {
+    id?: string;
+    uri?: string;
+    language?: string;
+    contentTypeId?: string;
+    projectId?: string;
+    dataFormat?: 'asset';
+};
+
+type AssetLink = BaseEntry<AssetSys> & {
+    altText?: string;
+};
+
+type Transformations = {
+    size?: { width?: number; height?: number };
+    flip?: null | 'h' | 'v' | 'both';
+    rotate?: number;
+    crop?: { width?: number; height?: number; x?: number; y?: number };
     quality?: number;
     format?: string;
 };
 
-export type CodeComposedItem = GenericComposedItem<'_code', CodeValue>;
-
-export type CodeValue = {
-    code?: string,
-    language?: string,
-    caption?: string
+type NodeLink = {
+    displayName?: string;
+    id?: string;
+    includeInMenu?: boolean;
+    isCanonical?: boolean;
+    language?: string;
+    path?: string;
+    slug?: string;
 };
 
-export type ComponentComposedItem = GenericComposedItem<'_component', ComponentValue, ComponentProperties>;
+type ComposedItem =
+    | AnchorComposedItem 
+    | CodeComposedItem 
+    | ComponentComposedItem 
+    | DividerComposedItem 
+    | FragmentComposedItem
+    | HeadingComposedItem 
+    | ImageComposedItem
+    | InlineEntryComposedItem 
+    | LinkComposedItem 
+    | ListComposedItem 
+    | ListItemComposedItem 
+    | PanelComposedItem 
+    | ParagraphComposedItem
+    | TableComposedItem 
+    | TableBodyComposedItem 
+    | TableCaptionComposedItem 
+    | TableCellComposedItem 
+    | TableFooterComposedItem
+    | TableHeaderComposedItem 
+    | TableHeaderCellComposedItem 
+    | TableRowComposedItem;
 
-export type ComponentProperties = {
-    id? : string,
-    component: string
+type AnchorComposedItem = {
+    type: '_anchor';
+    id: string;
+    value?: InlineChildren;
+    properties?: {
+        id?: string;
+    };
 };
 
-export type ComponentValue = Record<string, any>;
-
-export type DividerComposedItem = GenericComposedItem<'_divider', undefined>;
-export type HeadingComposedItem = GenericComposedItem<'_heading', HeadingChildren, HeadingProperties>;
-
-export type HeadingProperties = {
-    id? : string,
-    level?: number
+type CodeComposedItem = {
+    type: '_code';
+    id: string;
+    value?: {
+        code?: string;
+        language?: string;
+        caption?: string;
+    };
+    properties?: {
+        id?: string;
+    };
 };
 
-export type HeadingChildren = StringOrInline;
-
-export type ListComposedItem = GenericComposedItem<'_list', ListChildren, ListProperties>;
-export type ListItemComposedItem = GenericComposedItem<'_listItem', ListItemChildren>;
-
-export type ListProperties = {
-    id? : string,
-    listType?: ListType,
-    start?: number
+type ComponentComposedItem = {
+    type: '_component';
+    id: string;
+    value?: Record<string, any>;
+    properties?: {
+        id?: string;
+        component: string;
+    };
 };
 
-export type ListChildren = ListItemComposedItem[];
-export type ListItemChildren = StringOrInline | ComposedItem[];
-
-export type PanelComposedItem = GenericComposedItem<'_panel', PanelChildren, PanelProperties>;
-
-export type PanelProperties = {
-    id? : string,
-    panelType: PanelType
+type DividerComposedItem = {
+    type: '_divider';
+    id: string;
+    value?: undefined;
+    properties?: {
+        id?: string;
+    };
 };
 
-export type PanelChildren = StringOrInline;
-
-export type ParagraphComposedItem = GenericComposedItem<'_paragraph', ParagraphChildren, ParagraphProperties>;
-
-export type ParagraphProperties = {
-    id? : string,
-    paragraphType?: ParagraphType,
-    spacer?: boolean
+type FragmentComposedItem = {
+    type: '_fragment';
+    id: string;
+    value?: InlineChildren;
+    properties?: {
+        id?: string;
+        decorators?: DecoratorType[];
+    };
 };
 
-export type ParagraphChildren = StringOrInline;
+type HeadingComposedItem = {
+    type: '_heading';
+    id: string;
+    value?: InlineChildren;
+    properties?: {
+        id?: string;
+        level?: number;
+    };
+};
 
-export type TableComposedItem = GenericComposedItem<'_table', TableChildren>;
-export type TableCaptionComposedItem = GenericComposedItem<'_tableCaption', TableCaptionChildren>;
-export type TableHeaderComposedItem = GenericComposedItem<'_tableHeader', TableHeaderChildren>;
-export type TableBodyComposedItem = GenericComposedItem<'_tableBody', TableBodyChildren>;
-export type TableFooterComposedItem = GenericComposedItem<'_tableFooter', TableFooterChildren>;
-export type TableRowComposedItem = GenericComposedItem<'_tableRow', TableRowChildren>;
-export type TableCellComposedItem = GenericComposedItem<'_tableCell', TableCellChildren>;
-export type TableHeaderCellComposedItem = GenericComposedItem<'_tableHeaderCell', TableHeaderCellChildren>;
+type ImageComposedItem = {
+    type: '_image';
+    id: string;
+    value?: ImageLink;
+    properties?: {
+        id?: string;
+    };
+};
 
-export type TableChildren = TableChild[];
-export type TableCaptionChildren = StringOrInline | TableCaptionChild[];
-export type TableHeaderChildren = TableHeaderChild[];
-export type TableBodyChildren = TableBodyChild[];
-export type TableFooterChildren = TableFooterChild[];
-export type TableRowChildren = TableRowChild[];
-export type TableCellChildren = StringOrInline | TableCellChild[];
-export type TableHeaderCellChildren = StringOrInline | TableHeaderCellChild[];
+type InlineEntryComposedItem = {
+    type: '_inlineEntry';
+    id: string;
+    value?: EntryLink;
+    properties?: {
+        id?: string;
+    };
+};
 
-export type TableChild = TableCaptionComposedItem | TableHeaderComposedItem | TableBodyComposedItem | TableFooterComposedItem;
-export type TableCaptionChild = ComposedItem;
-export type TableHeaderChild = TableRowComposedItem;
-export type TableBodyChild = TableRowComposedItem;
-export type TableFooterChild = TableRowComposedItem;
-export type TableRowChild = TableCellComposedItem | TableHeaderCellComposedItem;
-export type TableCellChild = ComposedItem;
-export type TableHeaderCellChild = ComposedItem;
+type LinkComposedItem = {
+    type: '_link';
+    id: string;
+    value?: InlineChildren;
+    properties?: EntryLink & {
+        id?: string;
+        node?: NodeLink;
+        anchor?: string;
+        newTab?: boolean;
+    };
+};
 
-type InlineChildren = StringOrInline;
+type ListType = 'ordered' | 'unordered';
 
-export type InlineComposedItem = FragmentComposedItem | AnchorComposedItem | LinkComposedItem | InlineEntryComposedItem;
+type ListComposedItem = {
+    type: '_list';
+    id: string;
+    value?: ListItemComposedItem[];
+    properties?: {
+        id?: string;
+        listType?: ListType;
+        start?: number;
+    };
+};
 
-export type StringOrInline = string | InlineComposedItem[];
+type ListItemComposedItem = {
+    type: '_listItem';
+    id: string;
+    value?: string | ComposedItem[];
+    properties?: {
+        id?: string;
+    };
+};
 
-export type ComposedItem = CodeComposedItem | ComponentComposedItem | DividerComposedItem | HeadingComposedItem | ImageComposedItem 
-    | ListComposedItem | ListItemComposedItem | PanelComposedItem | ParagraphComposedItem | TableComposedItem | TableBodyComposedItem
-    | TableCaptionComposedItem | TableCellComposedItem | TableFooterComposedItem | TableHeaderComposedItem | TableHeaderCellComposedItem
-    | TableRowComposedItem | AnchorComposedItem | FragmentComposedItem | LinkComposedItem | InlineEntryComposedItem;
-    
+type PanelType = 'info' | 'note' | 'warning' | 'success' | 'error';
+
+type PanelComposedItem = {
+    type: '_panel';
+    id: string;
+    value?: InlineChildren;
+    properties?: {
+        id?: string;
+        panelType?: PanelType;
+    };
+};
+
+type ParagraphType = 'lead';
+
+type ParagraphComposedItem = {
+    type: '_paragraph';
+    id: string;
+    value?: InlineChildren;
+    properties?: {
+        id?: string;
+        paragraphType?: ParagraphType;
+    };
+};
+
+type TableComposedItem = {
+    type: '_table';
+    id: string;
+    value?: (TableCaptionComposedItem | TableHeaderComposedItem | TableBodyComposedItem | TableFooterComposedItem)[];
+    properties?: {
+        id?: string;
+    };
+};
+
+type TableBodyComposedItem = {
+    type: '_tableBody';
+    id: string;
+    value?: TableRowComposedItem[];
+    properties?: {
+        id?: string;
+    };
+};
+
+type TableCaptionComposedItem = {
+    type: '_tableCaption';
+    id: string;
+    value?: string | ComposedItem[];
+    properties?: {
+        id?: string;
+    };
+};
+
+type TableCellComposedItem = {
+    type: '_tableCell';
+    id: string;
+    value?: string | ComposedItem[];
+    properties?: {
+        id?: string;
+    };
+};
+
+type TableFooterComposedItem = {
+    type: '_tableFooter';
+    id: string;
+    value?: TableRowComposedItem[];
+    properties?: {
+        id?: string;
+    };
+};
+
+type TableHeaderComposedItem = {
+    type: '_tableHeader';
+    id: string;
+    value?: TableRowComposedItem[];
+    properties?: {
+        id?: string;
+    };
+};
+
+type TableHeaderCellComposedItem = {
+    type: '_tableHeaderCell';
+    id: string;
+    value?: string | ComposedItem[];
+    properties?: {
+        id?: string;
+    };
+};
+
+type TableRowComposedItem = {
+    type: '_tableRow';
+    id: string;
+    value?: (TableCellComposedItem | TableHeaderCellComposedItem)[];
+    properties?: {
+        id?: string;
+    };
+};
+
+export type {
+    ComposedItem,
+
+    AnchorComposedItem,
+    CodeComposedItem,
+    ComponentComposedItem,
+    DividerComposedItem,
+    FragmentComposedItem,
+    HeadingComposedItem,
+    ImageComposedItem,
+    InlineEntryComposedItem,
+    LinkComposedItem,
+    ListComposedItem,
+    ListItemComposedItem,
+    PanelComposedItem,
+    ParagraphComposedItem,
+    TableComposedItem,
+    TableBodyComposedItem,
+    TableCaptionComposedItem,
+    TableCellComposedItem,
+    TableHeaderComposedItem,
+    TableHeaderCellComposedItem,
+    TableFooterComposedItem,
+    TableRowComposedItem,
+
+    DecoratorType
+};

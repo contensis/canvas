@@ -211,7 +211,9 @@ const data: ComposedItem[] = [
                 "id": "b7c3afe",
                 "type": "_link",
                 "properties": {
-                    "url": "https://www.bbc.co.uk"
+                    "sys": {
+                        "uri": "https://www.bbc.co.uk"
+                    }
                 },
                 "value": "link to the BBC"
             }
@@ -229,7 +231,11 @@ const data: ComposedItem[] = [
         "id": "336f2698",
         "type": "_image",
         "value": {
-            "url": "https://ichef.bbci.co.uk/live-experience/cps/800/cpsprodpb/6AA5/production/_125810372_mediaitem125810371.jpg",
+            "asset": {
+                "sys": {
+                    "uri": "https://ichef.bbci.co.uk/live-experience/cps/800/cpsprodpb/6AA5/production/_125810372_mediaitem125810371.jpg"
+                }
+            },
             "altText": "Boris Johnson",
             "caption": "Boris Johnson"
         }
@@ -449,7 +455,9 @@ const data: ComposedItem[] = [
                 "id": "c32e16aa",
                 "type": "_link",
                 "properties": {
-                    "url": "http://www.bbc.co.uk"
+                    "sys": {
+                        "uri": "https://www.bbc.co.uk"
+                    }
                 },
                 "value": "A link to the BBC"
             }
@@ -468,12 +476,11 @@ const data: ComposedItem[] = [
                 "id": "687ec378",
                 "type": "_link",
                 "properties": {
-                    "entry": {                        
-                        "entryTitle": "Roald Dahl",                     
-                        "sys": {
-                            "id": "de28a378-c4b8-493e-a407-cfb56a15c5ca",                            
-                            "language": "en-GB"                            
-                        }
+                    "entryTitle": "Roald Dahl",
+                    "sys": {
+                        "id": "de28a378-c4b8-493e-a407-cfb56a15c5ca",
+                        "language": "en-GB",
+                        "uri": "/path/to/an/entry"
                     }
                 },
                 "value": "Roald Dahl"
@@ -495,6 +502,9 @@ const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "b20ab3ef-ab3e-425d-b3e0-71de6280e248"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "Roald Dahl"
@@ -514,7 +524,8 @@ const data: ComposedItem[] = [
                 "id": "bedac78b",
                 "type": "_link",
                 "properties": {
-                    "anchor": "my-anchor"
+                    "anchor": "my-anchor",
+                    "sys": null
                 },
                 "value": "my anchor"
             }
@@ -557,7 +568,9 @@ const data: ComposedItem[] = [
                 "id": "e5d173aa",
                 "type": "_link",
                 "properties": {
-                    "url": "http://localhost:4200/projects/website/entries/85af1a11-f418-49e8-bbf1-85697e90949f/en-GB"
+                    "sys": {
+                        "uri": "http://localhost:4200/projects/website/entries/85af1a11-f418-49e8-bbf1-85697e90949f/en-GB"
+                    }
                 },
                 "value": "ENTRY"
             }
@@ -571,12 +584,11 @@ const data: ComposedItem[] = [
                 "id": "4a853901",
                 "type": "_link",
                 "properties": {
-                    "entry": {
-                        "entryTitle": "This is in en-GB when there was just en-GB and de-DE",
-                        "sys": {
-                            "id": "85af1a11-f418-49e8-bbf1-85697e90949f",
-                            "language": "en-GB"
-                        }
+                    "entryTitle": "This is in en-GB when there was just en-GB and de-DE",
+                    "sys": {
+                        "id": "85af1a11-f418-49e8-bbf1-85697e90949f",
+                        "language": "en-GB",
+                        "uri": "/path/to/an/entry"
                     }
                 },
                 "value": "ENTRY"
@@ -593,6 +605,9 @@ const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "f2c9dc39-efd4-4e7d-af82-86041f83eab6"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "NODE"
@@ -607,7 +622,9 @@ const data: ComposedItem[] = [
                 "id": "48c2850f",
                 "type": "_link",
                 "properties": {
-                    "url": "http://localhost:4200/projects/website/siteview/2ef30aba-021f-4834-bb63-ecc08a4ae031?treeOrdering=folders"
+                    "sys": {
+                        "uri": "http://localhost:4200/projects/website/siteview/2ef30aba-021f-4834-bb63-ecc08a4ae031?treeOrdering=folders"
+                    }
                 },
                 "value": "NODE"
             }
@@ -623,6 +640,9 @@ const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "NODE"
@@ -639,6 +659,9 @@ const data: ComposedItem[] = [
                 "properties": {
                     "node": {
                         "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
+                    },
+                    "sys": {
+                        "uri": "/path/to/a/node"
                     }
                 },
                 "value": "NODE"

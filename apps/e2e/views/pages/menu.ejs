@@ -1,0 +1,14 @@
+<% if (node) { %>
+    <li>
+        <a href="<%= node.path %>">
+            <%= node.displayName %>
+        </a>
+        <% if (node.children) { %>
+            <ul>
+                <% for(let child of node?.children) { %>
+                    <%- include('menu', { node: child }); %>
+                <% } %>
+            </ul>
+        <% } %>
+    </li>
+<% } %>

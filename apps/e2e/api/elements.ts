@@ -31,7 +31,7 @@ export function MyImage(props: any) {
                 className: 'figure',
                 style: { display: 'block' }
             },
-            Image({...props,  style: 'max-width: 700px;' }),
+            Image({ ...props, style: 'max-width: 700px;' }),
             h(
                 'figcaption',
                 {
@@ -41,7 +41,7 @@ export function MyImage(props: any) {
                 caption
             )
         )
-        : Image({...props,  style: 'max-width: 700px;' });
+        : Image({ ...props, style: 'max-width: 700px;' });
 }
 
 export function MyCode(props: any) {

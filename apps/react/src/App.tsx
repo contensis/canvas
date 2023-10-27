@@ -12,9 +12,7 @@ export function MyHeading(props: any) {
     // const cssClass = `display-${props.item?.properties?.level || '1'}`;
     // return <Heading {...props} className={cssClass} />;
     return (
-        <marquee>
-            <Heading.Children {...props} />
-        </marquee>
+        <Heading.Children {...props} />
     )
 }
 
