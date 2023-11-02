@@ -14,6 +14,7 @@ import {
     ListItemComposedItem,
     PanelComposedItem,
     ParagraphComposedItem,
+    QuoteComposedItem,
     TableBodyComposedItem,
     TableCaptionComposedItem,
     TableCellComposedItem,
@@ -82,7 +83,7 @@ type WriteFunction<TNode> = (props: WriterProps) => TNode;
 
 type ComposedItemWriterWithChildren<T extends ComposedItem, TNode, TFragment> = ComposedItemWriter<T, TNode, TFragment> & {
     children: (props: WriteComposedItemProps<T, TNode, TFragment>) => TNode;
-}
+};
 
 type DecoratorWriterWithChildren<TNode, TFragment> = DecoratorWriter<TNode, TFragment> & {
     children: (props: WriteDecoratorProps<TNode, TFragment>) => TNode;
@@ -381,6 +382,38 @@ const panel = createItemWriter<PanelComposedItem>('aside', (item) => ({
 const paragraph = createItemWriter<ParagraphComposedItem>('p', (item) => ({
     className: item?.properties?.paragraphType
 }));
+
+function quote<TNode, TFragment>(props: WriteComposedItemProps<QuoteComposedItem, TNode, TFragment>, ...children: TNode[]) {
+    const { item, context, writers, h, hFragment, hText } = props;
+    const attributes = getAttributes(props, {
+        cite: props?.item?.properties?.url
+    });
+    children = getChildren(children, () => quote.children({ item, context, writers, h, hFragment, hText }));
+    return h('blockquote', attributes, ...children);
+}
+
+quote.children = function <TNode, TFragment>(props: WriteComposedItemProps<QuoteComposedItem, TNode, TFragment>) {
+    const { item, context, h, hFragment, hText } = props;
+    if (item.properties?.source || item.properties?.citation) {
+        const children = writeChildren(props);
+        const quote = h('p', {}, children);
+        const footerChildren: TNode[] = [];
+        if (item.properties.source) {
+            footerChildren.push(writeText({ text: props.item.properties.source, context, h, hFragment, hText }));
+        }
+        if (item.properties.source && item.properties.citation) {
+            footerChildren.push(writeText({ text: ' ', context, h, hFragment, hText }));
+        }
+        if (item.properties.citation) {
+            footerChildren.push(h('cite', {}, writeText({ text: item.properties.citation, context, h, hFragment, hText })));
+        }
+        const source = h('footer', {}, ...footerChildren);
+        return toFragment({ h, hFragment, hText }, [quote, source]);
+    } else {
+        return writeChildren(props);
+    }
+};
+
 const table = createItemWriter<TableComposedItem>('table');
 const tableBody = createItemWriter<TableBodyComposedItem>('tbody');
 const tableCaption = createItemWriter<TableCaptionComposedItem>('caption');
@@ -427,6 +460,7 @@ function createWriterFactory<TNode, TFragment>(h: H<TNode, TFragment>, hFragment
         _link: link,
         _list: list,
         _listItem: listItem,
+        _quote: quote,
         _panel: panel,
         _paragraph: paragraph,
         _table: table,
@@ -504,6 +538,7 @@ function createElements<TNode, TFragment>() {
         listItem: createItemElement<ListItemComposedItem, TNode, TFragment>(listItem),
         panel: createItemElement<PanelComposedItem, TNode, TFragment>(panel),
         paragraph: createItemElement<ParagraphComposedItem, TNode, TFragment>(paragraph),
+        quote: createItemElement<QuoteComposedItem, TNode, TFragment>(quote),
         table: createItemElement<TableComposedItem, TNode, TFragment>(table),
         tableBody: createItemElement<TableBodyComposedItem, TNode, TFragment>(tableBody),
         tableCaption: createItemElement<TableCaptionComposedItem, TNode, TFragment>(tableCaption),
@@ -543,4 +578,3 @@ export {
     createElements, 
     createWriterFactory
 };
-

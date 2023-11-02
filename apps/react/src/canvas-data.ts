@@ -688,5 +688,25 @@ export const data: ComposedItem[] = [
                 "value": ", appearing on the National Lottery, and has written horoscopes for the Sun for more than two decades."
             }
         ]
+    },
+    {
+        "id": "7b081918",
+        "type": "_quote",
+        "properties": {
+            "url": "http://www.topgun.com",
+            "source": "Top Gun",
+            "citation": "Maverick"
+        },
+        "value": "I feel the need, the need for speed"
+    },
+    {
+        "id": "7b081919",
+        "type": "_quote",
+        "properties": {
+            "url": "http://www.topgun.com",
+            "source": "",
+            "citation": ""
+        },
+        "value": "I feel the need, the need for speed"
     }
 ];

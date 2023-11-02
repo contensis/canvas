@@ -1,8 +1,8 @@
 import {
     AnchorComposedItem, CodeComposedItem, ComponentComposedItem, ComposedItem, DecoratorType, DividerComposedItem,
     FragmentComposedItem, HeadingComposedItem, ImageComposedItem, InlineEntryComposedItem, LinkComposedItem,
-    ListComposedItem, ListItemComposedItem, PanelComposedItem, ParagraphComposedItem, TableBodyComposedItem,
-    TableCaptionComposedItem, TableCellComposedItem, TableComposedItem, TableFooterComposedItem, 
+    ListComposedItem, ListItemComposedItem, PanelComposedItem, ParagraphComposedItem, QuoteComposedItem, TableBodyComposedItem,
+    TableCaptionComposedItem, TableCellComposedItem, TableComposedItem, TableFooterComposedItem,
     TableHeaderCellComposedItem, TableHeaderComposedItem, TableRowComposedItem
 } from '@contensis/canvas-types';
 import { createContext, useContext } from 'react';
@@ -424,6 +424,48 @@ export function Paragraph(props: WriteComposedItemPropsWithChildren<ParagraphCom
 
 Paragraph.Children = WriteComposedItemChildrenFactory<ParagraphComposedItem>();
 
+
+export function Quote(props: WriteComposedItemPropsWithChildren<QuoteComposedItem>) {
+    const attributes = getAttributes(props, {
+        'cite': props.item?.properties?.url
+    });
+    return (
+        <blockquote {...attributes}>
+            <WriteContents contents={props.children} fallback={<Quote.Children item={props.item} />} />
+        </blockquote>
+    );
+}
+
+Quote.Children = function (props: WriteComposedItemProps<QuoteComposedItem>) {
+    const source = props.item?.properties?.source;
+    const citation = props.item?.properties?.citation;
+    const hasChildren = !!source || !!citation;
+    return (
+        hasChildren
+            ? (
+                <>
+                    <p>
+                        <WriteChildren item={props.item} />
+                    </p>
+                    <footer>{source} {!!citation ? (<cite>{citation}</cite>) : (<></>)}</footer>
+                </>
+            )
+            : (<WriteChildren item={props.item} />)
+    );
+    // return (<WriteChildren item={props.item} />);
+    // return (
+    //     <Show when={hasChildren()} fallback={<WriteChildren item={props.item} />}>
+    //         <p>
+    //             <WriteChildren item={props.item} />
+    //         </p>
+    //         <Show when={citation()} fallback={<footer>{source()}</footer>}>
+    //             <footer>{source()} <cite>{citation()}</cite></footer>
+    //         </Show>
+    //     </Show>
+    // );
+};
+
+
 export function Table(props: WriteComposedItemPropsWithChildren<TableComposedItem>) {
     const attributes = getAttributes(props);
     return (
@@ -692,6 +734,7 @@ const ITEM_WRITERS: ComposedItemWriters = {
     '_listItem': ListItem,
     '_panel': Panel,
     '_paragraph': Paragraph,
+    '_quote': Quote,
     '_table': Table,
     '_tableBody': TableBody,
     '_tableCaption': TableCaption,

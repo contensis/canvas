@@ -11,6 +11,7 @@ import {
     ListItemComposedItem,
     PanelComposedItem,
     ParagraphComposedItem,
+    QuoteComposedItem,
     TableBodyComposedItem,
     TableCaptionComposedItem,
     TableCellComposedItem,
@@ -110,6 +111,7 @@ list.children = function (props: WriteComposedItemProps<ListComposedItem>) {
 const listItem = createItemWriter<ListItemComposedItem>(({ contents }) => contents);
 const panel = createItemWriter<PanelComposedItem>(({ contents }) => `${contents}\n\n`);
 const paragraph = createItemWriter<ParagraphComposedItem>(({ contents }) => `${contents}\n\n`);
+const quote = createItemWriter<QuoteComposedItem>(({ contents }) => `> ${contents}\n\n`);
 
 const table = createItemWriter<TableComposedItem>(({ contents }) => `${contents}\n`);
 const tableBody = createItemWriter<TableBodyComposedItem>(
@@ -187,6 +189,7 @@ const createWriter = createWriterFactory(
         _link: link,
         _list: list,
         _listItem: listItem,
+        _quote: quote,
         _panel: panel,
         _paragraph: paragraph,
         _table: table,
@@ -239,6 +242,7 @@ export {
     mark,
     panel,
     paragraph,
+    quote,
     strikethrough,
     strong,
     subscript,

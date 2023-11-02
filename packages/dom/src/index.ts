@@ -11,10 +11,7 @@ import type {
     WriteDecoratorProps
 } from './writer';
 
-export {
-    createElements, 
-    createWriterFactory
-} from './writer';
+export { createElements, createWriterFactory } from './writer';
 
 export type {
     ComponentItemWriter,

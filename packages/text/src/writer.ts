@@ -204,5 +204,6 @@ export {
     DecoratorWriters,
     WriteComposedItemProps,
     WriteDecoratorProps,
-    getContents
+    getContents,
+    childWriter
 };

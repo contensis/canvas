@@ -100,6 +100,7 @@ type ComposedItem =
     | ListItemComposedItem 
     | PanelComposedItem 
     | ParagraphComposedItem
+    | QuoteComposedItem
     | TableComposedItem 
     | TableBodyComposedItem 
     | TableCaptionComposedItem 
@@ -246,6 +247,18 @@ type ParagraphComposedItem = {
     };
 };
 
+type QuoteComposedItem = {
+    type: '_quote';
+    id: string;
+    value?: InlineChildren;
+    properties?: {
+        id?: string;
+        url?: string;
+        citation?: string;
+        source?: string;
+    };
+};
+
 type TableComposedItem = {
     type: '_table';
     id: string;
@@ -334,6 +347,7 @@ export type {
     ListItemComposedItem,
     PanelComposedItem,
     ParagraphComposedItem,
+    QuoteComposedItem,
     TableComposedItem,
     TableBodyComposedItem,
     TableCaptionComposedItem,

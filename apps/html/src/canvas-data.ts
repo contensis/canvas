@@ -667,6 +667,26 @@ const data: ComposedItem[] = [
                 "value": "NODE"
             }
         ]
+    },
+    {
+        "id": "7b081918",
+        "type": "_quote",
+        "properties": {
+            "url": "http://www.topgun.com",
+            "source": "Top Gun",
+            "citation": "Maverick"
+        },
+        "value": "I feel the need, the need for speed"
+    },
+    {
+        "id": "7b081919",
+        "type": "_quote",
+        "properties": {
+            "url": "http://www.topgun.com",
+            "source": "",
+            "citation": ""
+        },
+        "value": "I feel the need, the need for speed"
     }
 ];
 

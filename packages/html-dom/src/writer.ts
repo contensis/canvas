@@ -27,7 +27,7 @@ type ComponentItemWriter = DomComponentItemWriter<Node, HtmlFragment>;
 
 const { 
     anchor, code, component, divider, fragment, heading, image, inlineEntry, link, list, listItem, panel, paragraph,
-    table, tableBody, tableCaption, tableCell, tableFooter, tableHeader, tableHeaderCell, tableRow,
+    quote, table, tableBody, tableCaption, tableCell, tableFooter, tableHeader, tableHeaderCell, tableRow,
     inlineCode, inlineDelete, emphasis, insert, keyboard, lineBreak, mark, strikethrough, strong, subscript, superscript,
     underline, variable
 } = createElements<Node, HtmlFragment>();
@@ -39,7 +39,7 @@ export {
     WriteComposedItemProps,
     WriteDecoratorProps,
     anchor, code, component, createWriter, divider, emphasis, fragment, h, heading, image, inlineCode, inlineDelete,
-    inlineEntry, insert, keyboard, lineBreak, link, list, listItem, mark, panel, paragraph, strikethrough, strong,
+    inlineEntry, insert, keyboard, lineBreak, link, list, listItem, mark, panel, paragraph, quote, strikethrough, strong,
     subscript, superscript, table, tableBody, tableCaption, tableCell, tableFooter, tableHeader, tableHeaderCell,
     tableRow, underline, variable, text
 };

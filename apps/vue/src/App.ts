@@ -1,6 +1,6 @@
 import { h } from 'vue';
 import * as CanvasData from './canvas-data';
-import { createDomWriterFactory } from '@contensis/canvas-dom';
+import { createElements, createWriterFactory } from '@contensis/canvas-dom';
 
 function contents(context: any) {
     return (typeof context.slots.default === 'function')
@@ -13,14 +13,17 @@ const VueFragment = (props: any, context: any) => {
     return contents(context);
 }
 
-const Text = (text: any)  => text;
+const Text = (text: any) => text;
 
-const { createWriter, Heading, Paragraph, Fragment, Table, Panel, Code, Image } = createDomWriterFactory(h, VueFragment as any, Text);
+const createWriter = createWriterFactory(h as any, VueFragment as any, Text);
+const { heading, paragraph, fragment, table, panel, image, code } = createElements();
+
+// const { createWriter, Heading, Paragraph, Fragment, Table, Panel, Code, Image } = createElements(h, VueFragment as any, Text);
 
 
 function MyHeading(props: any) {
     const cssClass = `display-${props.item?.properties?.level || '1'}`;
-    return Heading({ ...props, className: cssClass });
+    return heading({ ...props, className: cssClass });
 }
 
 export function MyParagraph(props: any) {
@@ -28,17 +31,17 @@ export function MyParagraph(props: any) {
         props.context.inLead = true;
     }
     const cssClass = props.item?.properties?.paragraphType ? 'lead' : null;
-    return Paragraph({ ...props, className: cssClass });
+    return paragraph({ ...props, className: cssClass });
 }
 
 export function MyFragment(props: any) {
     return (props.context.inLead)
-        ? Fragment.Children(props)
-        : Fragment(props);
+        ? fragment.children(props)
+        : fragment(props);
 }
 
 export function MyTable(props: any) {
-    return Table({ ...props, className: 'table table-striped' });
+    return table({ ...props, className: 'table table-striped' });
 }
 
 const PanelCss: Record<string, string> = {
@@ -51,7 +54,7 @@ const PanelCss: Record<string, string> = {
 
 export function MyPanel(props: any) {
     const panelType = props.item?.properties?.panelType || 'info';
-    return Panel({ ...props, className: PanelCss[panelType] });
+    return panel({ ...props, className: PanelCss[panelType] });
 }
 
 export function MyImage(props: any) {
@@ -63,8 +66,8 @@ export function MyImage(props: any) {
                 className: 'figure',
                 style: { display: 'block' }
             },
-            [
-                Image(props),
+            () => [
+                image(props),
                 h(
                     'figcaption',
                     {
@@ -75,7 +78,7 @@ export function MyImage(props: any) {
                 )
             ]
         )
-        : Image(props);
+        : image(props);
 }
 
 export function MyCode(props: any) {
@@ -87,8 +90,8 @@ export function MyCode(props: any) {
                 className: 'figure',
                 style: { display: 'block' }
             },
-            [
-                Code(props),
+            () => [
+                code(props),
                 h(
                     'figcaption',
                     {
@@ -99,7 +102,7 @@ export function MyCode(props: any) {
                 )
             ]
         )
-        : Code(props);
+        : code(props);
 }
 
 export function MyBookComponent(props: any) {
@@ -114,7 +117,7 @@ export function MyBookComponent(props: any) {
                         h('h5', { className: 'card-title' }, [props.item?.value?.name]),
                         h('p', { className: 'card-text' }, [props.item?.value?.name])
                     ])
-                ])                
+                ])
             ])
         ]
     )
