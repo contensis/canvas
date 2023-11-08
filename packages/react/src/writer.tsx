@@ -331,7 +331,7 @@ export function InlineEntry(props: WriteComposedItemPropsWithChildren<InlineEntr
     const attributes = getAttributes(props, {
         href
     });
-    return (!!href
+    return (!!attributes.href
         ? (
             <a {...attributes}>
                 <WriteContents contents={props.children} fallback={<InlineEntry.Children item={props.item} />} />
@@ -354,7 +354,7 @@ export function Link(props: WriteComposedItemPropsWithChildren<LinkComposedItem>
         href,
         target: props?.item?.properties?.newTab ? '_blank' : null
     });
-    return (!!href
+    return (!!attributes.href
         ? (
             <a {...attributes}>
                 <WriteContents contents={props.children} fallback={<Link.Children item={props.item} />} />

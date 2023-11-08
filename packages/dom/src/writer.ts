@@ -346,7 +346,7 @@ function inlineEntry<TNode, TFragment>(props: WriteComposedItemProps<InlineEntry
     const href = item?.value?.sys?.uri;
     const attributes = getAttributes(props, { href });
     children = getChildren(children, () => inlineEntry.children({ item, context, writers, h, hFragment, hText }));
-    return href ? h('a', attributes, ...children) : toFragment(props, children);
+    return attributes.href ? h('a', attributes, ...children) : toFragment(props, children);
 }
 
 inlineEntry.children = function <TNode, TFragment>(props: WriteComposedItemProps<InlineEntryComposedItem, TNode, TFragment>) {
@@ -364,7 +364,7 @@ function link<TNode, TFragment>(props: WriteComposedItemProps<LinkComposedItem, 
         target: props?.item?.properties?.newTab ? '_blank' : null
     });
     children = getChildren(children, () => link.children({ item, context, writers, h, hFragment, hText }));
-    return href ? h('a', attributes, ...children) : toFragment(props, children);
+    return attributes.href ? h('a', attributes, ...children) : toFragment(props, children);
 }
 
 link.children = childWriter<LinkComposedItem>();

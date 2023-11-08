@@ -138,7 +138,7 @@ type AttributeProps = WriteComposedItemProps<ComposedItem>
     | WriteDecoratorProps
     | WriteDecoratorPropsWithChildren;
 
-function getAttributes(props: AttributeProps, extraFn?: () => Record<string, any>) {
+function getAttributes(props: AttributeProps, extraFn?: () => Record<string, any>): () => Record<string, any> {
     return () => {
         const [item, rest] = splitProps(props, ['item']);
         const [ignore, attributes] = splitProps(rest as Record<string, any>, ['children', 'decorator', 'otherDecorators']);
@@ -326,7 +326,7 @@ export function InlineEntry(props: WriteComposedItemPropsWithChildren<InlineEntr
         href: href()
     }));
     return (
-        <Show when={href()} fallback={<WriteContents contents={props.children} fallback={<InlineEntry.Children item={props.item} />} />}>
+        <Show when={attributes().href} fallback={<WriteContents contents={props.children} fallback={<InlineEntry.Children item={props.item} />} />}>
             <a {...(attributes())}>
                 <WriteContents contents={props.children} fallback={<InlineEntry.Children item={props.item} />} />
             </a>
