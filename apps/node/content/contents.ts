@@ -1,9 +1,9 @@
-import { createWriter } from '@contensis/canvas-html';
+import { createRenderer } from '@contensis/canvas-html';
 import { myHtmlHeading, myHtmlParagraph, myHtmlFragment, myHtmlTable, myHtmlPanel, myHtmlImage, myHtmlCode, myHtmlList, myHtmlListItem, myHtmlAuthorComponent, myHtmlBookComponent } from './elements';
-import { ComposedItem } from '@contensis/canvas-types';
+import { Block } from '@contensis/canvas-types';
 
-const writer = createWriter({
-    items: {
+const renderer = createRenderer({
+    blocks: {
         _code: myHtmlCode,
         _fragment: myHtmlFragment,
         _heading: myHtmlHeading,
@@ -20,6 +20,6 @@ const writer = createWriter({
     }
 });
 
-export function getHtml(data: ComposedItem[]) {
-    return writer({ data });
+export function getHtml(data: Block[]) {
+    return renderer({ data });
 }

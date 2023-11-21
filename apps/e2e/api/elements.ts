@@ -1,7 +1,7 @@
 import { h, Heading, Table, Panel, Image, Code } from '@contensis/canvas-html';
 
 export function MyHeading(props: any) {
-    const cssClass = `display-${props.item?.properties?.level || '1'}`;
+    const cssClass = `display-${props.block?.properties?.level || '1'}`;
     return Heading({ ...props, className: cssClass });
 }
 
@@ -18,12 +18,12 @@ const PanelCss: Record<string, string> = {
 };
 
 export function MyPanel(props: any) {
-    const panelType = props.item?.properties?.panelType || 'info';
+    const panelType = props.block?.properties?.panelType || 'info';
     return Panel({ ...props, className: PanelCss[panelType] });
 }
 
 export function MyImage(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? h(
             'figure',
@@ -45,7 +45,7 @@ export function MyImage(props: any) {
 }
 
 export function MyCode(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? h(
             'figure',

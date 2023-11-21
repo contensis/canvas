@@ -1,15 +1,15 @@
 import './App.css';
 import { useState, createContext, useContext, useEffect, createElement } from 'react'
 import * as CanvasData from './canvas-data';
-import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem, Strong } from '@contensis/canvas-react';
-import { ComposedItem } from '@contensis/canvas-types';
+import { Renderer, RenderContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem, Strong } from '@contensis/canvas-react';
+import { Block } from '@contensis/canvas-types';
 
 declare var Prism: any;
 
 // const ParagraphContext = createContext<null | { inLead: boolean }>(null);
 
 export function MyHeading(props: any) {
-    // const cssClass = `display-${props.item?.properties?.level || '1'}`;
+    // const cssClass = `display-${props.block?.properties?.level || '1'}`;
     // return <Heading {...props} className={cssClass} />;
     return (
         <Heading.Children {...props} />
@@ -18,9 +18,9 @@ export function MyHeading(props: any) {
 
 
 // export function MyParagraph(props: any) {
-//     const cssClass = props.item?.properties?.paragraphType ? 'lead' : null;
+//     const cssClass = props.block?.properties?.paragraphType ? 'lead' : null;
 //     return (
-//         <ParagraphContext.Provider value={{ inLead: (props.item?.properties?.paragraphType === 'lead') }}>
+//         <ParagraphContext.Provider value={{ inLead: (props.block?.properties?.paragraphType === 'lead') }}>
 //             <Paragraph {...props} className={cssClass} />
 //         </ParagraphContext.Provider>
 //     );
@@ -46,12 +46,12 @@ export function MyTable(props: any) {
 // };
 
 // export function MyPanel(props: any) {
-//     const panelType = props.item?.properties?.panelType || 'info';
+//     const panelType = props.block?.properties?.panelType || 'info';
 //     return <Panel {...props} className={PanelCss[panelType]} />;
 // }
 
 // export function MyImage(props: any) {
-//     const caption = props.item?.value?.caption;
+//     const caption = props.block?.value?.caption;
 //     return !!caption
 //         ? (
 //             <figure className={'figure'} style={{ display: 'block' }}>
@@ -66,10 +66,10 @@ export function MyTable(props: any) {
 //     const [isCollapsed, setIsCollapsed] = useState(false);
 //     const [isCopying, setIsCopying] = useState(false);
 
-//     const caption = props.item?.value?.caption;
+//     const caption = props.block?.value?.caption;
 //     const copy = () => {
 //         setIsCopying(true);
-//         navigator.clipboard.writeText(props?.item?.value?.code || '');
+//         navigator.clipboard.writeText(props?.block?.value?.code || '');
 
 //         setTimeout(() => {
 //             setIsCopying(false)
@@ -117,12 +117,12 @@ export function MyBookComponent(props: any) {
             <div className="row g-0">
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h5 className="card-title">{props.item?.value?.name}</h5>
-                        <p className="card-text">{props.item?.value?.name}</p>
+                        <h5 className="card-title">{props.block?.value?.name}</h5>
+                        <p className="card-text">{props.block?.value?.name}</p>
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <img src={props.item?.value?.cover} className="img-fluid rounded-start" />
+                    <img src={props.block?.value?.cover} className="img-fluid rounded-start" />
                 </div>
             </div>
         </div>
@@ -134,12 +134,12 @@ export function MyAuthorComponent(props: any) {
         <div className="card mb-3">
             <div className="row g-0">
                 <div className="col-md-4">
-                    <img src={props.item?.value?.cover} className="img-fluid rounded-start" />
+                    <img src={props.block?.value?.cover} className="img-fluid rounded-start" />
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h5 className="card-title">{props.item?.value?.name}</h5>
-                        <p className="card-text">{props.item?.value?.name}</p>
+                        <h5 className="card-title">{props.block?.value?.name}</h5>
+                        <p className="card-text">{props.block?.value?.name}</p>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@ export function MyAuthorComponent(props: any) {
 }
 
 // function MyList(props: any) {
-//     const cssClass = (props?.item?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
+//     const cssClass = (props?.block?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
 //     return <List {...props} className={cssClass} />
 // }
 
@@ -166,10 +166,10 @@ export function Al() {
 //     return <ListItem {...props} className={'list-group-item'} />
 // }
 
-function SimpleWriter({ data }: { data: ComposedItem[] }) {
+function SimpleRenderer({ data }: { data: Block[] }) {
     return (
-        <WriteContextProvider
-            items={{
+        <RenderContextProvider
+            blocks={{
                 _heading: MyHeading,
                 _table: MyTable
             }}
@@ -179,14 +179,14 @@ function SimpleWriter({ data }: { data: ComposedItem[] }) {
                 'alTest': Al
             }}
         >
-            <Writer data={data} />
-        </WriteContextProvider>)
+            <Renderer data={data} />
+        </RenderContextProvider>)
 }
 
-// function ExtendedWriter({ data }: { data: ComposedItem[] }) {
+// function ExtendedRenderer({ data }: { data: Block[] }) {
 //     return (
-//         <WriteContextProvider
-//             items={{
+//         <RenderContextProvider
+//             blocks={{
 //                 _code: MyCode,
 //                 _fragment: MyFragment,
 //                 _heading: MyHeading,
@@ -206,8 +206,8 @@ function SimpleWriter({ data }: { data: ComposedItem[] }) {
 //                 strong: StrongAl
 //             }}
 //         >
-//             <Writer data={data} />
-//         </WriteContextProvider>
+//             <Renderer data={data} />
+//         </RenderContextProvider>
 //     );
 // }
 
@@ -216,7 +216,7 @@ function App() {
 
     return (
         <div className="content">
-            <SimpleWriter data={data} />
+            <SimpleRenderer data={data} />
         </div>
     );
 }

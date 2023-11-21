@@ -1,2 +1,2 @@
-export * from './text-writer';
-export * from './writer';
+export * from './text-renderer';
+export * from './renderer';

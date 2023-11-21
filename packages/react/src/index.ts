@@ -1,7 +1,7 @@
 export {
-    Writer,
-    WriterContext,
-    WriteContextProvider,
+    Renderer,
+    RendererContext,
+    RenderContextProvider,
     
     Anchor,
     Code,
@@ -37,4 +37,4 @@ export {
     Superscript,
     Underline,
     Variable
-} from './writer';
+} from './renderer';

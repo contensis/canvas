@@ -1,6 +1,6 @@
-import { ComposedItem } from '@contensis/canvas-types';
+import { Block } from '@contensis/canvas-types';
 
-export const data: ComposedItem[] = [
+export const data: Block[] = [
     {
         "id": "c891f455",
         "type": "_heading",

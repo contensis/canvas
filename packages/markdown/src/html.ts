@@ -49,7 +49,7 @@ const encodeMap = {
 const SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 const NON_ALPHANUMERIC_REGEXP = /([^#-~ |!])/g;
 
-// this is duplicated in the html writer so any changes need to be done there as well
+// this is duplicated in the html renderer so any changes need to be done there as well
 export function htmlEncode(value: string) {
     return value
         .replace(/&/g, '&amp;')

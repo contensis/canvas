@@ -1,6 +1,6 @@
 import { h } from 'vue';
 import * as CanvasData from './canvas-data';
-import { createElements, createWriterFactory } from '@contensis/canvas-dom';
+import { createElements, createRendererFactory } from '@contensis/canvas-dom';
 
 function contents(context: any) {
     return (typeof context.slots.default === 'function')
@@ -15,22 +15,22 @@ const VueFragment = (props: any, context: any) => {
 
 const Text = (text: any) => text;
 
-const createWriter = createWriterFactory(h as any, VueFragment as any, Text);
+const createRenderer = createRendererFactory(h as any, VueFragment as any, Text);
 const { heading, paragraph, fragment, table, panel, image, code } = createElements();
 
-// const { createWriter, Heading, Paragraph, Fragment, Table, Panel, Code, Image } = createElements(h, VueFragment as any, Text);
+// const { createRenderer, Heading, Paragraph, Fragment, Table, Panel, Code, Image } = createElements(h, VueFragment as any, Text);
 
 
 function MyHeading(props: any) {
-    const cssClass = `display-${props.item?.properties?.level || '1'}`;
+    const cssClass = `display-${props.block?.properties?.level || '1'}`;
     return heading({ ...props, className: cssClass });
 }
 
 export function MyParagraph(props: any) {
-    if (props.item?.properties?.paragraphType === 'lead') {
+    if (props.block?.properties?.paragraphType === 'lead') {
         props.context.inLead = true;
     }
-    const cssClass = props.item?.properties?.paragraphType ? 'lead' : null;
+    const cssClass = props.block?.properties?.paragraphType ? 'lead' : null;
     return paragraph({ ...props, className: cssClass });
 }
 
@@ -53,12 +53,12 @@ const PanelCss: Record<string, string> = {
 };
 
 export function MyPanel(props: any) {
-    const panelType = props.item?.properties?.panelType || 'info';
+    const panelType = props.block?.properties?.panelType || 'info';
     return panel({ ...props, className: PanelCss[panelType] });
 }
 
 export function MyImage(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? h(
             'figure',
@@ -82,7 +82,7 @@ export function MyImage(props: any) {
 }
 
 export function MyCode(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? h(
             'figure',
@@ -110,12 +110,12 @@ export function MyBookComponent(props: any) {
         [
             h('div', { className: 'row g-0' }, [
                 h('div', { className: 'col-md-4' }, [
-                    h('img', { className: 'img-fluid rounded-start', src: props.item?.value?.cover }, [])
+                    h('img', { className: 'img-fluid rounded-start', src: props.block?.value?.cover }, [])
                 ]),
                 h('div', { className: 'col-md-8' }, [
                     h('div', { className: 'card-body' }, [
-                        h('h5', { className: 'card-title' }, [props.item?.value?.name]),
-                        h('p', { className: 'card-text' }, [props.item?.value?.name])
+                        h('h5', { className: 'card-title' }, [props.block?.value?.name]),
+                        h('p', { className: 'card-text' }, [props.block?.value?.name])
                     ])
                 ])
             ])
@@ -129,20 +129,20 @@ export function MyAuthorComponent(props: any) {
             h('div', { className: 'row g-0' }, [
                 h('div', { className: 'col-md-8' }, [
                     h('div', { className: 'card-body' }, [
-                        h('h5', { className: 'card-title' }, [props.item?.value?.name]),
-                        h('p', { className: 'card-text' }, [props.item?.value?.name])
+                        h('h5', { className: 'card-title' }, [props.block?.value?.name]),
+                        h('p', { className: 'card-text' }, [props.block?.value?.name])
                     ])
                 ]),
                 h('div', { className: 'col-md-4' }, [
-                    h('img', { className: 'img-fluid rounded-start', src: props.item?.value?.cover }, [])
+                    h('img', { className: 'img-fluid rounded-start', src: props.block?.value?.cover }, [])
                 ])
             ])
         ]
     )
 }
 
-const writer = createWriter({
-    items: {
+const renderer = createRenderer({
+    blocks: {
         _code: MyCode,
         _heading: MyHeading,
         _paragraph: MyParagraph,
@@ -162,7 +162,7 @@ export default {
         return h(
             'div',
             { className: 'content' },
-            writer({ data: CanvasData.data })
+            renderer({ data: CanvasData.data })
         );
     }
 }

@@ -32,10 +32,10 @@
 
                 <% if (root.children) { %>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <% for(let item of root?.children) { %>
+                        <% for(let block of root?.children) { %>
                             <li class="nav-item">
-                                <a class="nav-link <%= (item.id === node.id) ? 'active' : '' %>" href="<%= item.path %>">
-                                    <%= item.displayName %>
+                                <a class="nav-link <%= (block.id === node.id) ? 'active' : '' %>" href="<%= block.path %>">
+                                    <%= block.displayName %>
                                 </a>
                             </li>
                             <% } %>
@@ -51,10 +51,10 @@
             <div class="col-3">
                 <% if (menu) { %>
                     <ul class="nav nav-underline flex-column">
-                        <% for(let item of menu) { %>
+                        <% for(let block of menu) { %>
                             <li class="nav-item">
-                                <a class="nav-link <%= (item.id === node.id) ? 'active' : '' %>" href="<%= item.path %>">
-                                    <%= item.displayName %>
+                                <a class="nav-link <%= (block.id === node.id) ? 'active' : '' %>" href="<%= block.path %>">
+                                    <%= block.displayName %>
                                 </a>
                             </li>
                             <% } %>
@@ -65,8 +65,8 @@
                 <% if (breadcrumb) { %>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <% for(let item of breadcrumb) { %>
-                                <li class="breadcrumb-item <%= (item.id === node.id) ? 'active' : '' %>"><a href="<%= item.path %>"><%= item.displayName %></a></li>
+                            <% for(let block of breadcrumb) { %>
+                                <li class="breadcrumb-item <%= (block.id === node.id) ? 'active' : '' %>"><a href="<%= block.path %>"><%= block.displayName %></a></li>
                                 <!-- todo <li class="breadcrumb-item active" aria-current="page">Data</li> -->
                             <% } %>
                         </ol>

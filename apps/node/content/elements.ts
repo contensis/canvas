@@ -1,15 +1,15 @@
 import { heading, paragraph, fragment, table, panel, image, code, list, listItem, text, attr } from '@contensis/canvas-html';
 
 export function myHtmlHeading(props: any) {
-    const cssClass = `display-${props.item?.properties?.level || '1'}`;
+    const cssClass = `display-${props.block?.properties?.level || '1'}`;
     return heading({ ...props, className: cssClass });
 }
 
 export function myHtmlParagraph(props: any) {
-    if (props.item?.properties?.paragraphType === 'lead') {
+    if (props.block?.properties?.paragraphType === 'lead') {
         props.context.inLead = true;
     }
-    const cssClass = props.item?.properties?.paragraphType ? 'lead' : null;
+    const cssClass = props.block?.properties?.paragraphType ? 'lead' : null;
     return paragraph({ ...props, className: cssClass });
 }
 
@@ -32,12 +32,12 @@ const PanelCss: Record<string, string> = {
 };
 
 export function myHtmlPanel(props: any) {
-    const panelType = props.item?.properties?.panelType || 'info';
+    const panelType = props.block?.properties?.panelType || 'info';
     return panel({ ...props, className: PanelCss[panelType] });
 }
 
 export function myHtmlImage(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? `
             <figure class="figure" style="display: block">
@@ -49,7 +49,7 @@ export function myHtmlImage(props: any) {
 }
 
 export function myHtmlCode(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? `
             <figure class="figure" style="display: block">
@@ -66,12 +66,12 @@ export function myHtmlBookComponent(props: any) {
             <div class="row g-0">
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">${text(props.item?.value?.name)}</h5>
-                        <p class="card-text">${text(props.item?.value?.name)}</p>
+                        <h5 class="card-title">${text(props.block?.value?.name)}</h5>
+                        <p class="card-text">${text(props.block?.value?.name)}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <img src="${attr(props.item?.value?.cover)}" class="img-fluid rounded-start" />
+                    <img src="${attr(props.block?.value?.cover)}" class="img-fluid rounded-start" />
                 </div>
             </div>
         </div>
@@ -83,12 +83,12 @@ export function myHtmlAuthorComponent(props: any) {
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="${attr(props.item?.value?.cover)}" class="img-fluid rounded-start" />
+                    <img src="${attr(props.block?.value?.cover)}" class="img-fluid rounded-start" />
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">${text(props.item?.value?.name)}</h5>
-                        <p class="card-text">${text(props.item?.value?.name)}</p>
+                        <h5 class="card-title">${text(props.block?.value?.name)}</h5>
+                        <p class="card-text">${text(props.block?.value?.name)}</p>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@ export function myHtmlAuthorComponent(props: any) {
 }
 
 export function myHtmlList(props: any) {
-    const cssClass = (props?.item?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
+    const cssClass = (props?.block?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
     return list({ ...props, className: cssClass });
 }
 

@@ -1,15 +1,15 @@
 import { h, heading, paragraph, fragment, table, panel, image, code, list, listItem, text } from '@contensis/canvas-html-dom';
 
 export function myDomHeading(props: any) {
-    const cssClass = `display-${props.item?.properties?.level || '1'}`;
+    const cssClass = `display-${props.block?.properties?.level || '1'}`;
     return heading({ ...props, className: cssClass });
 }
 
 export function myDomParagraph(props: any) {
-    if (props.item?.properties?.paragraphType === 'lead') {
+    if (props.block?.properties?.paragraphType === 'lead') {
         props.context.inLead = true;
     }
-    const cssClass = props.item?.properties?.paragraphType ? 'lead' : null;
+    const cssClass = props.block?.properties?.paragraphType ? 'lead' : null;
     return paragraph({ ...props, className: cssClass });
 }
 
@@ -32,12 +32,12 @@ const PanelCss: Record<string, string> = {
 };
 
 export function myDomPanel(props: any) {
-    const panelType = props.item?.properties?.panelType || 'info';
+    const panelType = props.block?.properties?.panelType || 'info';
     return panel({ ...props, className: PanelCss[panelType] });
 }
 
 export function myDomImage(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? h(
             'figure',
@@ -58,7 +58,7 @@ export function myDomImage(props: any) {
 }
 
 export function myDomCode(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return !!caption
         ? h(
             'figure',
@@ -86,12 +86,12 @@ export function myDomBookComponent(props: any) {
                 h(
                     'h5',
                     { className: 'card-title' },
-                    props.item?.value?.name
+                    props.block?.value?.name
                 ),
                 h(
                     'p',
                     { className: 'card-text' },
-                    props.item?.value?.name
+                    props.block?.value?.name
                 ),
             ),
             h(
@@ -100,7 +100,7 @@ export function myDomBookComponent(props: any) {
                 h(
                     'img',
                     {
-                        src: props.item?.value?.cover,
+                        src: props.block?.value?.cover,
                         className: 'img-fluid rounded-start'
                     }
                 )
@@ -122,7 +122,7 @@ export function myDomAuthorComponent(props: any) {
                 h(
                     'img',
                     {
-                        src: props.item?.value?.cover,
+                        src: props.block?.value?.cover,
                         className: 'img-fluid rounded-start'
                     }
                 )
@@ -133,12 +133,12 @@ export function myDomAuthorComponent(props: any) {
                 h(
                     'h5',
                     { className: 'card-title' },
-                    props.item?.value?.name
+                    props.block?.value?.name
                 ),
                 h(
                     'p',
                     { className: 'card-text' },
-                    props.item?.value?.name
+                    props.block?.value?.name
                 ),
             )            
         )
@@ -146,7 +146,7 @@ export function myDomAuthorComponent(props: any) {
 }
 
 export function myDomList(props: any) {
-    const cssClass = (props?.item?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
+    const cssClass = (props?.block?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
     return list({ ...props, className: cssClass });
 }
 

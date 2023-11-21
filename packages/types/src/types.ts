@@ -1,6 +1,6 @@
-type InlineComposedItem = FragmentComposedItem | AnchorComposedItem | LinkComposedItem | InlineEntryComposedItem;
+type InlineBlock = FragmentBlock | AnchorBlock | LinkBlock | InlineEntryBlock;
 
-type InlineChildren = string | InlineComposedItem[];
+type InlineChildren = string | InlineBlock[];
 
 type DecoratorTypeMap<T> = {
     code: T;
@@ -33,7 +33,7 @@ type BaseEntry<TSys extends BaseSys> = {
     sys: null | TSys;
     entryTitle?: string;
     entryDescription?: string;
-    entryThumbnail?: ImageLink;
+    entryThumbnail?: Image;
 };
 
 type EntrySys = {
@@ -45,10 +45,10 @@ type EntrySys = {
     dataFormat?: 'entry';
 };
 
-type EntryLink = BaseEntry<EntrySys>;
+type Entry = BaseEntry<EntrySys>;
 
-type ImageLink = {
-    asset?: AssetLink;
+type Image = {
+    asset?: Asset;
     caption?: string;
     transformations?: Transformations;
     altText?: string;
@@ -61,9 +61,13 @@ type AssetSys = {
     contentTypeId?: string;
     projectId?: string;
     dataFormat?: 'asset';
+    properties?: {
+        width?: number;
+        height?: number;
+    };
 };
 
-type AssetLink = BaseEntry<AssetSys> & {
+type Asset = BaseEntry<AssetSys> & {
     altText?: string;
 };
 
@@ -76,7 +80,7 @@ type Transformations = {
     format?: string;
 };
 
-type NodeLink = {
+type Node = {
     displayName?: string;
     id?: string;
     includeInMenu?: boolean;
@@ -86,31 +90,46 @@ type NodeLink = {
     slug?: string;
 };
 
-type ComposedItem =
-    | AnchorComposedItem 
-    | CodeComposedItem 
-    | ComponentComposedItem 
-    | DividerComposedItem 
-    | FragmentComposedItem
-    | HeadingComposedItem 
-    | ImageComposedItem
-    | InlineEntryComposedItem 
-    | LinkComposedItem 
-    | ListComposedItem 
-    | ListItemComposedItem 
-    | PanelComposedItem 
-    | ParagraphComposedItem
-    | QuoteComposedItem
-    | TableComposedItem 
-    | TableBodyComposedItem 
-    | TableCaptionComposedItem 
-    | TableCellComposedItem 
-    | TableFooterComposedItem
-    | TableHeaderComposedItem 
-    | TableHeaderCellComposedItem 
-    | TableRowComposedItem;
+type LinkType = 'entry' | 'node' | 'uri';
 
-type AnchorComposedItem = {
+type LinkProperties = {
+    query?: string;
+    fragment?: string;
+    type: LinkType;
+};
+
+type LinkSys = EntrySys & {
+    linkProperties: LinkProperties;
+    node?: Node;
+};
+
+type Link = BaseEntry<LinkSys>;
+
+type Block =
+    | AnchorBlock
+    | CodeBlock
+    | ComponentBlock
+    | DividerBlock
+    | FragmentBlock
+    | HeadingBlock
+    | ImageBlock
+    | InlineEntryBlock
+    | LinkBlock
+    | ListBlock
+    | ListItemBlock
+    | PanelBlock
+    | ParagraphBlock
+    | QuoteBlock
+    | TableBlock
+    | TableBodyBlock
+    | TableCaptionBlock
+    | TableCellBlock
+    | TableFooterBlock
+    | TableHeaderBlock
+    | TableHeaderCellBlock
+    | TableRowBlock;
+
+type AnchorBlock = {
     type: '_anchor';
     id: string;
     value?: InlineChildren;
@@ -119,7 +138,7 @@ type AnchorComposedItem = {
     };
 };
 
-type CodeComposedItem = {
+type CodeBlock = {
     type: '_code';
     id: string;
     value?: {
@@ -132,7 +151,7 @@ type CodeComposedItem = {
     };
 };
 
-type ComponentComposedItem = {
+type ComponentBlock = {
     type: '_component';
     id: string;
     value?: Record<string, any>;
@@ -142,7 +161,7 @@ type ComponentComposedItem = {
     };
 };
 
-type DividerComposedItem = {
+type DividerBlock = {
     type: '_divider';
     id: string;
     value?: undefined;
@@ -151,7 +170,7 @@ type DividerComposedItem = {
     };
 };
 
-type FragmentComposedItem = {
+type FragmentBlock = {
     type: '_fragment';
     id: string;
     value?: InlineChildren;
@@ -161,7 +180,7 @@ type FragmentComposedItem = {
     };
 };
 
-type HeadingComposedItem = {
+type HeadingBlock = {
     type: '_heading';
     id: string;
     value?: InlineChildren;
@@ -171,42 +190,41 @@ type HeadingComposedItem = {
     };
 };
 
-type ImageComposedItem = {
+type ImageBlock = {
     type: '_image';
     id: string;
-    value?: ImageLink;
+    value?: Image;
     properties?: {
         id?: string;
     };
 };
 
-type InlineEntryComposedItem = {
+type InlineEntryBlock = {
     type: '_inlineEntry';
     id: string;
-    value?: EntryLink;
+    value?: Entry;
     properties?: {
         id?: string;
     };
 };
 
-type LinkComposedItem = {
+type LinkBlock = {
     type: '_link';
     id: string;
     value?: InlineChildren;
-    properties?: EntryLink & {
+    properties?: {
         id?: string;
-        node?: NodeLink;
-        anchor?: string;
+        link?: Link;
         newTab?: boolean;
     };
 };
 
 type ListType = 'ordered' | 'unordered';
 
-type ListComposedItem = {
+type ListBlock = {
     type: '_list';
     id: string;
-    value?: ListItemComposedItem[];
+    value?: ListItemBlock[];
     properties?: {
         id?: string;
         listType?: ListType;
@@ -214,10 +232,10 @@ type ListComposedItem = {
     };
 };
 
-type ListItemComposedItem = {
+type ListItemBlock = {
     type: '_listItem';
     id: string;
-    value?: string | ComposedItem[];
+    value?: string | Block[];
     properties?: {
         id?: string;
     };
@@ -225,7 +243,7 @@ type ListItemComposedItem = {
 
 type PanelType = 'info' | 'note' | 'warning' | 'success' | 'error';
 
-type PanelComposedItem = {
+type PanelBlock = {
     type: '_panel';
     id: string;
     value?: InlineChildren;
@@ -237,7 +255,7 @@ type PanelComposedItem = {
 
 type ParagraphType = 'lead';
 
-type ParagraphComposedItem = {
+type ParagraphBlock = {
     type: '_paragraph';
     id: string;
     value?: InlineChildren;
@@ -247,7 +265,7 @@ type ParagraphComposedItem = {
     };
 };
 
-type QuoteComposedItem = {
+type QuoteBlock = {
     type: '_quote';
     id: string;
     value?: InlineChildren;
@@ -259,103 +277,103 @@ type QuoteComposedItem = {
     };
 };
 
-type TableComposedItem = {
+type TableBlock = {
     type: '_table';
     id: string;
-    value?: (TableCaptionComposedItem | TableHeaderComposedItem | TableBodyComposedItem | TableFooterComposedItem)[];
+    value?: (TableCaptionBlock | TableHeaderBlock | TableBodyBlock | TableFooterBlock)[];
     properties?: {
         id?: string;
     };
 };
 
-type TableBodyComposedItem = {
+type TableBodyBlock = {
     type: '_tableBody';
     id: string;
-    value?: TableRowComposedItem[];
+    value?: TableRowBlock[];
     properties?: {
         id?: string;
     };
 };
 
-type TableCaptionComposedItem = {
+type TableCaptionBlock = {
     type: '_tableCaption';
     id: string;
-    value?: string | ComposedItem[];
+    value?: string | Block[];
     properties?: {
         id?: string;
     };
 };
 
-type TableCellComposedItem = {
+type TableCellBlock = {
     type: '_tableCell';
     id: string;
-    value?: string | ComposedItem[];
+    value?: string | Block[];
     properties?: {
         id?: string;
     };
 };
 
-type TableFooterComposedItem = {
+type TableFooterBlock = {
     type: '_tableFooter';
     id: string;
-    value?: TableRowComposedItem[];
+    value?: TableRowBlock[];
     properties?: {
         id?: string;
     };
 };
 
-type TableHeaderComposedItem = {
+type TableHeaderBlock = {
     type: '_tableHeader';
     id: string;
-    value?: TableRowComposedItem[];
+    value?: TableRowBlock[];
     properties?: {
         id?: string;
     };
 };
 
-type TableHeaderCellComposedItem = {
+type TableHeaderCellBlock = {
     type: '_tableHeaderCell';
     id: string;
-    value?: string | ComposedItem[];
+    value?: string | Block[];
     properties?: {
         id?: string;
     };
 };
 
-type TableRowComposedItem = {
+type TableRowBlock = {
     type: '_tableRow';
     id: string;
-    value?: (TableCellComposedItem | TableHeaderCellComposedItem)[];
+    value?: (TableCellBlock | TableHeaderCellBlock)[];
     properties?: {
         id?: string;
     };
 };
 
 export type {
-    ComposedItem,
+    Block,
 
-    AnchorComposedItem,
-    CodeComposedItem,
-    ComponentComposedItem,
-    DividerComposedItem,
-    FragmentComposedItem,
-    HeadingComposedItem,
-    ImageComposedItem,
-    InlineEntryComposedItem,
-    LinkComposedItem,
-    ListComposedItem,
-    ListItemComposedItem,
-    PanelComposedItem,
-    ParagraphComposedItem,
-    QuoteComposedItem,
-    TableComposedItem,
-    TableBodyComposedItem,
-    TableCaptionComposedItem,
-    TableCellComposedItem,
-    TableHeaderComposedItem,
-    TableHeaderCellComposedItem,
-    TableFooterComposedItem,
-    TableRowComposedItem,
+    AnchorBlock,
+    CodeBlock,
+    ComponentBlock,
+    DividerBlock,
+    FragmentBlock,
+    HeadingBlock,
+    ImageBlock,
+    InlineEntryBlock,
+    LinkBlock,
+    ListBlock,
+    ListItemBlock,
+    PanelBlock,
+    ParagraphBlock,
+    QuoteBlock,
+    TableBlock,
+    TableBodyBlock,
+    TableCaptionBlock,
+    TableCellBlock,
+    TableHeaderBlock,
+    TableHeaderCellBlock,
+    TableFooterBlock,
+    TableRowBlock,
 
     DecoratorType
 };

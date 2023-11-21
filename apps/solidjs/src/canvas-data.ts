@@ -1,6 +1,6 @@
-import { ComposedItem } from '@contensis/canvas-types';
+import { Block } from '@contensis/canvas-types';
 
-export const data: ComposedItem[] = [
+export const data: Block[] = [
     {
         "id": "c891f455",
         "type": "_heading",
@@ -206,8 +206,13 @@ export const data: ComposedItem[] = [
                 "id": "b7c3afe",
                 "type": "_link",
                 "properties": {
-                    "sys": {
-                        "uri": "https://www.bbc.co.uk"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "uri"
+                            },
+                            "uri": "https://www.bbc.co.uk"
+                        }
                     }
                 },
                 "value": "link to the BBC"
@@ -424,8 +429,13 @@ export const data: ComposedItem[] = [
                 "id": "c32e16aa",
                 "type": "_link",
                 "properties": {
-                    "sys": {
-                        "uri": "https://www.bbc.co.uk"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "uri"
+                            },
+                            "uri": "https://www.bbc.co.uk"
+                        }
                     }
                 },
                 "value": "A link to the BBC"
@@ -445,12 +455,16 @@ export const data: ComposedItem[] = [
                 "id": "687ec378",
                 "type": "_link",
                 "properties": {
-                    "entryTitle": "Roald Dahl",
-                    "entryDescription": null,
-                    "sys": {
-                        "id": "de28a378-c4b8-493e-a407-cfb56a15c5ca",
-                        "language": "en-GB",
-                        "uri": "/path/to/an/entry"
+                    "link": {
+                        "entryTitle": "Roald Dahl",
+                        "sys": {
+                            "linkProperties": {
+                                "type": "entry"
+                            },
+                            "id": "de28a378-c4b8-493e-a407-cfb56a15c5ca",
+                            "language": "en-GB",
+                            "uri": "/path/to/an/entry"
+                        }
                     }
                 },
                 "value": "Roald Dahl"
@@ -470,11 +484,16 @@ export const data: ComposedItem[] = [
                 "id": "8e0842f9",
                 "type": "_link",
                 "properties": {
-                    "node": {
-                        "id": "b20ab3ef-ab3e-425d-b3e0-71de6280e248"
-                    },
-                    "sys": {
-                        "uri": "/path/to/a/node"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "node"
+                            },
+                            "node": {
+                                "id": "b20ab3ef-ab3e-425d-b3e0-71de6280e248"
+                            },
+                            "uri": "/path/to/a/node"
+                        }
                     }
                 },
                 "value": "Roald Dahl"
@@ -494,8 +513,14 @@ export const data: ComposedItem[] = [
                 "id": "bedac78b",
                 "type": "_link",
                 "properties": {
-                    "anchor": "my-anchor",
-                    "sys": null
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "uri"
+                            },
+                            "uri": "#my-anchor"
+                        }
+                    }
                 },
                 "value": "my anchor"
             }
@@ -538,8 +563,13 @@ export const data: ComposedItem[] = [
                 "id": "e5d173aa",
                 "type": "_link",
                 "properties": {
-                    "sys": {
-                        "uri": "http://localhost:4200/projects/website/entries/85af1a11-f418-49e8-bbf1-85697e90949f/en-GB"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "uri"
+                            },
+                            "uri": "http://localhost:4200/projects/website/entries/85af1a11-f418-49e8-bbf1-85697e90949f/en-GB"
+                        }
                     }
                 },
                 "value": "ENTRY"
@@ -554,12 +584,16 @@ export const data: ComposedItem[] = [
                 "id": "4a853901",
                 "type": "_link",
                 "properties": {
-                    "entryTitle": "This is in en-GB when there was just en-GB and de-DE",
-                    "entryDescription": null,
-                    "sys": {
-                        "id": "85af1a11-f418-49e8-bbf1-85697e90949f",
-                        "language": "en-GB",
-                        "uri": "/path/to/an/entry"
+                    "link": {
+                        "entryTitle": "This is in en-GB when there was just en-GB and de-DE",
+                        "sys": {
+                            "linkProperties": {
+                                "type": "entry"
+                            },
+                            "id": "85af1a11-f418-49e8-bbf1-85697e90949f",
+                            "language": "en-GB",
+                            "uri": "/path/to/an/entry"
+                        }
                     }
                 },
                 "value": "ENTRY"
@@ -574,11 +608,16 @@ export const data: ComposedItem[] = [
                 "id": "8611c47e",
                 "type": "_link",
                 "properties": {
-                    "node": {
-                        "id": "f2c9dc39-efd4-4e7d-af82-86041f83eab6"
-                    },
-                    "sys": {
-                        "uri": "/path/to/a/node"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "node"
+                            },
+                            "node": {
+                                "id": "f2c9dc39-efd4-4e7d-af82-86041f83eab6"
+                            },
+                            "uri": "/path/to/a/node"
+                        }
                     }
                 },
                 "value": "NODE"
@@ -593,8 +632,13 @@ export const data: ComposedItem[] = [
                 "id": "48c2850f",
                 "type": "_link",
                 "properties": {
-                    "sys": {
-                        "uri": "http://localhost:4200/projects/website/siteview/2ef30aba-021f-4834-bb63-ecc08a4ae031?treeOrdering=folders"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "uri"
+                            },
+                            "uri": "http://localhost:4200/projects/website/siteview/2ef30aba-021f-4834-bb63-ecc08a4ae031?treeOrdering=folders"
+                        }
                     }
                 },
                 "value": "NODE"
@@ -609,11 +653,16 @@ export const data: ComposedItem[] = [
                 "id": "31517a6e",
                 "type": "_link",
                 "properties": {
-                    "node": {
-                        "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
-                    },
-                    "sys": {
-                        "uri": "/path/to/a/node"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "node"
+                            },
+                            "node": {
+                                "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
+                            },
+                            "uri": "/path/to/a/node"
+                        }
                     }
                 },
                 "value": "NODE"
@@ -628,11 +677,16 @@ export const data: ComposedItem[] = [
                 "id": "53fce3c0",
                 "type": "_link",
                 "properties": {
-                    "node": {
-                        "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
-                    },
-                    "sys": {
-                        "uri": "/path/to/a/node"
+                    "link": {
+                        "sys": {
+                            "linkProperties": {
+                                "type": "node"
+                            },
+                            "node": {
+                                "id": "2ef30aba-021f-4834-bb63-ecc08a4ae031"
+                            },
+                            "uri": "/path/to/a/node"
+                        }
                     }
                 },
                 "value": "NODE"

@@ -1,27 +1,27 @@
 import type {
-    ComponentItemWriter,
-    ComponentItemWriters,
-    ComposedItemWriter,
-    ComposedItemWriterWithChildren,
-    ComposedItemWriters,
-    DecoratorWriter,
-    DecoratorWriterWithChildren,
-    DecoratorWriters,
-    WriteComposedItemProps,
-    WriteDecoratorProps
-} from './writer';
+    ComponentRenderer,
+    ComponentRenderers,
+    BlockRenderer,
+    BlockRendererWithChildren,
+    BlockRenderers,
+    DecoratorRenderer,
+    DecoratorRendererWithChildren,
+    DecoratorRenderers,
+    RenderBlockProps,
+    RenderDecoratorProps
+} from './renderer';
 
-export { createElements, createWriterFactory } from './writer';
+export { createElements, createRendererFactory } from './renderer';
 
 export type {
-    ComponentItemWriter,
-    ComponentItemWriters,
-    ComposedItemWriter,
-    ComposedItemWriterWithChildren,
-    ComposedItemWriters,
-    DecoratorWriter,
-    DecoratorWriterWithChildren,
-    DecoratorWriters,
-    WriteComposedItemProps,
-    WriteDecoratorProps
+    ComponentRenderer,
+    ComponentRenderers,
+    BlockRenderer,
+    BlockRendererWithChildren,
+    BlockRenderers,
+    DecoratorRenderer,
+    DecoratorRendererWithChildren,
+    DecoratorRenderers,
+    RenderBlockProps,
+    RenderDecoratorProps
 };

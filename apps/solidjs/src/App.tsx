@@ -1,21 +1,21 @@
 import './App.scss';
 import { createSignal, createContext, useContext, Show, createEffect } from 'solid-js';
 import * as CanvasData from './canvas-data';
-import { Writer, WriteContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem } from '@contensis/canvas-solid-js';
+import { Renderer, RenderContextProvider, Heading, Paragraph, Fragment, Table, Panel, Code, Image, List, ListItem } from '@contensis/canvas-solid-js';
 
 declare var Prism: any;
 
 const ParagraphContext = createContext<null | { inLead: boolean }>(null);
 
 function MyHeading(props: any) {
-    const cssClass = () => `display-${props.item?.properties?.level || '1'}`;
+    const cssClass = () => `display-${props.block?.properties?.level || '1'}`;
     return <Heading {...props} class={cssClass()} />;
 }
 
 function MyParagraph(props: any) {
-    const cssClass = () => props.item?.properties?.paragraphType ? 'lead' : null;
+    const cssClass = () => props.block?.properties?.paragraphType ? 'lead' : null;
     return (
-        <ParagraphContext.Provider value={{ inLead: (props.item?.properties?.paragraphType === 'lead') }}>
+        <ParagraphContext.Provider value={{ inLead: (props.block?.properties?.paragraphType === 'lead') }}>
             <Paragraph {...props} class={cssClass()} />
         </ParagraphContext.Provider>
     );
@@ -41,13 +41,13 @@ const PanelCss: Record<string, string> = {
 };
 
 function MyPanel(props: any) {
-    const panelType = () => props.item?.properties?.panelType || 'info';
+    const panelType = () => props.block?.properties?.panelType || 'info';
     const cssClass = () => PanelCss[panelType()]
     return <Panel {...props} class={cssClass()} />;
 }
 
 function MyImage(props: any) {
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     return (
         <Show when={!!caption} fallback={<Image {...props} class={'img-fluid'} />}>
             <figure class={'figure'} style="display: block">
@@ -62,10 +62,10 @@ function MyCode(props: any) {
     const [isCollapsed, setIsCollapsed] = createSignal(false);
     const [isCopying, setIsCopying] = createSignal(false);
 
-    const caption = props.item?.value?.caption;
+    const caption = props.block?.value?.caption;
     const copy = () => {
         setIsCopying(true);
-        navigator.clipboard.writeText(props?.item?.value?.code || '');
+        navigator.clipboard.writeText(props?.block?.value?.code || '');
 
         setTimeout(() => {
             setIsCopying(false)
@@ -110,12 +110,12 @@ export function MyBookComponent(props: any) {
             <div class="row g-0">
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">{props.item?.value?.name}</h5>
-                        <p class="card-text">{props.item?.value?.name}</p>                        
+                        <h5 class="card-title">{props.block?.value?.name}</h5>
+                        <p class="card-text">{props.block?.value?.name}</p>                        
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <img src={props.item?.value?.cover} class="img-fluid rounded-start" />
+                    <img src={props.block?.value?.cover} class="img-fluid rounded-start" />
                 </div>
             </div>
         </div>
@@ -127,12 +127,12 @@ export function MyAuthorComponent(props: any) {
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src={props.item?.value?.cover} class="img-fluid rounded-start" />
+                    <img src={props.block?.value?.cover} class="img-fluid rounded-start" />
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">{props.item?.value?.name}</h5>
-                        <p class="card-text">{props.item?.value?.name}</p>                        
+                        <h5 class="card-title">{props.block?.value?.name}</h5>
+                        <p class="card-text">{props.block?.value?.name}</p>                        
                     </div>
                 </div>
             </div>
@@ -141,7 +141,7 @@ export function MyAuthorComponent(props: any) {
 }
 
 function MyList(props: any) {
-    const cssClass = () => (props?.item?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
+    const cssClass = () => (props?.block?.properties?.listType === 'ordered') ? 'list-group list-group-flush list-group-numbered' : 'list-group list-group-flush';
     return <List {...props} class={cssClass()} />
 }
 
@@ -155,7 +155,7 @@ const App = () => {
 
     return (
         <div class="content">
-            <WriteContextProvider items={{
+            <RenderContextProvider blocks={{
                 _code: MyCode,           
                 _fragment: MyFragment,
                 _heading: MyHeading,
@@ -170,8 +170,8 @@ const App = () => {
                 'author': MyAuthorComponent,
                 'book': MyBookComponent
             }}>
-                <Writer data={data()} />
-            </WriteContextProvider>
+                <Renderer data={data()} />
+            </RenderContextProvider>
         </div>
     );
 };
