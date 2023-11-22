@@ -18,5 +18,8 @@
 		"apps\\node",
 		"apps\\e2e",
 		"packages\\markdown"
-	]
+	],
+	"devDependencies": {
+		"typescript": "^5.3.2"
+	}
 }

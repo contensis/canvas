@@ -7,7 +7,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^4.9.5",
+    "@contensis/canvas-types": "^0.0.1",
     "vite": "^4.1.4"
   },
   "dependencies": {
@@ -15,7 +15,6 @@
     "@contensis/canvas-html": "^0.0.1",
     "@contensis/canvas-html-dom": "^0.0.1",
     "@contensis/canvas-markdown": "^0.0.1",
-    "@contensis/canvas-text": "^0.0.1",
-    "@contensis/canvas-types": "^0.0.1"
+    "@contensis/canvas-text": "^0.0.1"
   }
 }

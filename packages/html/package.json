@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {
-    "@contensis/canvas-dom": "^0.0.1",
+    "@contensis/canvas-dom": "^0.0.1"
+  },
+  "devDependencies": {
     "@contensis/canvas-types": "^0.0.1"
   }
 }
