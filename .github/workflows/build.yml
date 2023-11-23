@@ -32,11 +32,11 @@ jobs:
           name: contensis-canvas-packages
           path: ./packages/*.tgz
 
-  publish-changes:
+  publish:
     runs-on: ubuntu-latest
     outputs:
-      canvas-html: ${{ steps.publish-package.outputs.html }}
-      canvas-react: ${{ steps.publish-package.outputs.react }}
+      html: ${{ steps.changed-packages.outputs.html }}
+      react: ${{ steps.changed-packages.outputs.react }}
 
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
           fetch-depth: 0 # OR "2" -> To retrieve the preceding commit.
 
       - name: Find changes in packages
-        id: changed-packages
+        id: changes
         uses: tj-actions/changed-files@v40
         with:
           files: '**'
@@ -58,20 +58,26 @@ jobs:
               - packages/types/**
 
       - name: Check if any file(s) in the packages have changed
-        id: publish-package
+        id: changed-packages
         run: |
-          for file in ${{ steps.changed-packages.outputs.all_changed_files }}; do
+          for file in ${{ steps.changes.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
-          echo "html=${{ steps.changed-packages.outputs.canvas-html_any_changed }}" > $GITHUB_OUTPUT
-          echo "react=${{ steps.changed-packages.outputs.canvas-react_any_changed }}" > $GITHUB_OUTPUT
+          echo "html=${{ steps.changes.outputs.canvas-html_any_changed }}" > $GITHUB_OUTPUT
+          echo "react=${{ steps.changes.outputs.canvas-react_any_changed }}" > $GITHUB_OUTPUT
 
-      - uses: ./.github/workflows/publish.yml
-        with:
-          package: html
-          publish: false # ${{ steps.publish-package.outputs.html }}
+  canvas-html:
+    needs: publish
+    uses: ./.github/workflows/publish.yml
+    with:
+      package: html
+      publish: ${{ needs.publish.outputs.html }}
+    secrets: inherit
 
-      - uses: ./.github/workflows/publish.yml
-        with:
-          package: react
-          publish: false # ${{ steps.publish-package.outputs.react }}
+  canvas-react:
+    needs: publish
+    uses: ./.github/workflows/publish.yml
+    with:
+      package: react
+      publish: false # ${{ needs.publish.outputs.react }}
+    secrets: inherit
