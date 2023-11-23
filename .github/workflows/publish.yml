@@ -45,7 +45,6 @@ jobs:
         run: |
           cd packages/${{ inputs.package }}
           npm version prerelease --preid=beta --no-git-tag-version
-          npm run build
           package_name=$(node --eval="process.stdout.write(require('./package.json').name)")
           package_version=$(node --eval="process.stdout.write(require('./package.json').version)")
           echo "name=$package_name" > $GITHUB_OUTPUT
