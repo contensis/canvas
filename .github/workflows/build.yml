@@ -1,0 +1,26 @@
+name: Node.js build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - run: npm install
+      - run: npm run build --if-present --workspaces
+      - run: npm pack --if-present --workspace packages/**
+
+      - name: Upload packaged artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: contensis-canvas
+          path: ./*.tgz
