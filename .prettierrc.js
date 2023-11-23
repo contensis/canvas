@@ -1,12 +1,15 @@
 module.exports = {
-  printWidth: 160,
-  trailingComma: 'none',
-  singleQuote: true,
-  proseWrap: 'always',
-  tabWidth: 4,
-  overrides: [
-    {
-      files: ['*.ts', '*.html', '*.json', '*.js', '*.scss']
-    }
-  ]
+    printWidth: 160,
+    trailingComma: 'none',
+    singleQuote: true,
+    proseWrap: 'always',
+    tabWidth: 2,
+    overrides: [
+        {
+            files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.html', '*.json', '*.scss'],
+            options: {
+                tabWidth: 4
+            }
+        }
+    ]
 };
