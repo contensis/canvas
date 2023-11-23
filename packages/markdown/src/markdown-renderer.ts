@@ -33,7 +33,7 @@ const code = createBlockRenderer<CodeBlock>(
 const component = createBlockRenderer<ComponentBlock>(
     ({ block, contents, renderers, context, encode }) => {
         const component = block.properties?.component;
-        const renderer = renderers?.components?.[component];
+        const renderer = !!component ? renderers?.components?.[component] : undefined;
         if (renderer) {
             return renderer({ block, renderers, context, encode });
         } else {
@@ -45,7 +45,7 @@ const component = createBlockRenderer<ComponentBlock>(
 
 const divider = createBlockRenderer<DividerBlock>(
     () => `---\n\n`,
-    () => null
+    () => ''
 );
 
 const heading = createBlockRenderer<HeadingBlock>(({ block, contents }) => {
@@ -70,7 +70,7 @@ const image = createBlockRenderer<ImageBlock>(
         const url = caption ? `${src} "${caption}"` : src;
         return `![${altText}](${url})\n\n`;
     },
-    () => null
+    () => ''
 );
 
 const inlineEntry = createBlockRenderer<InlineEntryBlock>(

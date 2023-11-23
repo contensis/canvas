@@ -1,12 +1,12 @@
-import { h, Heading, Table, Panel, Image, Code } from '@contensis/canvas-html';
+import { h, heading, table, panel, image, code } from '@contensis/canvas-html';
 
 export function MyHeading(props: any) {
     const cssClass = `display-${props.block?.properties?.level || '1'}`;
-    return Heading({ ...props, className: cssClass });
+    return heading({ ...props, className: cssClass });
 }
 
 export function MyTable(props: any) {
-    return Table({ ...props, className: 'table table-striped' });
+    return table({ ...props, className: 'table table-striped' });
 }
 
 const PanelCss: Record<string, string> = {
@@ -19,7 +19,7 @@ const PanelCss: Record<string, string> = {
 
 export function MyPanel(props: any) {
     const panelType = props.block?.properties?.panelType || 'info';
-    return Panel({ ...props, className: PanelCss[panelType] });
+    return panel({ ...props, className: PanelCss[panelType] });
 }
 
 export function MyImage(props: any) {
@@ -31,7 +31,7 @@ export function MyImage(props: any) {
                 className: 'figure',
                 style: { display: 'block' }
             },
-            Image({ ...props, style: 'max-width: 700px;' }),
+            image({ ...props, style: 'max-width: 700px;' }),
             h(
                 'figcaption',
                 {
@@ -41,7 +41,7 @@ export function MyImage(props: any) {
                 caption
             )
         )
-        : Image({ ...props, style: 'max-width: 700px;' });
+        : image({ ...props, style: 'max-width: 700px;' });
 }
 
 export function MyCode(props: any) {
@@ -53,7 +53,7 @@ export function MyCode(props: any) {
                 className: 'figure',
                 style: { display: 'block' }
             },
-            Code(props),
+            code(props),
             h(
                 'figcaption',
                 {
@@ -63,5 +63,5 @@ export function MyCode(props: any) {
                 caption
             )
         )
-        : Code(props);
+        : code(props);
 }

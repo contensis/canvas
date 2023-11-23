@@ -2,6 +2,9 @@
   "name": "@contensis/canvas-markdown",
   "version": "0.0.1",
   "main": "src/index.ts",
+  "scripts": {
+		"tsc": "npx tsc"
+	},
   "dependencies": {
     "@contensis/canvas-text": "^0.0.1"
   },

@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"serve": "vite preview"
+		"serve": "vite preview",
+		"tsc": "npx tsc"
 	},
 	"devDependencies": {
 		"@contensis/canvas-types": "^0.0.1",

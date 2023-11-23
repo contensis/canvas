@@ -1,7 +1,7 @@
 
 type Child = string | number | boolean | Node;
 
-const VOID_TAGS = {
+const VOID_TAGS: Record<string, boolean> = {
     'area': true,
     'base': true,
     'br': true,
@@ -20,7 +20,7 @@ const VOID_TAGS = {
     'wbr': true
 };
 
-function append(parent: Node, child: Child | Child[]) {
+function append(parent: Node, child: undefined | Child | Child[]) {
     if (Array.isArray(child)) {
         child.forEach(nestedChild => append(parent, nestedChild));
     } else if (typeof child === 'string') {
@@ -58,7 +58,7 @@ export function h(type: Type, props?: Record<string, any>, ...children: Child[])
     return el;
 }
 
-h.fragment = function (props?: Record<string, any> & { children: Child[] }) {
+h.fragment = function (props?: Record<string, any> & { children?: Child[] }) {
     const fragment = document.createDocumentFragment();
     append(fragment, props?.children);
     fragment.normalize();
@@ -73,7 +73,7 @@ h.text = function (text: any) {
     }
 }
 
-function setProperties(el: Node, properties: Record<string, any>) {
+function setProperties(el: Node, properties: undefined | Record<string, any>) {
     if (!properties) {
         return;
     }
@@ -88,12 +88,12 @@ function setProperties(el: Node, properties: Record<string, any>) {
             if (key === 'style') {
                 const styleKeys = Object.keys(value);
                 styleKeys.forEach(styleKey => {
-                    (el as HTMLElement).style[styleKey] = value[styleKey];
+                    (el as any).style[styleKey] = value[styleKey];
                 });
             } else if (key.includes('-')) {
                 (el as HTMLElement).setAttribute(key, value);
             } else {
-                el[key] = value;
+                (el as any)[key] = value;
             }
         }
     });

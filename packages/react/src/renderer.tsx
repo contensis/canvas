@@ -16,15 +16,20 @@ type RenderBlockProps<T extends Block> = { block: T };
 type RenderBlockPropsWithChildren<T extends Block>
     = RenderBlockProps<T> & WithChildren & Attributes;
 
-type RenderContentsProps = { contents: JSX.Element, fallback: JSX.Element };
+type RenderContentsProps = { contents: undefined | JSX.Element, fallback: JSX.Element };
 type RenderTextProps = { text: string };
 
-type DecoratorProps = { block: FragmentBlock, decorators: DecoratorType[] };
+type DecoratorProps = { block: FragmentBlock, decorators: undefined | DecoratorType[] };
+
+type TypedBlock<TType extends Block['type']> = Extract<Block, { type: TType }>;
 
 type BlockRenderer<T extends Block> = (props: RenderBlockPropsWithChildren<T>) => JSX.Element;
-type BlockRenderers = Record<Block['type'], BlockRenderer<Block>>;
+type BlockRenderers = {
+    [TType in Block['type']]: BlockRenderer<TypedBlock<TType>>
+};
 
-type RenderDecoratorProps = { block: FragmentBlock, decorator: DecoratorType, otherDecorators: DecoratorType[] };
+
+type RenderDecoratorProps = { block: FragmentBlock, decorator: undefined | DecoratorType, otherDecorators: undefined | DecoratorType[] };
 type RenderDecoratorPropsWithChildren = RenderDecoratorProps & WithChildren & Attributes;
 
 type DecoratorRenderer = (props: RenderDecoratorPropsWithChildren) => JSX.Element;
@@ -36,13 +41,13 @@ type ComponentRenderers = Record<string, ComponentRenderer>;
 type RendererContextValue = {
     blocks?: BlockRenderers,
     decorators?: DecoratorRenderers,
-    components?: Partial<ComponentRenderers>
+    components?: ComponentRenderers
 };
 
 type RendererOverridesContextValue = {
     blocks?: Partial<BlockRenderers>,
     decorators?: Partial<DecoratorRenderers>,
-    components?: Partial<ComponentRenderers>
+    components?: ComponentRenderers
 };
 
 type RendererContextProviderProps = { children: JSX.Element } & RendererOverridesContextValue;
@@ -54,7 +59,7 @@ export function RenderContextProvider(props: RendererContextProviderProps) {
     const blocks = Object.keys(BLOCK_RENDERERS)
         .reduce((prev, type) => {
             const blockType = type as Block['type'];
-            prev[blockType] = overrideBlocks?.[blockType] || BLOCK_RENDERERS[blockType];
+            prev[blockType] = (overrideBlocks?.[blockType] || BLOCK_RENDERERS[blockType]) as BlockRenderer<TypedBlock<typeof blockType>>;
             return prev;
         }, {} as BlockRenderers);
 
@@ -90,9 +95,9 @@ function useComponents() {
     return value.components || {};
 }
 
-function RenderBlock(props: RenderBlockProps<Block>) {
+function RenderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
     const blocks = useBlocks();
-    const Component = blocks[props.block.type];
+    const Component = blocks[props.block.type] as BlockRenderer<TBlock>;
     return (<Component block={props.block} />);
 }
 
@@ -145,7 +150,7 @@ function getAttributes(props: AttributeProps, extra: Record<string, any> = {}) {
     return attributes;
 }
 
-function WithCaption(props: { caption: string, children: JSX.Element }) {
+function WithCaption(props: { caption: undefined | string, children: JSX.Element }) {
     return (
         !!props.caption
             ? (
@@ -212,7 +217,7 @@ function CodeWithCaption(props: RenderBlockPropsWithChildren<CodeBlock>) {
 export function Component(props: RenderBlockPropsWithChildren<ComponentBlock>) {
     const component = props?.block.properties?.component;
     const components = useComponents();
-    const ComponentElement = components?.[component];
+    const ComponentElement = !!component ? components?.[component] : undefined;
 
     const value = props.block.value ? JSON.stringify(props.block.value) : '';
     const attributes = getAttributes(props, {
@@ -347,11 +352,11 @@ InlineEntry.Children = function (props: RenderBlockProps<InlineEntryBlock>) {
 };
 
 export function Link(props: RenderBlockPropsWithChildren<LinkBlock>) {
-    const linkValue = props?.block?.properties?.link;    
+    const linkValue = props?.block?.properties?.link;
     const attributes = getAttributes(props, {
         href: linkValue?.sys?.uri,
         target: props?.block?.properties?.newTab ? '_blank' : null,
-        rel: props?.block?.properties?.newTab ? 'noopener noreferrer': null
+        rel: props?.block?.properties?.newTab ? 'noopener noreferrer' : null
     });
     return (!!attributes.href
         ? (
@@ -556,9 +561,9 @@ TableRow.Children = RenderBlockChildrenFactory<TableRowBlock>();
 
 function Decorators(props: DecoratorProps) {
     const decorators = useDecorators();
-    const remainingDecorators = !!props.decorators ? [...props.decorators] : null;
-    const firstDecorator = !!remainingDecorators ? remainingDecorators.shift() : null;
-    const DecoratorComponent = !!firstDecorator ? decorators[firstDecorator] : null;
+    const remainingDecorators = !!props.decorators ? [...props.decorators] : undefined;
+    const firstDecorator = !!remainingDecorators ? remainingDecorators.shift() : undefined;
+    const DecoratorComponent = !!firstDecorator ? decorators[firstDecorator] : undefined;
 
     const render = () => {
         if (!!DecoratorComponent) {

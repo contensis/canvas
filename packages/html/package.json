@@ -2,6 +2,9 @@
   "name": "@contensis/canvas-html",
   "version": "0.0.1",
   "main": "src/index.ts",
+  "scripts": {
+		"tsc": "npx tsc"
+	},
   "dependencies": {
     "@contensis/canvas-dom": "^0.0.1"
   },

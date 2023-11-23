@@ -20,12 +20,16 @@ type RenderBlockPropsWithChildren<T extends Block>
 type RenderContentsProps = { contents: JSX.Element, fallback: JSX.Element };
 type RenderTextProps = { text: string };
 
-type DecoratorProps = { block: FragmentBlock, decorators: DecoratorType[] };
+type DecoratorProps = { block: FragmentBlock, decorators: undefined | DecoratorType[] };
+
+type TypedBlock<TType extends Block['type']> = Extract<Block, { type: TType }>;
 
 type BlockRenderer<T extends Block> = (props: RenderBlockPropsWithChildren<T>) => JSX.Element;
-type BlockRenderers = Record<Block['type'], BlockRenderer<Block>>;
+type BlockRenderers = {
+    [TType in Block['type']]: BlockRenderer<TypedBlock<TType>>
+};
 
-type RenderDecoratorProps = { block: FragmentBlock, decorator: DecoratorType, otherDecorators: DecoratorType[] };
+type RenderDecoratorProps = { block: FragmentBlock, decorator: undefined | DecoratorType, otherDecorators: undefined | DecoratorType[] };
 type RenderDecoratorPropsWithChildren = RenderDecoratorProps & WithChildren & Attributes;
 
 type DecoratorRenderer = (props: RenderDecoratorPropsWithChildren) => JSX.Element;
@@ -37,13 +41,13 @@ type ComponentRenderers = Record<string, ComponentRenderer>;
 type RendererContextValue = {
     blocks?: BlockRenderers,
     decorators?: DecoratorRenderers,
-    components?: Partial<ComponentRenderers>
+    components?: ComponentRenderers
 };
 
 type RendererOverridesContextValue = {
     blocks?: Partial<BlockRenderers>,
     decorators?: Partial<DecoratorRenderers>,
-    components?: Partial<ComponentRenderers>
+    components?: ComponentRenderers
 };
 
 type RendererContextProviderProps = { children: JSX.Element } & RendererOverridesContextValue;
@@ -56,7 +60,7 @@ export function RenderContextProvider(props: RendererContextProviderProps) {
         const blocks = Object.keys(BLOCK_RENDERERS)
             .reduce((prev, type) => {
                 const blockType = type as Block['type'];
-                prev[blockType] = overrideBlocks?.[blockType] || BLOCK_RENDERERS[blockType];
+                prev[blockType] = (overrideBlocks?.[blockType] || BLOCK_RENDERERS[blockType]) as BlockRenderer<TypedBlock<typeof blockType>>;
                 return prev;
             }, {} as BlockRenderers);
 
@@ -92,9 +96,9 @@ function useComponents() {
     return value.components || {};
 }
 
-function RenderBlock(props: RenderBlockProps<Block>) {
+function RenderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
     const blocks = useBlocks();
-    const component = () => blocks[props.block.type];
+    const component = () => blocks[props.block.type] as BlockRenderer<TBlock>;
     return (<Dynamic component={component()} block={props.block} />);
 }
 
@@ -150,7 +154,7 @@ function getAttributes(props: AttributeProps, extraFn?: () => Record<string, any
     };
 }
 
-function WithCaption(props: { caption: string, children: JSX.Element }) {
+function WithCaption(props: { caption: undefined | string, children: JSX.Element }) {
     return (
         <Show when={!!props.caption} fallback={props.children}>
             <figure>
@@ -213,7 +217,10 @@ function CodeWithCaption(props: RenderBlockPropsWithChildren<CodeBlock>) {
 export function Component(props: RenderBlockPropsWithChildren<ComponentBlock>) {
     const component = () => props?.block.properties?.component;
     const components = useComponents();
-    const ComponentElement = () => components?.[component()];
+    const ComponentElement = () => {
+        const c = component();
+        return !!c ? components?.[c] : undefined;
+    };
 
     const value = () => props.block.value ? JSON.stringify(props.block.value) : '';
     const attributes = getAttributes(props, () => ({
@@ -535,7 +542,7 @@ TableRow.Children = RenderBlockChildrenFactory<TableRowBlock>();
 function Decorators(props: DecoratorProps) {
     const decorators = useDecorators();
     const firstDecorator = () => {
-        return !!props.decorators ? ([...props.decorators]).shift() : null;
+        return !!props.decorators ? ([...props.decorators]).shift() : undefined;
     };
     const remainingDecorators = () => {
         let decorators = props?.decorators;
@@ -543,11 +550,11 @@ function Decorators(props: DecoratorProps) {
             decorators = [...decorators];
             decorators.shift();
         }
-        return !!decorators ? decorators : null;
+        return !!decorators ? decorators : undefined;
     };
     const decoratorComponent = () => {
         const decorator = firstDecorator();
-        return !!decorator ? decorators[decorator] : null;
+        return !!decorator ? decorators[decorator] : undefined;
     };
     return (
         <Switch fallback={<Fragment.Children block={props.block} />}>

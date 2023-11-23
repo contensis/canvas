@@ -21,8 +21,13 @@ type RenderBlockProps<T extends Block> = { block: T } & WithContext & WithEncode
 type RenderDecoratorProps = { block: FragmentBlock; decorator: DecoratorType; otherDecorators: DecoratorType[] } & WithContext & WithEncode & WithRenderers;
 type RenderTextProps = { text: string } & WithContext & WithEncode;
 
+type TypedBlock<TType extends Block['type']> = Extract<Block, { type: TType }>;
+
 type BlockRenderer<T extends Block> = (props: RenderBlockProps<T>, ...children: string[]) => string;
-type BlockRenderers = Record<Block['type'], BlockRenderer<Block>>;
+type BlockRenderers = {
+    [TType in Block['type']]: BlockRenderer<TypedBlock<TType>>
+};
+
 type DecoratorRenderer = (props: RenderDecoratorProps, ...children: string[]) => string;
 type DecoratorRenderers = Record<DecoratorType, DecoratorRenderer>;
 type DecoratorProps = { block: FragmentBlock; decorators: DecoratorType[] } & WithContext & WithEncode & WithRenderers;
@@ -32,12 +37,12 @@ type ComponentRenderers = Record<string, ComponentRenderer>;
 type RendererOverrides = {
     blocks?: Partial<BlockRenderers>;
     decorators?: Partial<DecoratorRenderers>;
-    components?: Partial<ComponentRenderers>;
+    components?: ComponentRenderers;
 };
 type RenderFunction = (props: RendererProps) => string;
 
-function newContext(parent: RenderContext, isRoot?: boolean) {
-    const context: RenderContext = Object.create(parent);
+function newContext(parent: undefined | RenderContext, isRoot?: boolean) {
+    const context: RenderContext = Object.create(parent || null);
     if (isRoot) {
         context.$root = context;
     } else {
@@ -67,9 +72,9 @@ function renderBlocks(props: RenderBlocksProps) {
     return blocks.map((block) => renderBlock({ block, context, renderers, encode }));
 }
 
-function renderBlock(props: RenderBlockProps<Block>) {
+function renderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
     let { block, context, renderers, encode } = props;
-    const renderer = renderers.blocks[block.type];
+    const renderer = renderers.blocks[block.type] as BlockRenderer<TBlock>;
     context = newContext(context);
     return renderer({ block, context, renderers, encode });
 }
@@ -179,7 +184,8 @@ function createRendererFactory(defaultBlockRenderers: BlockRenderers, defaultDec
         };
 
         return function (props: RendererProps) {
-            const { data, context } = props;
+            const { data } = props;
+            const context = newContext(props.context);
             return render({
                 blocks: data,
                 context,
@@ -196,6 +202,11 @@ export {
     createDecoratorRenderer,
     renderBlocks,
     fragment,
+    getContents,
+    childRenderer
+};
+
+export type {
     ComponentRenderer,
     ComponentRenderers,
     BlockRenderer,
@@ -203,7 +214,5 @@ export {
     DecoratorRenderer,
     DecoratorRenderers,
     RenderBlockProps,
-    RenderDecoratorProps,
-    getContents,
-    childRenderer
+    RenderDecoratorProps    
 };

@@ -1,4 +1,4 @@
-const DOM_PROPERTIES = {
+const DOM_PROPERTIES: Record<string, string> = {
     acceptCharset: 'accept-charset',
     accessKey: 'accesskey',
     autoComplete: 'autocomplete',
@@ -25,7 +25,7 @@ const DOM_PROPERTIES = {
     useMap: 'usemap'
 };
 
-const BOOLEAN_ATTRIBUTES = {
+const BOOLEAN_ATTRIBUTES: Record<string, boolean> = {
     autofocus: true,
     checked: true,
     disabled: true,
@@ -36,7 +36,7 @@ const BOOLEAN_ATTRIBUTES = {
     selected: true
 };
 
-const VOID_TAGS = {
+const VOID_TAGS: Record<string, boolean> = {
     area: true,
     base: true,
     br: true,
@@ -91,7 +91,7 @@ export function h(type: Type, props?: Record<string, any>, ...children: string[]
     return `<${type}${attributeString}>${contents}</${type}>`;
 }
 
-h.fragment = function (props?: Record<string, any> & { children: string[] }) {
+h.fragment = function (props?: undefined | (Record<string, any> & { children?: string[] })) {
     return props?.children ? join(props.children) : '';
 };
 
@@ -103,7 +103,7 @@ h.text = function (text: any) {
     }
 };
 
-function toHtmlAttributes(properties: Record<string, any>) {
+function toHtmlAttributes(properties: undefined | Record<string, any>) {
     if (!properties) {
         return undefined;
     }
@@ -143,7 +143,7 @@ function toSnakeCase(value: any) {
     return `${String(value)}`.replace(/[A-Z]/g, (s) => `-${s.toLowerCase()}`);
 }
 
-function toAttributesString(attributes: Record<string, any>) {
+function toAttributesString(attributes: undefined | Record<string, any>) {
     if (!attributes) {
         return '';
     }
@@ -162,7 +162,7 @@ function isVoid(tagName: string) {
     return !!VOID_TAGS[tagName];
 }
 
-const encodeMap = {
+const encodeMap: Record<number, string> = {
     161: '&iexcl;',
     162: '&cent;',
     163: '&pound;',

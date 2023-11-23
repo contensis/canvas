@@ -13,7 +13,8 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "strict": true
   },
   "references": [
     {

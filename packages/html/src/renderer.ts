@@ -69,7 +69,7 @@ const {
 
 const text = h.text;
 
-export {
+export type {
     BlockRenderer,
     BlockRendererWithChildren,
     BlockRenderers, 
@@ -79,7 +79,10 @@ export {
     DecoratorRendererWithChildren,
     DecoratorRenderers,
     RenderBlockProps,
-    RenderDecoratorProps,
+    RenderDecoratorProps
+};
+
+export {
     anchor,
     attr,
     code,

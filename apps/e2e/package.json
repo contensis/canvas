@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "tsc": "npx tsc --noEmit"
   },
   "dependencies": {
     "@contensis/canvas-dom": "^0.0.1",

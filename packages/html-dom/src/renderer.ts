@@ -34,10 +34,13 @@ const {
 
 const text = h.text;
 
-export {
+export type {
     ComponentRenderer, ComponentRenderers, BlockRenderer, BlockRenderers, DecoratorRenderer, DecoratorRenderers,
     RenderBlockProps,
-    RenderDecoratorProps,
+    RenderDecoratorProps
+};
+
+export {
     anchor, code, component, createRenderer, divider, emphasis, fragment, h, heading, image, inlineCode, inlineDelete,
     inlineEntry, insert, keyboard, lineBreak, link, list, listItem, mark, panel, paragraph, quote, strikethrough, strong,
     subscript, superscript, table, tableBody, tableCaption, tableCell, tableFooter, tableHeader, tableHeaderCell,

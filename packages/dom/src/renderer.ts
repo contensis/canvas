@@ -27,11 +27,11 @@ import {
 
 type Props = Record<string, any>;
 type H<T, TFragment> = (type: string | TFragment, props: Props, ...children: T[]) => T;
-type HText<T> = (text: string | number | boolean) => T;
+type HText<T> = (text: string | number | boolean | null | undefined) => T;
 
 type Attributes = Record<string, any>;
 type RenderContext = Record<string, any>;
-type WithContext = { context: RenderContext };
+type WithContext = { context?: RenderContext };
 type WithH<TNode, TFragment> = {
     h: H<TNode, TFragment>;
     hFragment: TFragment;
@@ -63,8 +63,13 @@ type RenderTextProps<TNode, TFragment> = { text: string } & WithContext & WithH<
 
 type AttributeProps<TNode, TFragment> = RenderBlockProps<Block, TNode, TFragment> | RenderDecoratorProps<TNode, TFragment>;
 
+type TypedBlock<TType extends Block['type']> = Extract<Block, { type: TType }>;
+
 type BlockRenderer<T extends Block, TNode, TFragment> = (props: RenderBlockProps<T, TNode, TFragment>, ...children: TNode[]) => TNode;
-type BlockRenderers<TNode, TFragment> = Record<Block['type'], BlockRenderer<Block, TNode, TFragment>>;
+type BlockRenderers<TNode, TFragment> = {
+    [TType in Block['type']]: BlockRenderer<TypedBlock<TType>, TNode, TFragment>
+};
+
 type DecoratorRenderer<TNode, TFragment> = (props: RenderDecoratorProps<TNode, TFragment>, ...children: TNode[]) => TNode;
 type DecoratorRenderers<TNode, TFragment> = Record<DecoratorType, DecoratorRenderer<TNode, TFragment>>;
 type DecoratorProps<TNode, TFragment> = { block: FragmentBlock; decorators: DecoratorType[] } & WithContext &
@@ -77,7 +82,7 @@ type ComponentRenderers<TNode, TFragment> = Record<string, ComponentRenderer<TNo
 type RendererOverrides<TNode, TFragment> = {
     blocks?: Partial<BlockRenderers<TNode, TFragment>>;
     decorators?: Partial<DecoratorRenderers<TNode, TFragment>>;
-    components?: Partial<ComponentRenderers<TNode, TFragment>>;
+    components?: ComponentRenderers<TNode, TFragment>;
 };
 type RenderFunction<TNode> = (props: RendererProps) => TNode;
 
@@ -137,9 +142,9 @@ function renderBlocks<TNode, TFragment>(props: RenderBlocksProps<TNode, TFragmen
     return blocks.map((block) => renderBlock({ block, context, renderers, h, hFragment, hText }));
 }
 
-function renderBlock<TNode, TFragment>(props: RenderBlockProps<Block, TNode, TFragment>) {
-    let { block, context, renderers, h, hFragment, hText } = props;
-    const renderer = renderers.blocks[block.type];
+function renderBlock<TBlock extends Block, TNode, TFragment>(props: RenderBlockProps<TBlock, TNode, TFragment>) {
+    let { block, context, renderers, h, hFragment, hText } = props;    
+    const renderer = renderers.blocks[block.type] as BlockRenderer<TBlock, TNode, TFragment>;
     context = newContext(context);
     return renderer({ block, context, renderers, h, hFragment, hText });
 }
@@ -154,8 +159,8 @@ function toFragment<TNode, TFragment>(props: WithH<TNode, TFragment>, children: 
     return h(hFragment, {}, ...children);
 }
 
-function newContext(parent: RenderContext, isRoot?: boolean) {
-    const context: RenderContext = Object.create(parent);
+function newContext(parent: undefined | RenderContext, isRoot?: boolean) {
+    const context: RenderContext = Object.create(parent || null);
     if (isRoot) {
         context.$root = context;
     } else {
@@ -261,7 +266,7 @@ code.children = function <TNode, TFragment>(props: RenderBlockProps<CodeBlock, T
 
 function component<TNode, TFragment>(props: RenderBlockProps<ComponentBlock, TNode, TFragment>, ...children: TNode[]) {
     const { block, context, renderers, h, hFragment, hText } = props;
-    const renderer = renderers?.components?.[block.properties?.component];
+    const renderer = !!block.properties?.component ? renderers?.components?.[block.properties.component] : undefined;
     if (renderer) {
         return renderer(props);
     } else {
@@ -399,7 +404,7 @@ quote.children = function <TNode, TFragment>(props: RenderBlockProps<QuoteBlock,
         const quote = h('p', {}, children);
         const footerChildren: TNode[] = [];
         if (block.properties.source) {
-            footerChildren.push(renderText({ text: props.block.properties.source, context, h, hFragment, hText }));
+            footerChildren.push(renderText({ text: block.properties.source, context, h, hFragment, hText }));
         }
         if (block.properties.source && block.properties.citation) {
             footerChildren.push(renderText({ text: ' ', context, h, hFragment, hText }));
@@ -564,7 +569,7 @@ function createElements<TNode, TFragment>() {
     };
 }
 
-export {
+export type {
     BlockRenderer,
     BlockRendererWithChildren,
     BlockRenderers, 
@@ -574,7 +579,10 @@ export {
     DecoratorRendererWithChildren,
     DecoratorRenderers,
     RenderBlockProps,
-    RenderDecoratorProps,
+    RenderDecoratorProps    
+};
+
+export {
     createElements,
     createRendererFactory
 };

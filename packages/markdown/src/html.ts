@@ -1,4 +1,4 @@
-const encodeMap = {
+const encodeMap: Record<number, string> = {
     161: '&iexcl;',
     162: '&cent;',
     163: '&pound;',

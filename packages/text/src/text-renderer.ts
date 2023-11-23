@@ -32,7 +32,7 @@ const code = createBlockRenderer<CodeBlock>(
 const component = createBlockRenderer<ComponentBlock>(
     ({ block, contents, renderers, context, encode }) => {
         const component = block.properties?.component;
-        const renderer = renderers?.components?.[component];
+        const renderer = !!component ? renderers?.components?.[component] : undefined;
         if (renderer) {
             return renderer({ block, renderers, context, encode });
         } else {
@@ -44,14 +44,14 @@ const component = createBlockRenderer<ComponentBlock>(
 
 const divider = createBlockRenderer<DividerBlock>(
     () => `\n`,
-    () => null
+    () => ''
 );
 
 const heading = createBlockRenderer<HeadingBlock>(({ contents }) => `${contents}\n`);
 
 const image = createBlockRenderer<ImageBlock>(
     () => '',
-    () => null
+    () => ''
 );
 
 const inlineEntry = createBlockRenderer<InlineEntryBlock>(

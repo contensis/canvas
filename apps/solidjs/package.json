@@ -4,7 +4,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"serve": "vite preview"
+		"serve": "vite preview",
+		"tsc": "npx tsc"
 	},
 	"dependencies": {
 		"@contensis/canvas-solid-js": "^0.0.1",
