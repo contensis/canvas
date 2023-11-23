@@ -47,14 +47,15 @@ jobs:
         id: changed-packages
         uses: tj-actions/changed-files@v40
         with:
+          files: '**'
           files_yaml: |
             canvas-html: 
-              - packages/canvas-html/**
-              - packages/canvas-dom/**
-              - packages/canvas-types/**
+              - packages/html/**
+              - packages/dom/**
+              - packages/types/**
             canvas-react: 
-              - packages/canvas-react/**
-              - packages/canvas-types/**
+              - packages/react/**
+              - packages/types/**
 
       - name: Check if any file(s) in the packages have changed
         id: publish-package
@@ -65,14 +66,12 @@ jobs:
           echo "html=${{ steps.changed-packages.outputs.canvas-html_any_changed }}" > $GITHUB_OUTPUT
           echo "react=${{ steps.changed-packages.outputs.canvas-react_any_changed }}" > $GITHUB_OUTPUT
 
-      - id: canvas-html
-        uses: ./.github/workflows/publish.yml
+      - uses: ./.github/workflows/publish.yml
         with:
-          package: canvas-react
+          package: html
           publish: false # ${{ steps.publish-package.outputs.html }}
 
-      - id: canvas-react
-        uses: ./.github/workflows/publish.yml
+      - uses: ./.github/workflows/publish.yml
         with:
-          package: canvas-react
+          package: react
           publish: false # ${{ steps.publish-package.outputs.react }}

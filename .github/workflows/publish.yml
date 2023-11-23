@@ -17,8 +17,8 @@ on:
         required: true
         type: choice
         options:
-          - canvas-html
-          - canvas-react
+          - html
+          - react
       publish:
         description: 'Publish and commit the package changes'
         required: true
@@ -27,7 +27,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    name: Will ${{inputs.publish != true && 'not '}}publish ${{ inputs.package }}
+    name: Will ${{inputs.publish != true && 'not '}}publish @contensis/canvas-${{ inputs.package }}
 
     steps:
       - uses: actions/checkout@v4
@@ -41,12 +41,14 @@ jobs:
         run: npm install
 
       - name: Increment package version and build
-        id: version
+        id: build
         run: |
           cd packages/${{ inputs.package }}
           npm version prerelease --preid=beta --no-git-tag-version
           npm run build
+          package_name=$(node --eval="process.stdout.write(require('./package.json').name)")
           package_version=$(node --eval="process.stdout.write(require('./package.json').version)")
+          echo "name=$package_name" > $GITHUB_OUTPUT
           echo "version=$package_version" > $GITHUB_OUTPUT
 
       - name: Publish prerelease package
@@ -64,7 +66,7 @@ jobs:
           git config user.email "github@zengenti.com"
           git config user.name "$GITHUB_ACTOR"
           git add packages/${{ inputs.package }}/.
-          git commit -m "ci: published version ${{ steps.version.outputs.version }} [skip ci]"
+          git commit -m "ci: published ${{steps.build.outputs.name}} version ${{ steps.build.outputs.version }} [skip ci]"
           git push
         env:
           github-token: ${{ secrets.GITHUB_TOKEN }}
