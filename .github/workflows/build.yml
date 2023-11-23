@@ -11,16 +11,64 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-      - run: npm install
-      - run: npm run build --if-present --workspaces
-      - run: cd packages && npm pack --workspace ./**
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build all workspace packages
+        run: npm run build --if-present --workspaces
+
+      - name: Make local packages
+        run: cd packages && npm pack --workspace ./**
 
       - name: Upload packaged artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: contensis-canvas
+          name: contensis-canvas-packages
           path: ./packages/*.tgz
+
+  publish-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      canvas-html: ${{ steps.publish-package.outputs.html }}
+      canvas-react: ${{ steps.publish-package.outputs.react }}
+
+    steps:
+      - name: Find changes in packages
+        id: changed-packages
+        uses: tj-actions/changed-files@v40
+        with:
+          files_yaml: |
+            canvas-html: 
+              - packages/canvas-html/**
+              - packages/canvas-dom/**
+              - packages/canvas-types/**
+            canvas-react: 
+              - packages/canvas-react/**
+              - packages/canvas-types/**
+
+      - name: Check if any file(s) in the packages have changed
+        id: publish-package
+        run: |
+          for file in ${{ steps.changed-packages.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+          echo "html=${{ steps.changed-packages.outputs.canvas-html_any_changed }}" > $GITHUB_OUTPUT
+          echo "react=${{ steps.changed-packages.outputs.canvas-react_any_changed }}" > $GITHUB_OUTPUT
+
+      - id: canvas-html
+        uses: ./.github/workflows/publish.yml
+        with:
+          package: canvas-react
+          publish: false # ${{ steps.publish-package.outputs.html }}
+
+      - id: canvas-react
+        uses: ./.github/workflows/publish.yml
+        with:
+          package: canvas-react
+          publish: false # ${{ steps.publish-package.outputs.react }}
