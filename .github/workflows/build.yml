@@ -39,6 +39,10 @@ jobs:
       canvas-react: ${{ steps.publish-package.outputs.react }}
 
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # OR "2" -> To retrieve the preceding commit.
+
       - name: Find changes in packages
         id: changed-packages
         uses: tj-actions/changed-files@v40
