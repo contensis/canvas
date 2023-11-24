@@ -79,5 +79,5 @@ jobs:
     uses: ./.github/workflows/publish.yml
     with:
       package: react
-      publish: false # ${{ needs.publish.outputs.react == 'true' && true || false }}
+      publish: ${{ needs.publish.outputs.react == 'true' && true || false }}
     secrets: inherit

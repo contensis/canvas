@@ -27,7 +27,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    name: Will ${{inputs.publish != true && 'not '}}publish @contensis/canvas-${{ inputs.package }}
+    name: Will ${{inputs.publish != true && 'not ' || ''}}publish @contensis/canvas-${{ inputs.package }}
 
     steps:
       - uses: actions/checkout@v4
@@ -54,9 +54,8 @@ jobs:
       - name: Publish prerelease package
         if: ${{ inputs.publish == true }}
         run: |
-          cd packages/${{ inputs.package }}
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish --tag prerelease --ignore-scripts
+          npm publish --tag prerelease --ignore-scripts --workspace packages/${{ inputs.package }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
