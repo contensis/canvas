@@ -63,8 +63,8 @@ jobs:
           for file in ${{ steps.changes.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
-          echo "html=${{ steps.changes.outputs.canvas-html_any_changed || false }}" > $GITHUB_OUTPUT
-          echo "react=${{ steps.changes.outputs.canvas-react_any_changed || false }}" > $GITHUB_OUTPUT
+          echo "html=${{ steps.changes.outputs.canvas-html_any_changed == 'true' && true || false }}" >> $GITHUB_OUTPUT
+          echo "react=${{ steps.changes.outputs.canvas-react_any_changed == 'true' && true  || false }}" >> $GITHUB_OUTPUT
 
   canvas-html:
     needs: publish
