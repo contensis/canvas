@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@contensis/canvas-dom": "^0.0.1",
-    "@contensis/canvas-html": "^0.0.1",
+    "@contensis/canvas-html": "*",
     "contensis-delivery-api": "^1.3.0",
     "contensis-management-api": "^2.1.1",
     "express": "^4.18.2",
