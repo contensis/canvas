@@ -63,15 +63,15 @@ jobs:
           for file in ${{ steps.changes.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
-          echo "html=${{ steps.changes.outputs.canvas-html_any_changed == 'true' && true || false }}" >> $GITHUB_OUTPUT
-          echo "react=${{ steps.changes.outputs.canvas-react_any_changed == 'true' && true  || false }}" >> $GITHUB_OUTPUT
+          echo "html=${{ steps.changes.outputs.canvas-html_any_changed }}" >> $GITHUB_OUTPUT
+          echo "react=${{ steps.changes.outputs.canvas-react_any_changed }}" >> $GITHUB_OUTPUT
 
   canvas-html:
     needs: publish
     uses: ./.github/workflows/publish.yml
     with:
       package: html
-      publish: ${{ needs.publish.outputs.html }}
+      publish: ${{ needs.publish.outputs.html == 'true' && true || false }}
     secrets: inherit
 
   canvas-react:
@@ -79,5 +79,5 @@ jobs:
     uses: ./.github/workflows/publish.yml
     with:
       package: react
-      publish: false # ${{ needs.publish.outputs.react }}
+      publish: false # ${{ needs.publish.outputs.react == 'true' && true || false }}
     secrets: inherit
