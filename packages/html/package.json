@@ -1,14 +1,26 @@
 {
   "name": "@contensis/canvas-html",
   "version": "0.0.1",
-  "main": "src/index.ts",
+  "main": "dist/canvas-html.js",
+  "module": "dist/canvas-html.mjs",
+  "types": "dist/canvas-html.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-		"tsc": "npx tsc"
-	},
-  "dependencies": {
-    "@contensis/canvas-dom": "^0.0.1"
+    "prebuild": "npm run tsc",
+    "build": "tsup --dts-resolve",
+    "tsc": "tsc --noEmit"
   },
   "devDependencies": {
+    "@contensis/canvas-dom": "^0.0.1",
     "@contensis/canvas-types": "^0.0.1"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/canvas-html.js",
+      "import": "./dist/canvas-html.mjs",
+      "types": "./dist/canvas-html.d.ts"
+    }
   }
 }

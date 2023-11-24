@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
+    "strict": true,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "noEmit": true,
-    "strict": true
+    "paths": {
+      "@contensis/canvas-types": ["../types"],
+      "@contensis/canvas-dom": ["../dom"]
+    }
   }
 }

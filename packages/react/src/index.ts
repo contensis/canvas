@@ -1,4 +1,4 @@
-export * from "@contensis/canvas-types";
+export * from '@contensis/canvas-types';
 export {
     Renderer,
     RendererContext,
