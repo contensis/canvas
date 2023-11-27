@@ -1,6 +1,13 @@
 {
   "name": "@contensis/canvas-react",
   "version": "0.0.1",
+  "description": "Render canvas content with React",
+  "homepage": "https://github.com/contensis/canvas/tree/main/packages/react",
+  "author": {
+    "name": "Zengenti",
+    "url": "https://www.contensis.com/"
+  },
+  "license": "ISC",
   "main": "dist/canvas-react.js",
   "module": "dist/canvas-react.mjs",
   "types": "dist/canvas-react.d.ts",

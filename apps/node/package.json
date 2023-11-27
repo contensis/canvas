@@ -5,7 +5,7 @@
 		"dev": "vite",
 		"build": "vite build",
 		"serve": "vite preview",
-		"tsc": "npx tsc --noEmit"
+		"tsc": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@contensis/canvas-dom": "^0.0.1",
