@@ -1,4 +1,4 @@
-# @contensis/canvas-hml
+# @contensis/canvas-html
 
 Render content curated in a Contensis canvas field to HTML in your JavaScript projects.
 
@@ -7,11 +7,11 @@ Render content curated in a Contensis canvas field to HTML in your JavaScript pr
 Install with your project's preferred package manager
 
 ```sh
-npm install --save @contensis/canvas-hml
+npm install --save @contensis/canvas-html
 ```
 
 ```sh
-yarn add --save @contensis/canvas-hml
+yarn add --save @contensis/canvas-html
 ```
 
 ## Usage
