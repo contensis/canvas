@@ -2,10 +2,15 @@
   "name": "@contensis/canvas-react",
   "version": "0.0.1",
   "description": "Render canvas content with React",
+  "keywords": ["contensis", "canvas", "react", "render", "jsx"],
   "homepage": "https://github.com/contensis/canvas/tree/main/packages/react",
   "author": {
     "name": "Zengenti",
     "url": "https://www.contensis.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contensis/canvas.git"
   },
   "license": "ISC",
   "main": "dist/canvas-react.js",

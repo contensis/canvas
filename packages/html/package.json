@@ -2,10 +2,15 @@
   "name": "@contensis/canvas-html",
   "version": "0.0.1",
   "description": "Render canvas content to HTML",
+  "keywords": ["contensis", "canvas", "html", "render"],
   "homepage": "https://github.com/contensis/canvas/tree/main/packages/html",
   "author": {
     "name": "Zengenti",
     "url": "https://www.contensis.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contensis/canvas.git"
   },
   "license": "ISC",
   "main": "dist/canvas-html.js",
