@@ -1,6 +1,7 @@
 {
 	"name": "contensis-canvas",
 	"version": "0.0.1",
+	"description": "Package workspace for rendering Canvas content in various ways",
 	"author": "",
 	"scripts": {
 		"tsc": "npm run tsc --workspaces --if-present"

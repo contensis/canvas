@@ -21,27 +21,20 @@ Render canvas content with React
 ```jsx
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Block, RenderContextProvider, Renderer } from '@contensis/canvas-react';
+import { RenderContextProvider, Renderer } from '@contensis/canvas-react';
 import * as CanvasData from './canvas-data';
-
-// Component wrapping a Renderer for simple usage
-const SimpleRenderer = ({ data }: { data: Block[] }) => {
-    return (
-        <RenderContextProvider>
-            <Renderer data={data} />
-        </RenderContextProvider>
-    );
-};
 
 // Our React App
 const App = () => {
-    const [data] = useState(CanvasData.data); // Demo data
+  const [data] = useState(CanvasData.data); // Demo data
 
-    return (
-        <div className="content">
-            <SimpleRenderer data={data} />
-        </div>
-    );
+  return (
+    <div className="content">
+      <RenderContextProvider>
+        <Renderer data={data} />
+      </RenderContextProvider>
+    </div>
+  );
 };
 
 const element = document.getElementById('root') as HTMLElement;
