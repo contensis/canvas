@@ -1,8 +1,13 @@
 {
   "name": "@contensis/canvas-html",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Render canvas content to HTML",
-  "keywords": ["contensis", "canvas", "html", "render"],
+  "keywords": [
+    "contensis",
+    "canvas",
+    "html",
+    "render"
+  ],
   "homepage": "https://github.com/contensis/canvas/tree/main/packages/html",
   "author": {
     "name": "Zengenti",
