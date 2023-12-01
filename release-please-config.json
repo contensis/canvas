@@ -1,7 +1,15 @@
 {
+  "bootstrap-sha": "6fc119838885b0cb831e78ddd23ac01cb819e585",
   "draft": false,
   "include-v-in-tag": true,
   "separate-pull-requests": true,
+  "changelog-sections": [
+    { "type": "feat", "section": "Features", "hidden": false },
+    { "type": "fix", "section": "Bug Fixes", "hidden": false },
+    { "type": "build", "section": "Build", "hidden": false },
+    { "type": "chore", "section": "Chores", "hidden": false },
+    { "type": "revert", "section": "Reverts", "hidden": false }
+  ],
   "packages": {
     "packages/html": {
       "component": "@contensis/canvas-html"
@@ -11,5 +19,6 @@
     }
   },
   "plugins": ["node-workspace"],
+  "pull-request-header": ":robot: Merge this PR to release a new version",
   "pull-request-title-pattern": "chore: ${scope} release ${component} v${version}"
 }
