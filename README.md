@@ -6,7 +6,7 @@ This repository is a monorepo / workspace and contains the following packages
 
 ## Public packages
 
-- [**@contensis/canvas-html**]((https://github.com/contensis/canvas/tree/main/packages/html)) - [npm.js](https://www.npmjs.com/package/@contensis/canvas-html)  
+- [**@contensis/canvas-html**](https://github.com/contensis/canvas/tree/main/packages/html) - [npm.js](https://www.npmjs.com/package/@contensis/canvas-html)  
   _Render canvas content to HTML_
 - [**@contensis/canvas-react**](https://github.com/contensis/canvas/tree/main/packages/react) - [npm.js](https://www.npmjs.com/package/@contensis/canvas-react)  
   _Render canvas content with React_
