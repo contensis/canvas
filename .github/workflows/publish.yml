@@ -20,8 +20,9 @@ on:
         required: true
         type: choice
         options:
-          - '["packages/canvas-html"]'
-          - '["packages/canvas-react"]'
+          - '["packages/html"]'
+          - '["packages/react"]'
+          - '["packages/html","packages/react"]'
       npm_tag:
         description: Publish the package with npm tag
         required: true
