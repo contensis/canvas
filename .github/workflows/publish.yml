@@ -3,31 +3,39 @@ name: Publish npm package
 on:
   workflow_call:
     inputs:
-      package:
+      package_paths:
         required: true
         type: string
-      publish:
+      release:
         required: true
         type: boolean
 
   workflow_dispatch:
     inputs:
-      package:
+      package_paths:
         description: 'Publish the package in this folder'
         required: true
         type: choice
         options:
-          - html
-          - react
-      publish:
-        description: 'Publish and commit the package changes'
+          - '["packages/canvas-html"]'
+          - '["packages/canvas-react"]'
+      release:
+        description: 'Publish the package as a release version'
         required: true
         type: boolean
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    name: Will ${{inputs.publish != true && 'not ' || ''}}publish @contensis/canvas-${{ inputs.package }}
+    if: ${{ inputs.package_paths != '[]' }}
+    name: Will ${{ inputs.package_paths == '[]' && 'not ' || ' '}}publish ${{ inputs.package_paths }}
+    env:
+      NPM_TAG: ${{ inputs.release && 'latest' || 'prerelease' }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        path: ${{ fromJson(inputs.package_paths) }}
 
     steps:
       - uses: actions/checkout@v4
@@ -40,32 +48,30 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Increment package version and build
+      - name: Build package in ${{ matrix.path }}
         id: build
         run: |
-          cd packages/${{ inputs.package }}
-          npm version prerelease --preid=beta --no-git-tag-version
+          cd ${{ matrix.path }}
           npm run build
           package_name=$(node --eval="process.stdout.write(require('./package.json').name)")
           package_version=$(node --eval="process.stdout.write(require('./package.json').version)")
           echo "name=$package_name" > $GITHUB_OUTPUT
           echo "version=$package_version" > $GITHUB_OUTPUT
 
-      - name: Publish prerelease package
-        if: ${{ inputs.publish == true }}
+      - name: Publish ${{ env.NPM_TAG }} package
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish --tag prerelease --ignore-scripts --workspace packages/${{ inputs.package }}
+          npm publish --tag ${{ env.NPM_TAG }} --ignore-scripts --workspace ${{ matrix.path }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Push version increment to GIT
-        if: ${{ inputs.publish == true }}
-        run: |
-          git config user.email "github@zengenti.com"
-          git config user.name "$GITHUB_ACTOR"
-          git add packages/${{ inputs.package }}/.
-          git commit -m "ci: published ${{steps.build.outputs.name}} version ${{ steps.build.outputs.version }} [skip ci]"
-          git push
-        env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Push version increment to GIT
+      #   if: ${{ inputs.publish == true }}
+      #   run: |
+      #     git config user.email "github@zengenti.com"
+      #     git config user.name "$GITHUB_ACTOR"
+      #     git add packages/${{ inputs.package }}/.
+      #     git commit -m "ci: published ${{steps.build.outputs.name}} version ${{ steps.build.outputs.version }} [skip ci]"
+      #     git push
+      #   env:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
