@@ -55,8 +55,8 @@ jobs:
     uses: ./.github/workflows/publish.yml
     with:
       package_paths: ${{ needs.build.outputs.paths_released }}
-      npm_tag: ${{ needs.build.outputs.releases_created && 'latest' || 'prerelease' }}
-      release: ${{ needs.build.outputs.releases_created }}
+      npm_tag: ${{ needs.build.outputs.releases_created != 'true' && 'prerelease' || 'latest' }}
+      release: ${{ needs.build.outputs.releases_created == 'true' }}
     secrets: inherit
 
   # affected:
