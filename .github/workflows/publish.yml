@@ -6,6 +6,9 @@ on:
       package_paths:
         required: true
         type: string
+      npm_tag:
+        required: true
+        type: string
       release:
         required: true
         type: boolean
@@ -19,8 +22,16 @@ on:
         options:
           - '["packages/canvas-html"]'
           - '["packages/canvas-react"]'
+      npm_tag:
+        description: Publish the package with npm tag
+        required: true
+        type: choice
+        default: latest
+        options:
+          - latest
+          - prerelease
       release:
-        description: 'Publish the package as a release version'
+        description: 'Publish the package version'
         required: true
         type: boolean
 
@@ -28,9 +39,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     if: ${{ inputs.package_paths != '[]' }}
-    name: Will ${{ inputs.package_paths == '[]' && 'not ' || ' '}}publish ${{ inputs.package_paths }}
-    env:
-      NPM_TAG: ${{ inputs.release && 'latest' || 'prerelease' }}
+    # name: Will ${{ inputs.package_paths == '[]' && 'not ' || ' '}}publish ${{ inputs.package_paths }}
 
     strategy:
       fail-fast: false
@@ -58,10 +67,11 @@ jobs:
           echo "name=$package_name" > $GITHUB_OUTPUT
           echo "version=$package_version" > $GITHUB_OUTPUT
 
-      - name: Publish ${{ env.NPM_TAG }} package
+      - name: Publish ${{ inputs.npm_tag }} ${{ steps.build.outputs.name }}@${{ steps.build.outputs.version }}
+        if: ${{ inputs.release == true }}
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish --tag ${{ env.NPM_TAG }} --ignore-scripts --workspace ${{ matrix.path }}
+          npm publish --tag ${{ inputs.npm_tag }} --ignore-scripts --workspace ${{ matrix.path }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 

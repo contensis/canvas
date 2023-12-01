@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      releases_created: ${{ steps.release.outputs.releases_created }}
+      releases_created: ${{ steps.release.outputs.releases_created == true }}
       paths_released: ${{ steps.release.outputs.paths_released }}
 
     steps:
@@ -49,13 +49,13 @@ jobs:
         run: |
           echo "releases_created=${{ steps.release.outputs.releases_created }}" >> $GITHUB_OUTPUT
           echo "paths_released=${{ steps.release.outputs.paths_released }}" >> $GITHUB_OUTPUT
-          echo "npm_tag=${{ steps.release.outputs.releases_created != 'true' && 'prerelease' || 'latest' }}" >> $GITHUB_OUTPUT
 
   publish:
     needs: build
     uses: ./.github/workflows/publish.yml
     with:
       package_paths: ${{ needs.build.outputs.paths_released }}
+      npm_tag: ${{ needs.build.outputs.releases_created && 'latest' || 'prerelease' }}
       release: ${{ needs.build.outputs.releases_created }}
     secrets: inherit
 
