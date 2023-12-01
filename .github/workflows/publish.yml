@@ -71,7 +71,7 @@ jobs:
         if: ${{ inputs.release == true }}
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish --tag ${{ inputs.npm_tag }} --ignore-scripts --workspace ${{ matrix.path }}
+          npm publish --tag ${{ inputs.npm_tag }} --ignore-scripts --workspace ${{ matrix.path }} --access=public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
