@@ -4,10 +4,11 @@
   "include-v-in-tag": true,
   "separate-pull-requests": true,
   "changelog-sections": [
+    { "type": "", "section": "Features", "hidden": false },
     { "type": "feat", "section": "Features", "hidden": false },
     { "type": "fix", "section": "Bug Fixes", "hidden": false },
     { "type": "build", "section": "Build", "hidden": false },
-    { "type": "chore", "section": "Chores", "hidden": false },
+    { "type": "chore", "section": "Miscellaneous", "hidden": false },
     { "type": "revert", "section": "Reverts", "hidden": false }
   ],
   "packages": {
