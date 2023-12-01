@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      releases_created: ${{ steps.release.outputs.releases_created == true }}
+      releases_created: ${{ steps.release.outputs.releases_created == 'true' }}
       paths_released: ${{ steps.release.outputs.paths_released }}
 
     steps:
