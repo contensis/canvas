@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/contensis/canvas/compare/@contensis/canvas-html-v1.0.0...@contensis/canvas-html-v1.0.1) (2023-12-01)
+
+
+### Miscellaneous
+
+* release main ([#1](https://github.com/contensis/canvas/issues/1)) ([f3052cc](https://github.com/contensis/canvas/commit/f3052ccb3bb769fe4de50a15e7aeca7bf470856e))
+
 ## 1.0.0 (2023-12-01)
 
 
