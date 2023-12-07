@@ -11,6 +11,7 @@
     "url": "https://github.com/contensis/canvas.git"
   },
   "scripts": {
+    "build": "npm run build --workspaces --if-present",
     "tsc": "npm run tsc --workspaces --if-present"
   },
   "workspaces": [

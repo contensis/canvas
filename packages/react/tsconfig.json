@@ -19,7 +19,5 @@
       "@contensis/canvas-types": ["../types"]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
