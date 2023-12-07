@@ -151,10 +151,10 @@ type CodeBlock = {
     };
 };
 
-type ComponentBlock = {
+type ComponentBlock<T extends Record<string, any> = any> = {
     type: '_component';
     id: string;
-    value?: Record<string, any>;
+    value?: T;
     properties?: {
         id?: string;
         component: string;
