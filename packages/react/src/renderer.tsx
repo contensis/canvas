@@ -52,6 +52,8 @@ type RendererOverridesContextValue = {
 
 type RendererContextProviderProps = { children: JSX.Element } & RendererOverridesContextValue;
 
+export type { BlockRenderer, RenderBlockProps, RenderBlockPropsWithChildren, RenderDecoratorProps, RenderDecoratorPropsWithChildren };
+
 export const RendererContext = createContext<RendererContextValue>({});
 
 export function RenderContextProvider(props: RendererContextProviderProps) {

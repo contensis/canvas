@@ -1,4 +1,5 @@
 export * from '@contensis/canvas-types';
+export type { BlockRenderer, RenderBlockProps, RenderBlockPropsWithChildren, RenderDecoratorProps, RenderDecoratorPropsWithChildren } from './renderer';
 export {
     Renderer,
     RendererContext,
@@ -37,5 +38,5 @@ export {
     Subscript,
     Superscript,
     Underline,
-    Variable
+    Variable    
 } from './renderer';
