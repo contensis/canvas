@@ -18,7 +18,7 @@ yarn add --save @contensis/canvas-react
 
 Render canvas content with React
 
-```jsx
+```tsx
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RenderContextProvider, Renderer } from '@contensis/canvas-react';
@@ -48,29 +48,29 @@ ReactDOM.createRoot(element).render(
 
 You can override the default rendering for content blocks by adding your own render components when creating the canvas renderer
 
-```jsx
+```tsx
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Block, Image, RenderContextProvider, Renderer, Table } from '@contensis/canvas-react';
+import { Block, Image, ImageBlock, RenderBlockProps, RenderContextProvider, Renderer, Table, TableBlock } from '@contensis/canvas-react';
 import * as CanvasData from './canvas-data';
 
-const MyImage = (props: any) => {
+const MyImage = (props: RenderBlockProps<ImageBlock>) => {
     // Embelish the image markup if a caption is included
     const caption = props.block?.value?.caption;
     // Set a className for the image in all cases
     return !!caption ? (
-        <figure className={'figure'} style={{ display: 'block' }}>
-            <Image {...props} className={'figure-img img-fluid'} />
-            <figcaption className={'figure-caption text-end'}>{caption}</figcaption>
+        <figure className="figure" style={{ display: 'block' }}>
+            <Image {...props} className="figure-img img-fluid" />
+            <figcaption className="figure-caption text-end">{caption}</figcaption>
         </figure>
     ) : (
-        <Image {...props} className={'img-fluid'} />
+        <Image {...props} className="img-fluid" />
     );
 };
 
-const MyTable = (props: any) => {
+const MyTable = (props: RenderBlockProps<TableBlock>) => {
     // Set CSS className on tables
-    return <Table {...props} className={'table table-striped'} />;
+    return <Table {...props} className="table table-striped" />;
 };
 
 // Component wrapping a Renderer for simple usage
@@ -109,25 +109,29 @@ ReactDOM.createRoot(element).render(
 
 We can do the same for any Component fields present in the Canvas data
 
-```jsx
+```tsx
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Block, Image, RenderContextProvider, Renderer, Table } from '@contensis/canvas-react';
 import * as CanvasData from './canvas-data';
 
+type Book = { cover: string; name: string };
+
 // Render a "book" component within the canvas data
-const MyBookComponent = (props: any) => {
+const MyBookComponent = (props: RenderBlockProps<ComponentBlock<Book>) => {
+  const book = props.block?.value;
+  if (!book) return <></>;
   return (
     <div className="card mb-3">
       <div className="row g-0">
         <div className="col-md-8">
           <div className="card-body">
-            <h5 className="card-title">{props.block?.value?.name}</h5>
-            <p className="card-text">{props.block?.value?.name}</p>
+            <h5 className="card-title">{book.name}</h5>
+            <p className="card-text">{book.name}</p>
           </div>
         </div>
         <div className="col-md-4">
-          <img src={props.block?.value?.cover} className="img-fluid rounded-start" />
+          <img src={book.cover} className="img-fluid rounded-start" />
         </div>
       </div>
     </div>
