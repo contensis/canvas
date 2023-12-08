@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.1](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.0...@contensis/canvas-react-v1.0.1) (2023-12-08)
+
+
+### Documentation
+
+* update examples in README to include missing typings ([bff2d9e](https://github.com/contensis/canvas/commit/bff2d9ed07e41f9ce038a5724f3d39aa2f9ee618))
+
+
+### Bug Fixes
+
+* export additional typings for use in overrides functions ([d0eb685](https://github.com/contensis/canvas/commit/d0eb6853c4943817a93c3b84ccfaaaed30da5bf3))
+
+
+### Build
+
+* add build script at monorepo root to build all projects ([63db6a3](https://github.com/contensis/canvas/commit/63db6a34bd9333d921aa2f7e2db690492e953d4c))
+
 ## 1.0.0 (2023-12-01)
 
 
