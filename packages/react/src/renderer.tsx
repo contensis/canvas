@@ -56,7 +56,23 @@ export type { BlockRenderer, RenderBlockProps, RenderBlockPropsWithChildren, Ren
 
 export const RendererContext = createContext<RendererContextValue>({});
 
+/** 
+ * Provides context to the <Renderer> component to return Canvas data as React components
+ *
+ *  @link https://www.npmjs.com/package/@contensis/canvas-react#usage
+ *
+ * @param blocks - Override the default rendering of Canvas content blocks
+ * @param components - Render method for Contensis Components within the Canvas field
+ * @param decorators - Override the rendering of HTML elements within a text field
+ * 
+ * @example 
+ * <RenderContextProvider blocks={{ _table: Table }} components={{ banner: Banner }} decorators={{ strong: Strong }}>
+ *      <Renderer data={data} />
+ * </RenderContextProvider>
+ * 
+ */
 export function RenderContextProvider(props: RendererContextProviderProps) {
+
     const overrideBlocks = props.blocks;
     const blocks = Object.keys(BLOCK_RENDERERS)
         .reduce((prev, type) => {
@@ -132,6 +148,14 @@ function RenderText(props: RenderTextProps) {
     return (<>{props.text}</>);
 };
 
+/** 
+ * The default render method for processing Canvas data 
+ * 
+ * @link https://www.npmjs.com/package/@contensis/canvas-react#usage
+ * 
+ * @param data - Accepts Canvas data
+ * 
+ * */
 export function Renderer(props: RendererProps) {
     return (<RenderBlocks blocks={props.data} />);
 }
