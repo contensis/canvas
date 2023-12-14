@@ -120,7 +120,7 @@ type Book = { cover: string; name: string };
 // Render a "book" component within the canvas data
 const MyBookComponent = (props: RenderBlockProps<ComponentBlock<Book>) => {
   const book = props.block?.value;
-  if (!book) return <></>;
+  if (!book) return null;
   return (
     <div className="card mb-3">
       <div className="row g-0">

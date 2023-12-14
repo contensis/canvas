@@ -4,7 +4,7 @@ type BookComponent = { cover: string; name: string };
 
 export function MyBookComponent(props: RenderBlockProps<ComponentBlock<BookComponent>>) {
     const book = props.block?.value;
-    if (!book) return <></>;
+    if (!book) return null;
     return (
         <div className="card mb-3">
             <div className="row g-0">
@@ -26,7 +26,7 @@ type AuthorComponent = { cover: string; name: string };
 
 export function MyAuthorComponent(props: RenderBlockProps<ComponentBlock<AuthorComponent>>) {
     const author = props.block?.value;
-    if (!author) return <></>;
+    if (!author) return null;
     return (
         <div className="card mb-3">
             <div className="row g-0">

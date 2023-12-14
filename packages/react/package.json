@@ -26,6 +26,7 @@
     "dist"
   ],
   "scripts": {
+    "start": "npm run build",
     "prebuild": "npm run tsc",
     "build": "tsup --dts-resolve",
     "tsc": "tsc --noEmit"
