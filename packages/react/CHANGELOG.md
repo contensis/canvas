@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.2](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.1...@contensis/canvas-react-v1.0.2) (2023-12-14)
+
+
+### Documentation
+
+* JSDoc comments for the exported React functions ([#10](https://github.com/contensis/canvas/issues/10)) ([2f053ba](https://github.com/contensis/canvas/commit/2f053ba398603a767deb9c5b1a6c4a07788e3b0b))
+
+
+### Bug Fixes
+
+* missing types in `canvas-react` ([133509b](https://github.com/contensis/canvas/commit/133509b73747416d191903b3400f3848869ccbfc))
+* null is valid JSX return type ([4c9b20b](https://github.com/contensis/canvas/commit/4c9b20b959e3e88eeb373e2242f8db1824085a10))
+
 ## [1.0.1](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.0...@contensis/canvas-react-v1.0.1) (2023-12-08)
 
 
