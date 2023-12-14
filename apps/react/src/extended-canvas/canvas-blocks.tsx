@@ -19,7 +19,7 @@ import {
     Table,
     TableBlock
 } from '@contensis/canvas-react';
-import { useState, createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 declare var Prism: any;
 

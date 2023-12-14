@@ -1,14 +1,32 @@
 import {
-    AnchorBlock, CodeBlock, ComponentBlock, Block, DecoratorType, DividerBlock,
-    FragmentBlock, HeadingBlock, ImageBlock, InlineEntryBlock, LinkBlock,
-    ListBlock, ListItemBlock, PanelBlock, ParagraphBlock, QuoteBlock, TableBodyBlock,
-    TableCaptionBlock, TableCellBlock, TableBlock, TableFooterBlock,
-    TableHeaderCellBlock, TableHeaderBlock, TableRowBlock
+    AnchorBlock,
+    Block,
+    CodeBlock,
+    ComponentBlock,
+    DecoratorType,
+    DividerBlock,
+    FragmentBlock,
+    HeadingBlock,
+    ImageBlock,
+    InlineEntryBlock,
+    LinkBlock,
+    ListBlock,
+    ListItemBlock,
+    PanelBlock,
+    ParagraphBlock,
+    QuoteBlock,
+    TableBlock,
+    TableBodyBlock,
+    TableCaptionBlock, TableCellBlock,
+    TableFooterBlock,
+    TableHeaderBlock,
+    TableHeaderCellBlock,
+    TableRowBlock
 } from '@contensis/canvas-types';
-import { createContext, useContext } from 'react';
+import { ClassType, ComponentClass, FunctionComponent, Component as ReactComponent, createContext, useContext } from 'react';
 
 type Attributes = Record<string, any>;
-type WithChildren = { children?: JSX.Element };
+type WithChildren = { children?: JSX.Element | undefined };
 
 type RendererProps = { data: Block[] };
 type RenderBlocksProps = { blocks: Block[] };
@@ -23,7 +41,9 @@ type DecoratorProps = { block: FragmentBlock, decorators: undefined | DecoratorT
 
 type TypedBlock<TType extends Block['type']> = Extract<Block, { type: TType }>;
 
-type BlockRenderer<T extends Block> = (props: RenderBlockPropsWithChildren<T>) => JSX.Element;
+type Renderer<TProps> = FunctionComponent<TProps> | ClassType<TProps, ReactComponent<TProps>, ComponentClass<TProps>>;
+
+type BlockRenderer<T extends Block> = Renderer<RenderBlockPropsWithChildren<T>>;
 type BlockRenderers = {
     [TType in Block['type']]: BlockRenderer<TypedBlock<TType>>
 };
@@ -32,10 +52,10 @@ type BlockRenderers = {
 type RenderDecoratorProps = { block: FragmentBlock, decorator: undefined | DecoratorType, otherDecorators: undefined | DecoratorType[] };
 type RenderDecoratorPropsWithChildren = RenderDecoratorProps & WithChildren & Attributes;
 
-type DecoratorRenderer = (props: RenderDecoratorPropsWithChildren) => JSX.Element;
+type DecoratorRenderer = Renderer<RenderDecoratorPropsWithChildren>;
 type DecoratorRenderers = Record<DecoratorType, DecoratorRenderer>;
 
-type ComponentRenderer = (props: RenderBlockPropsWithChildren<ComponentBlock>) => JSX.Element;
+type ComponentRenderer = Renderer<RenderBlockPropsWithChildren<ComponentBlock>>;
 type ComponentRenderers = Record<string, ComponentRenderer>;
 
 type RendererContextValue = {
@@ -50,7 +70,7 @@ type RendererOverridesContextValue = {
     components?: ComponentRenderers
 };
 
-type RendererContextProviderProps = { children: JSX.Element } & RendererOverridesContextValue;
+type RendererContextProviderProps = WithChildren & RendererOverridesContextValue;
 
 export type { BlockRenderer, RenderBlockProps, RenderBlockPropsWithChildren, RenderDecoratorProps, RenderDecoratorPropsWithChildren };
 
@@ -61,7 +81,8 @@ export function RenderContextProvider(props: RendererContextProviderProps) {
     const blocks = Object.keys(BLOCK_RENDERERS)
         .reduce((prev, type) => {
             const blockType = type as Block['type'];
-            prev[blockType] = (overrideBlocks?.[blockType] || BLOCK_RENDERERS[blockType]) as BlockRenderer<TypedBlock<typeof blockType>>;
+            const renderer: any = overrideBlocks?.[blockType] || BLOCK_RENDERERS[blockType];
+            (prev as any)[blockType] = renderer;
             return prev;
         }, {} as BlockRenderers);
 
@@ -152,7 +173,7 @@ function getAttributes(props: AttributeProps, extra: Record<string, any> = {}) {
     return attributes;
 }
 
-function WithCaption(props: { caption: undefined | string, children: JSX.Element }) {
+function WithCaption(props: WithChildren & { caption: undefined | string }) {
     return (
         !!props.caption
             ? (
@@ -161,7 +182,7 @@ function WithCaption(props: { caption: undefined | string, children: JSX.Element
                     <figcaption>{props.caption}</figcaption>
                 </figure>
             )
-            : props.children
+            : (props.children || null)
     );
 };
 

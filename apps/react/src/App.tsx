@@ -1,21 +1,37 @@
+import { Block, HeadingBlock, ParagraphBlock, RenderBlockProps, RenderContextProvider, Renderer, Heading } from '@contensis/canvas-react';
+import { Suspense, lazy, useState, Component, ReactNode } from 'react';
 import './App.css';
-import { useState } from 'react';
-import { Renderer, RenderContextProvider, Block } from '@contensis/canvas-react';
-
 import * as CanvasData from './canvas-data';
+import { MyAuthorComponent, MyBookComponent } from './extended-canvas';
 
-import { ExtendedRenderer, MyHeading, MyTable, MyAuthorComponent, MyBookComponent } from './extended-canvas';
+const MyLazyParagraph = lazy(() => (new Promise(resolve => setTimeout(resolve, 10000))).then(() => import('./Paragraph')));
+
+const Loading = function () {
+    return (<div>Loading...</div>)
+}
+
+class MyHeading extends Component<RenderBlockProps<HeadingBlock>> {
+
+    render(): ReactNode {
+        return (<Heading {...this.props} />);
+    }
+
+}
+
+const MyParagraph = function (props: RenderBlockProps<ParagraphBlock>) {
+    return (
+        <Suspense fallback={<Loading />}>
+            <MyLazyParagraph {...props} />
+        </Suspense>
+    );
+}
 
 function SimpleRenderer({ data }: { data: Block[] }) {
     return (
         <RenderContextProvider
             blocks={{
                 _heading: MyHeading,
-                _table: MyTable
-            }}
-            components={{
-                author: MyAuthorComponent,
-                book: MyBookComponent
+                _paragraph: MyParagraph
             }}
         >
             <Renderer data={data} />
