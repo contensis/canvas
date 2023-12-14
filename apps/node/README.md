@@ -6,8 +6,9 @@ An example project to demonstrate usage of the @contensis/canvas-html package wi
 
 - Check out the [contensis/canvas](https://github.com/contensis/canvas) repository
 - Run `npm install` to set up the project environment
+- Run `npm run build` to build the packages in the project
 - `cd` into the `apps/node` directory
-- `npm run dev` and open the link shown in your console
+- Run `npm start` and open the link shown in your console
 
 ## Key examples
 
