@@ -1,3 +1,4 @@
+import React, { ClassType, ComponentClass, FunctionComponent, Component as ReactComponent, createContext, useContext } from 'react';
 import {
     AnchorBlock,
     Block,
@@ -23,7 +24,6 @@ import {
     TableHeaderCellBlock,
     TableRowBlock
 } from '@contensis/canvas-types';
-import { ClassType, ComponentClass, FunctionComponent, Component as ReactComponent, createContext, useContext } from 'react';
 
 type Attributes = Record<string, any>;
 type WithChildren = { children?: JSX.Element | undefined };
