@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.2...@contensis/canvas-react-v1.0.3) (2024-01-16)
+
+
+### Build
+
+* avoid `Can't resolve 'react/jsx-runtime'` error in consumer projects ([aac6cc3](https://github.com/contensis/canvas/commit/aac6cc3b7ada157a6fd9236c44d840f0d8ee71cd))
+
 ## [1.0.2](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.1...@contensis/canvas-react-v1.0.2) (2023-12-14)
 
 
