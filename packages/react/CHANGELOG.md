@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.4](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.3...@contensis/canvas-react-v1.0.4) (2024-01-18)
+
+
+### Bug Fixes
+
+* avoid duplicate versions of react when using yarn package manager ([cff2046](https://github.com/contensis/canvas/commit/cff2046a59d0e6ee35065196396acea167863187))
+
+
+### Build
+
+* update project dev dependencies ([08ff7bd](https://github.com/contensis/canvas/commit/08ff7bd4f3479e61e452c7be587462ae17834bfb))
+
 ## [1.0.3](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.2...@contensis/canvas-react-v1.0.3) (2024-01-16)
 
 
