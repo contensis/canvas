@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "scripts": {
-		"tsc": "npx tsc"
-	},
+    "tsc": "npx tsc"
+  },
   "devDependencies": {
     "@contensis/canvas-types": "^0.0.1",
     "sass": "^1.58.3",
-    "vite": "^4.1.4",
-    "vite-plugin-solid": "^2.6.1"
+    "vite": "^5.0.11",
+    "vite-plugin-solid": "^2.8.1"
   },
   "dependencies": {
     "solid-js": "^1.6.12"
