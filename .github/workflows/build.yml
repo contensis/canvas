@@ -26,6 +26,9 @@ jobs:
       - name: Build all workspace packages
         run: npm run build --if-present --workspaces
 
+      - name: Run tests for all workspace packages
+        run: npm run test:mock --if-present --workspaces
+
       - name: Make local packages
         run: cd packages && npm pack --workspace ./**
 
@@ -58,57 +61,3 @@ jobs:
       npm_tag: ${{ needs.build.outputs.releases_created != 'true' && 'prerelease' || 'latest' }}
       release: ${{ needs.build.outputs.releases_created == 'true' }}
     secrets: inherit
-
-  # affected:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   outputs:
-  #     html: ${{ steps.changed-packages.outputs.html }}
-  #     react: ${{ steps.changed-packages.outputs.react }}
-  #     release: ${{ needs.build.outputs.release_created }}
-
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0 # OR "2" -> To retrieve the preceding commit.
-
-  #     - name: Find changes in packages
-  #       id: changes
-  #       uses: tj-actions/changed-files@v40
-  #       with:
-  #         files: '**'
-  #         files_yaml: |
-  #           canvas-html:
-  #             - packages/html/**
-  #             - packages/dom/**
-  #             - packages/types/**
-  #           canvas-react:
-  #             - packages/react/**
-  #             - packages/types/**
-
-  #     - name: Check if any file(s) in the packages have changed
-  #       id: changed-packages
-  #       run: |
-  #         for file in ${{ steps.changes.outputs.all_changed_files }}; do
-  #           echo "$file was changed"
-  #         done
-  #         echo "html=${{ steps.changes.outputs.canvas-html_any_changed }}" >> $GITHUB_OUTPUT
-  #         echo "react=${{ steps.changes.outputs.canvas-react_any_changed }}" >> $GITHUB_OUTPUT
-
-  # # canvas-html:
-  # #   needs: [build, affected]
-  # #   uses: ./.github/workflows/publish.yml
-  # #   with:
-  # #     package: html
-  # #     publish: ${{ needs.affected.outputs.html == 'true' && true || false }}
-  # #     release: ${{ needs.build.outputs.release_created }}
-  # #   secrets: inherit
-
-  # # canvas-react:
-  # #   needs: [build, affected]
-  # #   uses: ./.github/workflows/publish.yml
-  # #   with:
-  # #     package: react
-  # #     publish: ${{ needs.affected.outputs.react == 'true' && true || false }}
-  # #     release: ${{ needs.build.outputs.release_created }}
-  # #   secrets: inherit

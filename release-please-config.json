@@ -17,6 +17,9 @@
     },
     "packages/react": {
       "component": "@contensis/canvas-react"
+    },
+    "packages/html-canvas": {
+      "component": "@contensis/html-canvas"
     }
   },
   "plugins": ["node-workspace"],

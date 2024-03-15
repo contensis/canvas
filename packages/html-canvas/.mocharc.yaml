@@ -1,0 +1,6 @@
+extension:
+  - mts
+  - mjs
+import: tsx/esm
+require: dotenv/config
+#reporter: nyan

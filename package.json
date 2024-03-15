@@ -23,15 +23,24 @@
     "packages\\react",
     "packages\\solidjs",
     "packages\\text",
+    "packages\\html-canvas",
+    "packages\\html-parser",
     "apps\\solidjs",
     "apps\\html",
     "apps\\react",
     "apps\\vue",
     "apps\\node",
     "apps\\e2e",
-    "packages\\markdown"
+    "apps\\html-canvas"
   ],
   "devDependencies": {
+    "@types/chai": "^4.3.12",
+    "@types/mocha": "^10.0.6",
+    "chai": "^5.1.0",
+    "cross-env": "^7.0.3",
+    "mocha": "^10.3.0",
+    "nock": "^13.5.4",
+    "ts-node": "^10.9.2",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }

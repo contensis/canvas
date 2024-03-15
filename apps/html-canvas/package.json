@@ -1,0 +1,23 @@
+{
+  "name": "@contensis-canvas-demo/html-canvas",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --format=esm --platform=node --packages=external --target=node16 --outdir=dist",
+    "start": "node --import tsx .",
+    "example:parser": "node --import tsx examples/create-html-parser.ts",
+    "example:parse-html": "node --import tsx examples/parse-html.ts",
+    "example:entries": "node --import tsx src/entries.ts"
+  },
+  "dependencies": {
+    "@contensis/html-canvas": "*",
+    "contensis-delivery-api": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.27",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.20.1",
+    "tsx": "^4.7.1"
+  }
+}

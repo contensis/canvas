@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      // adding this path ensure all of the unpublished/private package code is included in this bundle
+      "@contensis/html-parser": ["../html-parser"],
+      "@contensis/canvas-types": ["../types"]
+    }
+  },
+  "include": ["src", "test"]
+}
