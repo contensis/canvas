@@ -10,10 +10,10 @@ const __dirname = path.dirname(__filename);
 
 const RECORD_MOCKS = !!process.env.RECORD_MOCKS;
 const USE_MOCKS = process.env.USE_MOCKS === 'true' || process.env.npm_config_USE_MOCKS === 'true';
+const RECORD_PATH = './recorded';
 
 export class NockMocker {
-  private RECORD_PATH = './recorded';
-  private recordedPath = path.join(__dirname, this.RECORD_PATH);
+  private recordedPath = path.join(__dirname, RECORD_PATH);
   private files = {
     checkDir: (filePath: string) => {
       const directoryPath = path.dirname(filePath);
@@ -37,6 +37,7 @@ export class NockMocker {
     if (USE_MOCKS) {
       config.rootUrl = 'https://mock-cms.cloud.contensis.com';
       config.clientDetails = { clientId: 'mock', clientSecret: 'mock' };
+      config.projectId = 'canvas'
     }
     return config;
   };
@@ -83,7 +84,7 @@ export class NockMocker {
         nockCalls
       };
 
-      const filename = path.join(__dirname, this.RECORD_PATH, `/${operation}.json`);
+      const filename = path.join(__dirname, RECORD_PATH, `/${operation}.json`);
 
       console.info(`[nock recorder] Writing ${nockCalls?.length} recorded mocks to '${filename}'`);
 
