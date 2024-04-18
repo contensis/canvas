@@ -30,8 +30,12 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
 
         // convert supplied client into parserSettings
         const project = await client.project.get();
+
+        // get list of allowed component ids from the field validations so component data can be validated
+        const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
+
         const parserSettings: ParserSettings = {
-            components: [],
+            components,
             project,
             projectUuid: (project as any).uuid,
             rootUrl: client.clientConfig.rootUrl
@@ -62,9 +66,13 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
 
     const settings = createCanvasSettings(field);
 
+    // Get list of allowed component ids from the field validations
+    // - an empty components (ids) array means any component data in html will not validate and will be omitted from the canvas content
+    const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
+
     // No client available, add ParserSettings filler
     const parserSettings: ParserSettings = {
-        components: [],
+        components,
         project: {
             id: 'any',
             primaryLanguage: 'en-GB',
