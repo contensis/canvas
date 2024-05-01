@@ -5,6 +5,7 @@ export default defineConfig({
         ['canvas-react']: 'src/index.ts'
     },
     format: ['esm', 'cjs'],
+    target: 'es6',
     // this runs tsc to do type checking during build but the console
     // output is not as readable as vanilla tsc when there are problems to resolve
     //   dts: true,
