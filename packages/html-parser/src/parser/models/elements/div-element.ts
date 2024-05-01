@@ -44,7 +44,7 @@ export class DivElement extends BlockElement {
         let isValid = component && this.context.hasSetting(['type.component.component', component]);
         if (isValid) {
             const { components } = this.context.parserSettings;
-            isValid = components.includes(component);
+            isValid = components.includes(component) || components.includes('*');
         }
         const value = isValid ? tryParse(this.attributes['data-component-value']) : null;
         return { component, value };
