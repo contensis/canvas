@@ -25,14 +25,17 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
 
         if (!field) throw new Error(`Did not resolve a canvas field`);
 
-        // create settings from the field configuration
+        // Create settings from the field configuration
         const settings = createCanvasSettings(field);
 
-        // convert supplied client into parserSettings
+        // Convert supplied client into parserSettings
         const project = await client.project.get();
 
-        // get list of allowed component ids from the field validations so component data can be validated
+        // Get list of allowed component ids from the field validations so component data can be validated
         const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
+
+        // Handle the '*' allowed type to allow any component to be parsed (which may not exist in the target project)
+        if (field.validations?.allowedTypes?.types.find((t) => t.type === '*')) components.push('*');
 
         const parserSettings: ParserSettings = {
             components,
@@ -67,8 +70,10 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
     const settings = createCanvasSettings(field);
 
     // Get list of allowed component ids from the field validations
-    // - an empty components (ids) array means any component data in html will not validate and will be omitted from the canvas content
     const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
+
+    // Handle the '*' allowed type to allow any component to be parsed (which may not exist in the target project)
+    if (field.validations?.allowedTypes?.types.find((t) => t.type === '*')) components.push('*');
 
     // No client available, add ParserSettings filler
     const parserSettings: ParserSettings = {
