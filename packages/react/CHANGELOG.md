@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.5](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.4...@contensis/canvas-react-v1.0.5) (2024-05-02)
+
+
+### Bug Fixes
+
+* issue building some webpack projects without adding this node_module to the babel include list ([ad2b797](https://github.com/contensis/canvas/commit/ad2b797ee4dca905e2e9b1006042ec2fe9f7e553))
+
+
+### Build
+
+* avoid .mjs extension in esm builds to prevent error `Can't import the named export 'useContext' from non EcmaScript module` in legacy consumer webpack builds ([4470cb8](https://github.com/contensis/canvas/commit/4470cb829975cd6f79a7ca6f4018c5f9de09cf09))
+
 ## [1.0.4](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.3...@contensis/canvas-react-v1.0.4) (2024-01-18)
 
 
