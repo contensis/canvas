@@ -20,7 +20,7 @@
   },
   "license": "ISC",
   "main": "dist/canvas-react.js",
-  "module": "dist/canvas-react.mjs",
+  "module": "dist/esm/canvas-react.js",
   "types": "dist/canvas-react.d.ts",
   "files": [
     "dist"
@@ -43,7 +43,7 @@
   "exports": {
     ".": {
       "require": "./dist/canvas-react.js",
-      "import": "./dist/canvas-react.mjs",
+      "import": "./dist/esm/canvas-react.js",
       "types": "./dist/canvas-react.d.ts"
     }
   }
