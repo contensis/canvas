@@ -148,7 +148,7 @@ function RenderContents(props: RenderContentsProps) {
     return (props.contents ? props.contents : props.fallback);
 }
 
-function RenderChildren(props: RenderBlockProps<Block>) {
+export function RenderChildren(props: RenderBlockProps<Block>) {
     const isArray = Array.isArray(props.block?.value);
     const isString = typeof props.block?.value === 'string';
 
