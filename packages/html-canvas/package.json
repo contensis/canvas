@@ -30,7 +30,7 @@
   "module": "dist/html-canvas.mjs",
   "types": "dist/html-canvas.d.ts",
   "peerDependencies": {
-    "contensis-delivery-api": "*"
+    "contensis-delivery-api": ">1.2.0"
   },
   "dependencies": {
     "htmlparser2": "^9.1.0",
