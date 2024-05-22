@@ -1,14 +1,18 @@
 import { Block, CanvasField, CanvasSettings, DataResolver, ParserSettings } from '@contensis/html-parser';
 import { Client } from 'contensis-delivery-api';
 
-export type ParseConfiguration =
+export type ParseConfiguration = (
     | {
           /** Provide a Delivery API client that is connected to your Contensis instance so any existing content can be searched for and correctly linked if found */
           client?: Client;
           /** Supply the destination Canvas field JSON so the content generated can be tailored to fit your field configuration */
           field?: CanvasField;
       }
-    | CanvasFieldLookupOptions;
+    | CanvasFieldLookupOptions
+) & {
+    /** Add your site's public root uri (used to prefix relative links in your content that we cannot resolve in the project site view) */
+    rootUri?: string;
+};
 
 export type ParseHtmlConfiguration = { html: string } & ParseConfiguration;
 

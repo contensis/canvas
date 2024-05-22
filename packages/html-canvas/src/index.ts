@@ -5,7 +5,7 @@ import { DefaultCanvasContentResolver, ResolverStub } from './resolver';
 
 /** Creates a connected parser returning a parse function that can be used multiple times */
 export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<HtmlParserElements> => {
-    const { client } = opts;
+    const { client, rootUri = '' } = opts;
     if (client) {
         // prepare a resolver from a given client
         const resolver = new DefaultCanvasContentResolver(client);
@@ -41,7 +41,7 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
             components,
             project,
             projectUuid: (project as any).uuid,
-            rootUrl: client.clientConfig.rootUrl
+            rootUrl: rootUri
         };
         return {
             field,
@@ -84,7 +84,7 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
             supportedLanguages: ['en-GB']
         },
         projectUuid: '',
-        rootUrl: ''
+        rootUrl: rootUri,
     };
     return {
         field,
