@@ -64,6 +64,6 @@ class UrlParser {
             new URL(this.rootUrl + path);
             return this.rootUrl + path;
         } catch {}
-        return ''; // null;
+        return path; // ''; // null;
     }
 }
