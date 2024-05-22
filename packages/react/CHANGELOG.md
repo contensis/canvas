@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.5...@contensis/canvas-react-v1.0.6) (2024-05-22)
+
+
+### Bug Fixes
+
+* missing export `RenderChildren` for rendering a value that may be a composite block array inside an overridden block render component ([f3dae2f](https://github.com/contensis/canvas/commit/f3dae2fbf3323795226007a79b0739bbc296a4d1))
+
 ## [1.0.5](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.4...@contensis/canvas-react-v1.0.5) (2024-05-02)
 
 
