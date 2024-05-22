@@ -1,9 +1,10 @@
 import { expect } from 'chai';
 import { CanvasField, parseHtml } from '@contensis/html-canvas';
-import { Block, HeadingBlock, ParagraphBlock } from '@contensis/canvas-types';
+import { Block, HeadingBlock, LinkBlock, ParagraphBlock } from '@contensis/canvas-types';
 import { Client, Config } from 'contensis-delivery-api';
 import { readFileSync } from 'fs';
 import { NockMocker, mocks } from './mocking/mocks.mts';
+import { getAllBlockTypes, getAllLinkBlocks } from './utils/block-types.mts';
 
 let mock: NockMocker;
 
@@ -27,8 +28,8 @@ describe('parseHtml function tests', () => {
   describe(`Given I wish to quickly test something with the parser, when the HTML is parsed`, () => {
     describe(`Then I expect it returns JSON output that is a Canvas representation of this HTML fragment in Canvas`, () => {
       it(` returns canvas content blocks`, () => {
-        expect(typeof canvas === 'object' && Array.isArray(canvas)).to.be.true;
-        expect(canvas.length).to.be.greaterThan(0);
+        expect(canvas).to.be.an('array');
+        expect(canvas).to.have.a.lengthOf.greaterThan(0);
       });
       it(` has a block of type "_heading"`, () => {
         expect(block.type).to.equal('_heading');
@@ -81,8 +82,8 @@ describe('parseHtml function tests', () => {
     describe(`Given I wish to target a canvas field in a particular content type, when the HTML is parsed`, () => {
       describe(`Then I expect the JSON is prepared with the content blocks that are allowed in editor configuration`, () => {
         it(` returns canvas content blocks`, () => {
-          expect(typeof canvas === 'object' && Array.isArray(canvas)).to.be.true;
-          expect(canvas.length).to.be.greaterThan(0);
+          expect(canvas).to.be.an('array');
+          expect(canvas).to.have.a.lengthOf.greaterThan(0);
         });
         it(` has a block of type "_heading"`, () => {
           expect(block.type).to.equal('_heading');
@@ -99,30 +100,55 @@ describe('parseHtml function tests', () => {
 
   describe(`Scenario: Parse realistic web page content`, () => {
     let canvas: Block[];
+    let links: LinkBlock[];
     after(() => mock.done(canvas));
     before(async () => {
       mock = mocks(`parseHtml_webpage_content`);
       const pageHtml = readFileSync('./test/examples/html-example.htm', { encoding: 'utf8' });
       const client = new Client(clientConfig);
       canvas = await parseHtml({ client, contentTypeId: 'document', fieldId: 'canvas', html: pageHtml });
+      links = getAllLinkBlocks(canvas);
     });
     describe(`Given I wish to convert part of my site to Canvas, when the HTML is parsed`, () => {
       describe(`Then I expect the Canvas to accurately represent my HTML content`, () => {
         it(` returns canvas content blocks`, () => {
-          expect(typeof canvas === 'object' && Array.isArray(canvas)).to.be.true;
-          expect(canvas.length).to.be.greaterThan(0);
+          expect(canvas).to.be.an('array');
+          expect(canvas).to.have.a.lengthOf.greaterThan(0);
         });
         it(` has multiple blocks of type "_heading", "_paragraph", "_list"`, () => {
-          const types = canvas.map((b) => b.type);
-          expect(types).to.include('_heading');
-          expect(types.filter((t) => t === '_heading')).length.is.greaterThan(1);
-          expect(types).to.include('_paragraph');
-          expect(types.filter((t) => t === '_paragraph')).length.is.greaterThan(1);
-          expect(types).to.include('_list');
-          expect(types.filter((t) => t === '_list')).length.is.greaterThan(1);
+          const blockTypes = getAllBlockTypes(canvas);
+          expect(blockTypes).to.include('_heading');
+          expect(blockTypes).to.include('_paragraph');
+          expect(blockTypes).to.include('_list');
+          expect(blockTypes).to.include('_link');
+
+          expect(blockTypes.filter((t) => t === '_heading')).to.have.lengthOf(5);
+          expect(blockTypes.filter((t) => t === '_paragraph')).to.have.lengthOf(5);
+          expect(blockTypes.filter((t) => t === '_list')).to.have.lengthOf(7);
+          expect(blockTypes.filter((t) => t === '_link')).to.have.lengthOf(7);
         });
         it(` with a first value of "Entry requirements"`, () => {
           expect(canvas[0].value).to.equal('Entry requirements');
+        });
+      });
+      describe(`Given my HTML content contains links to other content`, () => {
+        describe(`Then I expect the Canvas to contain all of my links`, () => {
+          it(` which were provided as absolute urls`, () => {
+            const absolute = links.filter((l) => l.properties?.link?.sys?.uri?.startsWith('https://www.ludlow.ac.uk'));
+            expect(absolute).to.have.a.lengthOf(3);
+          });
+          // it(` which have been resolved in site view`, () => {
+          //   console.log(JSON.stringify(canvas));
+          // });
+          it(` which were provided as relative links and are not resolved in site view`, () => {
+            const relative = links.filter((l) => l.properties?.link?.sys?.uri?.startsWith('/'));
+            expect(relative).to.have.a.lengthOf(3);
+          });
+
+          it(` which are mailto: links`, () => {
+            const mailto = links.filter((l) => l.properties?.link?.sys?.uri?.startsWith('mailto:'));
+            expect(mailto).to.have.a.lengthOf(1);
+          });
         });
       });
     });
