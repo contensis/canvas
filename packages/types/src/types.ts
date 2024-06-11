@@ -110,6 +110,7 @@ type Block =
     | CodeBlock
     | ComponentBlock
     | DividerBlock
+    | FormContentTypeBlock
     | FragmentBlock
     | HeadingBlock
     | ImageBlock
@@ -168,6 +169,21 @@ type DividerBlock = {
     properties?: {
         id?: string;
     };
+};
+
+type FormContentType = {
+    id: string;
+};
+
+type FormContentTypeBlock = {
+    type: '_formContentType';
+    id: string;
+    properties?: {
+        id?: string;
+    };
+    value?: {
+        contentType?: FormContentType;
+    }
 };
 
 type FragmentBlock = {
@@ -356,6 +372,7 @@ export type {
     CodeBlock,
     ComponentBlock,
     DividerBlock,
+    FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
     ImageBlock,

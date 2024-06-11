@@ -6,6 +6,7 @@ import {
     ComponentBlock,
     DecoratorType,
     DividerBlock,
+    FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
     ImageBlock,
@@ -292,6 +293,21 @@ export function Divider(props: RenderBlockPropsWithChildren<DividerBlock>) {
 }
 
 Divider.Children = EmptyChildrenFactory<DividerBlock>();
+
+export function FormContentType(props: RenderBlockPropsWithChildren<FormContentTypeBlock>) {
+    const attributes = getAttributes(props, {
+        'data-contensis-form-id': props.block?.value?.contentType?.id
+    });
+    return (
+        <div {...attributes}>
+            <RenderContents contents={props.children} fallback={<FormContentType.Children block={props.block} />} />
+        </div>
+    );
+}
+
+FormContentType.Children = function (props: RenderBlockProps<FormContentTypeBlock>) {
+    return (<>Form: {props.block?.value?.contentType?.id}</>);
+};
 
 export function Fragment(props: RenderBlockPropsWithChildren<FragmentBlock>) {
     const hasDecorators = !!props.block?.properties?.decorators?.length;
@@ -776,6 +792,7 @@ const BLOCK_RENDERERS: BlockRenderers = {
     '_code': CodeWithCaption,
     '_component': Component,
     '_divider': Divider,
+    '_formContentType': FormContentType,
     '_fragment': Fragment,
     '_heading': Heading,
     '_image': ImageWithCaption,

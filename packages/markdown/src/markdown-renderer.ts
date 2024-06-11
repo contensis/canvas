@@ -4,6 +4,7 @@ import {
     CodeBlock,
     ComponentBlock,
     DividerBlock,
+    FormContentTypeBlock,
     HeadingBlock,
     ImageBlock,
     InlineEntryBlock,
@@ -46,6 +47,11 @@ const component = createBlockRenderer<ComponentBlock>(
 const divider = createBlockRenderer<DividerBlock>(
     () => `---\n\n`,
     () => ''
+);
+
+const formContentType = createBlockRenderer<FormContentTypeBlock>(
+    ({ contents }) => `${contents}\n\n`,
+    ({ block, encode }) => encode(`Form: ${block?.value?.contentType?.id}`)
 );
 
 const heading = createBlockRenderer<HeadingBlock>(({ block, contents }) => {
@@ -182,6 +188,7 @@ const createRenderer = createRendererFactory(
         _code: code,
         _component: component,
         _divider: divider,
+        _formContentType: formContentType,
         _fragment: fragment,
         _heading: heading,
         _image: image,
