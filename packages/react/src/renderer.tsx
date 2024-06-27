@@ -138,7 +138,7 @@ function useComponents() {
 function RenderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
     const blocks = useBlocks();
     const Component = blocks[props.block.type] as BlockRenderer<TBlock>;
-    return (<Component block={props.block} />);
+    return !!Component ? (<Component block={props.block} />) : null;
 }
 
 function RenderBlocks(props: RenderBlocksProps) {
@@ -294,19 +294,12 @@ export function Divider(props: RenderBlockPropsWithChildren<DividerBlock>) {
 
 Divider.Children = EmptyChildrenFactory<DividerBlock>();
 
-export function FormContentType(props: RenderBlockPropsWithChildren<FormContentTypeBlock>) {
-    const attributes = getAttributes(props, {
-        'data-contensis-form-id': props.block?.value?.contentType?.id
-    });
-    return (
-        <div {...attributes}>
-            <RenderContents contents={props.children} fallback={<FormContentType.Children block={props.block} />} />
-        </div>
-    );
+export function FormContentType(_props: RenderBlockPropsWithChildren<FormContentTypeBlock>) {
+    return null;
 }
 
-FormContentType.Children = function (props: RenderBlockProps<FormContentTypeBlock>) {
-    return (<>Form: {props.block?.value?.contentType?.id}</>);
+FormContentType.Children = function (_props: RenderBlockProps<FormContentTypeBlock>) {
+    return null;
 };
 
 export function Fragment(props: RenderBlockPropsWithChildren<FragmentBlock>) {

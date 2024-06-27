@@ -76,7 +76,7 @@ function renderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
     let { block, context, renderers, encode } = props;
     const renderer = renderers.blocks[block.type] as BlockRenderer<TBlock>;
     context = newContext(context);
-    return renderer({ block, context, renderers, encode });
+    return !!renderer ? renderer({ block, context, renderers, encode }) : '';
 }
 
 function renderText(props: RenderTextProps) {

@@ -138,16 +138,20 @@ function render<TNode, TFragment>(props: RenderBlocksProps<TNode, TFragment>) {
     return toFragment(props, renderBlocks({ blocks, context, renderers, h, hFragment, hText }));
 }
 
+function notNull<TNode>(node: null | TNode): node is TNode {
+    return node !== null;
+}
+
 function renderBlocks<TNode, TFragment>(props: RenderBlocksProps<TNode, TFragment>) {
     const { blocks, context, renderers, h, hFragment, hText } = props;
-    return blocks.map((block) => renderBlock({ block, context, renderers, h, hFragment, hText }));
+    return blocks.map((block) => renderBlock({ block, context, renderers, h, hFragment, hText })).filter(notNull);
 }
 
 function renderBlock<TBlock extends Block, TNode, TFragment>(props: RenderBlockProps<TBlock, TNode, TFragment>) {
     let { block, context, renderers, h, hFragment, hText } = props;
     const renderer = renderers.blocks[block.type] as BlockRenderer<TBlock, TNode, TFragment>;
     context = newContext(context);
-    return renderer({ block, context, renderers, h, hFragment, hText });
+    return !!renderer ? renderer({ block, context, renderers, h, hFragment, hText }) : null;
 }
 
 function renderText<TNode, TFragment>(props: RenderTextProps<TNode, TFragment>) {
