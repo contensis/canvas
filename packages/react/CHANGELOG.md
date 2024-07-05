@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.6...@contensis/canvas-react-v1.1.0) (2024-07-05)
+
+
+### Features
+
+* handle forms as a canvas block type ([#17](https://github.com/contensis/canvas/issues/17)) ([5f6e93c](https://github.com/contensis/canvas/commit/5f6e93c698359e23a02f10ee9d41ccb1b30e344c))
+
 ## [1.0.6](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.5...@contensis/canvas-react-v1.0.6) (2024-05-22)
 
 
