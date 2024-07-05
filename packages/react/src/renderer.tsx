@@ -6,6 +6,7 @@ import {
     ComponentBlock,
     DecoratorType,
     DividerBlock,
+    FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
     ImageBlock,
@@ -137,7 +138,7 @@ function useComponents() {
 function RenderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
     const blocks = useBlocks();
     const Component = blocks[props.block.type] as BlockRenderer<TBlock>;
-    return (<Component block={props.block} />);
+    return !!Component ? (<Component block={props.block} />) : null;
 }
 
 function RenderBlocks(props: RenderBlocksProps) {
@@ -292,6 +293,14 @@ export function Divider(props: RenderBlockPropsWithChildren<DividerBlock>) {
 }
 
 Divider.Children = EmptyChildrenFactory<DividerBlock>();
+
+export function FormContentType(_props: RenderBlockPropsWithChildren<FormContentTypeBlock>) {
+    return null;
+}
+
+FormContentType.Children = function (_props: RenderBlockProps<FormContentTypeBlock>) {
+    return null;
+};
 
 export function Fragment(props: RenderBlockPropsWithChildren<FragmentBlock>) {
     const hasDecorators = !!props.block?.properties?.decorators?.length;
@@ -776,6 +785,7 @@ const BLOCK_RENDERERS: BlockRenderers = {
     '_code': CodeWithCaption,
     '_component': Component,
     '_divider': Divider,
+    '_formContentType': FormContentType,
     '_fragment': Fragment,
     '_heading': Heading,
     '_image': ImageWithCaption,

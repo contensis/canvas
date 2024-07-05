@@ -3,7 +3,8 @@ import {
     FragmentBlock, HeadingBlock, ImageBlock, InlineEntryBlock, LinkBlock,
     ListBlock, ListItemBlock, PanelBlock, ParagraphBlock, QuoteBlock, TableBodyBlock,
     TableCaptionBlock, TableCellBlock, TableBlock, TableFooterBlock,
-    TableHeaderCellBlock, TableHeaderBlock, TableRowBlock
+    TableHeaderCellBlock, TableHeaderBlock, TableRowBlock,
+    FormContentTypeBlock
 } from '@contensis/canvas-types';
 import { For, JSX, Match, Show, Switch, createContext, splitProps, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
@@ -250,6 +251,14 @@ export function Divider(props: RenderBlockPropsWithChildren<DividerBlock>) {
 }
 
 Divider.Children = EmptyChildrenFactory<DividerBlock>();
+
+export function FormContentType(_props: RenderBlockPropsWithChildren<FormContentTypeBlock>) {
+    return null;
+}
+
+FormContentType.Children = function (_props: RenderBlockProps<FormContentTypeBlock>) {
+    return null;
+};
 
 export function Fragment(props: RenderBlockPropsWithChildren<FragmentBlock>) {
     const hasDecorators = () => !!props.block?.properties?.decorators?.length;
@@ -719,6 +728,7 @@ const BLOCK_RENDERERS: BlockRenderers = {
     '_code': CodeWithCaption,
     '_component': Component,
     '_divider': Divider,
+    '_formContentType': FormContentType,
     '_fragment': Fragment,
     '_heading': Heading,
     '_image': ImageWithCaption,

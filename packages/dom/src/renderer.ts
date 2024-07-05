@@ -5,6 +5,7 @@ import {
     ComponentBlock,
     DecoratorType,
     DividerBlock,
+    FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
     ImageBlock,
@@ -137,16 +138,20 @@ function render<TNode, TFragment>(props: RenderBlocksProps<TNode, TFragment>) {
     return toFragment(props, renderBlocks({ blocks, context, renderers, h, hFragment, hText }));
 }
 
+function notNull<TNode>(node: null | TNode): node is TNode {
+    return node !== null;
+}
+
 function renderBlocks<TNode, TFragment>(props: RenderBlocksProps<TNode, TFragment>) {
     const { blocks, context, renderers, h, hFragment, hText } = props;
-    return blocks.map((block) => renderBlock({ block, context, renderers, h, hFragment, hText }));
+    return blocks.map((block) => renderBlock({ block, context, renderers, h, hFragment, hText })).filter(notNull);
 }
 
 function renderBlock<TBlock extends Block, TNode, TFragment>(props: RenderBlockProps<TBlock, TNode, TFragment>) {
-    let { block, context, renderers, h, hFragment, hText } = props;    
+    let { block, context, renderers, h, hFragment, hText } = props;
     const renderer = renderers.blocks[block.type] as BlockRenderer<TBlock, TNode, TFragment>;
     context = newContext(context);
-    return renderer({ block, context, renderers, h, hFragment, hText });
+    return !!renderer ? renderer({ block, context, renderers, h, hFragment, hText }) : null;
 }
 
 function renderText<TNode, TFragment>(props: RenderTextProps<TNode, TFragment>) {
@@ -295,6 +300,21 @@ divider.children = function <TNode, TFragment>(_props: RenderBlockProps<DividerB
     return null;
 };
 
+
+function formContentType<TNode, TFragment>(props: RenderBlockProps<FormContentTypeBlock, TNode, TFragment>, ...children: TNode[]) {
+    const { block, context, renderers, h, hFragment, hText } = props;
+    const attributes = getAttributes(props, {
+        'data-contensis-form-id': block.value?.contentType?.id
+    });
+    return h('div', attributes, ...getChildren(children, () => formContentType.children({ block, context, renderers, h, hFragment, hText })));
+}
+
+formContentType.children = function <TNode, TFragment>(props: RenderBlockProps<FormContentTypeBlock, TNode, TFragment>) {
+    const { hText } = props;
+    return toFragment(props, [hText(`Form: ${props.block?.value?.contentType?.id}`)]);
+};
+
+
 function fragment<TNode, TFragment>(props: RenderBlockProps<FragmentBlock, TNode, TFragment>, ...children: TNode[]) {
     const { block, context, renderers, h, hFragment, hText } = props;
     const hasDecorators = !!block?.properties?.decorators?.length;
@@ -362,11 +382,11 @@ inlineEntry.children = function <TNode, TFragment>(props: RenderBlockProps<Inlin
 
 function link<TNode, TFragment>(props: RenderBlockProps<LinkBlock, TNode, TFragment>, ...children: TNode[]) {
     const { block, context, renderers, h, hFragment, hText } = props;
-    const linkValue = props?.block?.properties?.link;    
+    const linkValue = props?.block?.properties?.link;
     const attributes = getAttributes(props, {
         href: linkValue?.sys?.uri,
         target: block?.properties?.newTab ? '_blank' : null,
-        rel: block?.properties?.newTab ? 'noopener noreferrer': null
+        rel: block?.properties?.newTab ? 'noopener noreferrer' : null
     });
     children = getChildren(children, () => link.children({ block, context, renderers, h, hFragment, hText }));
     return attributes.href ? h('a', attributes, ...children) : toFragment(props, children);
@@ -458,6 +478,7 @@ function createRendererFactory<TNode, TFragment>(h: H<TNode, TFragment>, hFragme
         _code: codeWithCaption,
         _component: component,
         _divider: divider,
+        _formContentType: formContentType,
         _fragment: fragment,
         _heading: heading,
         _image: imageWithCaption,
@@ -534,6 +555,7 @@ function createElements<TNode, TFragment>() {
         code: createBlockElement<CodeBlock, TNode, TFragment>(code),
         component: createBlockElement<ComponentBlock, TNode, TFragment>(component),
         divider: createBlockElement<DividerBlock, TNode, TFragment>(divider),
+        formContentType: createBlockElement<FormContentTypeBlock, TNode, TFragment>(formContentType),
         fragment: createBlockElement<FragmentBlock, TNode, TFragment>(fragment),
         heading: createBlockElement<HeadingBlock, TNode, TFragment>(heading),
         image: createBlockElement<ImageBlock, TNode, TFragment>(image),
@@ -572,14 +594,14 @@ function createElements<TNode, TFragment>() {
 export type {
     BlockRenderer,
     BlockRendererWithChildren,
-    BlockRenderers, 
+    BlockRenderers,
     ComponentRenderer,
-    ComponentRenderers, 
+    ComponentRenderers,
     DecoratorRenderer,
     DecoratorRendererWithChildren,
     DecoratorRenderers,
     RenderBlockProps,
-    RenderDecoratorProps    
+    RenderDecoratorProps
 };
 
 export {
