@@ -29,6 +29,9 @@
   "main": "dist/html-canvas.js",
   "module": "dist/html-canvas.mjs",
   "types": "dist/html-canvas.d.ts",
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "contensis-delivery-api": ">1.2.0"
   },
