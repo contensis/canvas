@@ -75,14 +75,3 @@ jobs:
           npm publish --tag ${{ inputs.npm_tag }} --ignore-scripts --workspace ${{ matrix.path }} --access=public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      # - name: Push version increment to GIT
-      #   if: ${{ inputs.publish == true }}
-      #   run: |
-      #     git config user.email "github@zengenti.com"
-      #     git config user.name "$GITHUB_ACTOR"
-      #     git add packages/${{ inputs.package }}/.
-      #     git commit -m "ci: published ${{steps.build.outputs.name}} version ${{ steps.build.outputs.version }} [skip ci]"
-      #     git push
-      #   env:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
