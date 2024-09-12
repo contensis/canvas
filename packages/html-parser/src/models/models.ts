@@ -115,11 +115,13 @@ type Block =
     | CodeBlock
     | ComponentBlock
     | DividerBlock
+    | FormContentTypeBlock
     | FragmentBlock
     | HeadingBlock
     | ImageBlock
     | InlineEntryBlock
     | LinkBlock
+    | LiquidBlock
     | ListBlock
     | ListItemBlock
     | PanelBlock
@@ -157,7 +159,6 @@ type CodeBlock = {
     };
     properties?: {
         id?: string;
-        isNew?: boolean; // UI ONLY
     };
 };
 
@@ -168,7 +169,6 @@ type ComponentBlock<T extends Record<string, any> = any> = {
     properties?: {
         id?: string;
         component: string;
-        isNew?: boolean; // UI ONLY
     };
 };
 
@@ -178,6 +178,21 @@ type DividerBlock = {
     value?: undefined;
     properties?: {
         id?: string;
+    };
+};
+
+type FormContentType = {
+    id: string;
+};
+
+type FormContentTypeBlock = {
+    type: '_formContentType';
+    id: string;
+    properties?: {
+        id?: string;
+    };
+    value?: {
+        contentType?: FormContentType;
     };
 };
 
@@ -207,7 +222,6 @@ type ImageBlock = {
     value?: Image;
     properties?: {
         id?: string;
-        isNew?: boolean; // UI ONLY
     };
 };
 
@@ -228,6 +242,18 @@ type LinkBlock = {
         id?: string;
         link?: Link;
         newTab?: boolean;
+    };
+};
+
+type LiquidType = 'tag' | 'variable';
+
+type LiquidBlock = {
+    type: '_liquid';
+    id: string;
+    value?: string;
+    properties?: {
+        id?: string;
+        type?: LiquidType;
     };
 };
 
@@ -373,11 +399,13 @@ export {
     CodeBlock,
     ComponentBlock,
     DividerBlock,
+    FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
     ImageBlock,
     InlineEntryBlock,
     LinkBlock,
+    LiquidBlock,
     ListBlock,
     ListItemBlock,
     PanelBlock,

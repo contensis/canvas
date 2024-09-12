@@ -28,12 +28,12 @@ export class AsideElement extends BlockElement {
     }
 
     private getProperties(): PanelBlock['properties'] {
-        let _panelType: PanelType;
+        let _panelType: undefined | PanelType;
         if (this.attributes['class']) {
             const classList = this.attributes['class'].split(' ');
             _panelType = PanelTypes.find((panelType) => classList.includes(panelType));
         }
         const { value: panelType } = this.context.fixSetting('type.panel.panelType', _panelType || 'info', 'info');
-        return { panelType };
+        return !!panelType ? { panelType } : {};
     }
 }

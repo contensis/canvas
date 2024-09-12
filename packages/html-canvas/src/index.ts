@@ -34,11 +34,14 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
         // Get list of allowed component ids from the field validations so component data can be validated
         const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
 
+        const formContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_formContentType')?.formContentTypes?.allowed || [];
+
         // Handle the '*' allowed type to allow any component to be parsed (which may not exist in the target project)
         if (field.validations?.allowedTypes?.types.find((t) => t.type === '*')) components.push('*');
 
         const parserSettings: ParserSettings = {
             components,
+            formContentTypes,
             project,
             projectUuid: (project as any).uuid,
             rootUrl: rootUri
@@ -72,12 +75,15 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
     // Get list of allowed component ids from the field validations
     const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
 
+    const formContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_formContentType')?.formContentTypes?.allowed || [];
+
     // Handle the '*' allowed type to allow any component to be parsed (which may not exist in the target project)
     if (field.validations?.allowedTypes?.types.find((t) => t.type === '*')) components.push('*');
 
     // No client available, add ParserSettings filler
     const parserSettings: ParserSettings = {
         components,
+        formContentTypes,
         project: {
             id: 'any',
             primaryLanguage: 'en-GB',

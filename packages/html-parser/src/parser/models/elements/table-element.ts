@@ -1,14 +1,16 @@
 import {
     Block,
-    TableBodyBlock,
-    TableCaptionBlock,
-    TableBlock,
-    TableSectionBlock,
     isTableBody,
     isTableCaption,
     isTableFooter,
     isTableHeader,
-    isTableRow
+    isTableRow,
+    TableBlock,
+    TableBodyBlock,
+    TableCaptionBlock,
+    TableFooterBlock,
+    TableHeaderBlock,
+    TableSectionBlock
 } from '../../../models';
 import { BlockElement } from '../block-element';
 import { Context } from '../context';
@@ -41,7 +43,7 @@ export class TableElement extends BlockElement {
             tableBody = ensureCells(tableBody, cellCount, newId);
             tableFooter = ensureCells(tableFooter, cellCount, newId);
 
-            const value = [caption, tableHeader, tableBody, tableFooter].filter((c) => !!c);
+            const value = [caption, tableHeader, tableBody, tableFooter].filter((c) => !!c) as (TableCaptionBlock | TableHeaderBlock | TableBodyBlock | TableFooterBlock)[];
             const table: TableBlock = {
                 type: '_table',
                 id: this.id(),
@@ -66,8 +68,12 @@ function createTableBody(children: Block[], newId: () => string): TableBodyBlock
             if (!tableBody.properties) {
                 tableBody.properties = item.properties;
             }
+            if (item.value) {
+                tableBody.value = tableBody.value || [];
             tableBody.value.push(...item.value);
+            }
         } else if (isTableRow(item)) {
+            tableBody.value = tableBody.value || [];
             tableBody.value.push(item);
         }
     });
@@ -82,7 +88,7 @@ function createTableCaption(newId: () => string): TableCaptionBlock {
     };
 }
 
-function ensureCells<T extends TableSectionBlock>(section: T, count: number, newId: () => string): T {
+function ensureCells<T extends TableSectionBlock>(section: undefined | T, count: number, newId: () => string): undefined | T {
     if (section) {
         const type = isTableHeader(section) ? '_tableHeaderCell' : '_tableCell';
         section.value = section.value || [];
@@ -107,7 +113,7 @@ function ensureCells<T extends TableSectionBlock>(section: T, count: number, new
     return section;
 }
 
-function getCellCount(...sections: TableSectionBlock[]): number {
+function getCellCount(...sections: (undefined | TableSectionBlock)[]): number {
     const rows = sections.map((section) => section?.value || []).flat();
     const cellCounts = rows.map((block) => (Array.isArray(block.value) ? block.value.length : 0));
     return Math.max(...cellCounts);

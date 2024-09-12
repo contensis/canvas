@@ -28,7 +28,7 @@ export class HeadingElement extends BlockElement {
     }
 
     private getProperties(): HeadingBlock['properties'] {
-        const { value: level } = this.context.fixSetting('type.heading.level', HEADING_TAGS[this.name], 1);
-        return { level };
+        const { value: level } = this.context.fixSetting('type.heading.level', HEADING_TAGS[this.name as 'h1'], 1);
+        return !!level ? { level } : {};
     }
 }

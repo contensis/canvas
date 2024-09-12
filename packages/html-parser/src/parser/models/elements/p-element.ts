@@ -8,7 +8,7 @@ export class PElement extends BlockElement {
         const classList = this.attributes['class']?.split(' ');
         let paragraphType = classList?.includes('lead') || classList?.includes('lede') ? ('lead' as const) : null;
         if (paragraphType) {
-            const { value } = this.context.fixSetting('type.paragraph.paragraphType', paragraphType, null);
+            const { value } = this.context.fixSetting('type.paragraph.paragraphType', paragraphType, null as any);
             paragraphType = value;
         }
         if (paragraphType) {

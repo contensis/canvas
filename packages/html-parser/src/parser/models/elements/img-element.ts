@@ -6,7 +6,7 @@ import { FigureElement } from './figure-element';
 import { isBase64 } from '../images';
 
 export class ImgElement extends VoidElement {
-    private _imageItem: ImageBlock;
+    private _imageItem: undefined | ImageBlock;
 
     constructor(name: string, attributes: Attributes, context: Context) {
         super(name, attributes, context);
@@ -22,7 +22,7 @@ export class ImgElement extends VoidElement {
                 const asset = this.context.getImage(path);
                 const imageType = asset ? 'managed' : 'external';
                 if (this.context.hasSetting(['type.image.imageType', imageType])) {
-                    let transformations: Transformations = undefined;
+                    let transformations: undefined | Transformations = undefined;
                     if (asset) {
                         transformations = toTransformations(queryParams);
                     }
@@ -48,12 +48,16 @@ export class ImgElement extends VoidElement {
     }
 
     withCaption(caption: string) {
+        if (this._imageItem) {
         return caption ? { ...this._imageItem, value: { ...this._imageItem.value, caption } } : this._imageItem;
+        } else {
+            return undefined;
+        }
     }
 }
 
-function toTransformations(search: Record<string, string>): Transformations {
-    let t: Transformations = undefined;
+function toTransformations(search: Record<string, string>): undefined | Transformations {
+    let t: undefined | Transformations = undefined;
 
     const width = toNumber(search['w']);
     const height = toNumber(search['h']);
@@ -77,8 +81,8 @@ function toTransformations(search: Record<string, string>): Transformations {
 
             t = t || {};
             t.crop = t.crop || {};
-            t.crop.width = width;
-            t.crop.height = height;
+            t.crop.width = width as number;
+            t.crop.height = height as number;
             t.crop.x = x;
             t.crop.y = y;
         }

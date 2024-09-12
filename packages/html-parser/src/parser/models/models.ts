@@ -15,6 +15,7 @@ export type VoidFn = () => void;
 
 export type ParserSettings = {
     components: string[];
+    formContentTypes: string[];
     project: Project;
     rootUrl: string;
     projectUuid: string;

@@ -3,26 +3,27 @@ import {
     CodeBlock,
     ComponentBlock,
     DividerBlock,
+    FormContentTypeBlock,
     HeadingBlock,
     ImageBlock,
     InlineEntryBlock,
     LinkBlock,
+    LiquidBlock,
     ListBlock,
     ListItemBlock,
     PanelBlock,
     ParagraphBlock,
     QuoteBlock,
+    TableBlock,
     TableBodyBlock,
     TableCaptionBlock,
     TableCellBlock,
-    TableBlock,
     TableFooterBlock,
-    TableHeaderCellBlock,
     TableHeaderBlock,
-    TableRowBlock,
-    FormContentTypeBlock
+    TableHeaderCellBlock,
+    TableRowBlock
 } from '@contensis/canvas-types';
-import { fragment, renderBlocks, createDecoratorRenderer, createBlockRenderer, createRendererFactory, RenderBlockProps, getContents } from './renderer';
+import { createBlockRenderer, createDecoratorRenderer, createRendererFactory, fragment, getContents, RenderBlockProps, renderBlocks } from './renderer';
 
 const anchor = createBlockRenderer<AnchorBlock>(({ contents }) => contents);
 const code = createBlockRenderer<CodeBlock>(
@@ -66,6 +67,11 @@ const inlineEntry = createBlockRenderer<InlineEntryBlock>(
 );
 
 const link = createBlockRenderer<LinkBlock>(({ contents }) => contents);
+
+const liquid = createBlockRenderer<LiquidBlock>(
+    ({ contents }) => contents,
+    ({ block, encode }) => encode(block?.value)
+);
 
 const list = function (props: RenderBlockProps<ListBlock>, ...children: string[]) {
     const { block, context, renderers, encode } = props;
@@ -152,6 +158,7 @@ const createRenderer = createRendererFactory(
         _image: image,
         _inlineEntry: inlineEntry,
         _link: link,
+        _liquid: liquid,
         _list: list,
         _listItem: listItem,
         _quote: quote,
@@ -188,12 +195,13 @@ export {
     anchor,
     code,
     component,
-    inlineDelete,
+    createRenderer,
     divider,
     emphasis,
     heading,
     image,
     inlineCode,
+    inlineDelete,
     inlineEntry,
     insert,
     keyboard,
@@ -218,6 +226,5 @@ export {
     tableHeaderCell,
     tableRow,
     underline,
-    variable,
-    createRenderer
+    variable
 };

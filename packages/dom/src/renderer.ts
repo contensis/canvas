@@ -11,6 +11,7 @@ import {
     ImageBlock,
     InlineEntryBlock,
     LinkBlock,
+    LiquidBlock,
     ListBlock,
     ListItemBlock,
     PanelBlock,
@@ -49,14 +50,8 @@ type WithRenderers<TNode, TFragment> = {
 
 type RendererProps = { data: Block[]; context?: RenderContext };
 type RenderBlocksProps<TNode, TFragment> = { blocks: Block[] } & WithContext & WithH<TNode, TFragment> & WithRenderers<TNode, TFragment>;
-type RenderBlockProps<T extends Block, TNode, TFragment> = { block: T } & WithContext &
-    Attributes &
-    WithH<TNode, TFragment> &
-    WithRenderers<TNode, TFragment>;
-type RenderDecoratorProps<TNode, TFragment> = { block: FragmentBlock; decorator: DecoratorType; otherDecorators: DecoratorType[] } & WithH<
-    TNode,
-    TFragment
-> &
+type RenderBlockProps<T extends Block, TNode, TFragment> = { block: T } & WithContext & Attributes & WithH<TNode, TFragment> & WithRenderers<TNode, TFragment>;
+type RenderDecoratorProps<TNode, TFragment> = { block: FragmentBlock; decorator: DecoratorType; otherDecorators: DecoratorType[] } & WithH<TNode, TFragment> &
     WithRenderers<TNode, TFragment> &
     WithContext &
     Attributes;
@@ -68,7 +63,7 @@ type TypedBlock<TType extends Block['type']> = Extract<Block, { type: TType }>;
 
 type BlockRenderer<T extends Block, TNode, TFragment> = (props: RenderBlockProps<T, TNode, TFragment>, ...children: TNode[]) => TNode;
 type BlockRenderers<TNode, TFragment> = {
-    [TType in Block['type']]: BlockRenderer<TypedBlock<TType>, TNode, TFragment>
+    [TType in Block['type']]: BlockRenderer<TypedBlock<TType>, TNode, TFragment>;
 };
 
 type DecoratorRenderer<TNode, TFragment> = (props: RenderDecoratorProps<TNode, TFragment>, ...children: TNode[]) => TNode;
@@ -300,7 +295,6 @@ divider.children = function <TNode, TFragment>(_props: RenderBlockProps<DividerB
     return null;
 };
 
-
 function formContentType<TNode, TFragment>(props: RenderBlockProps<FormContentTypeBlock, TNode, TFragment>, ...children: TNode[]) {
     const { block, context, renderers, h, hFragment, hText } = props;
     const attributes = getAttributes(props, {
@@ -313,7 +307,6 @@ formContentType.children = function <TNode, TFragment>(props: RenderBlockProps<F
     const { hText } = props;
     return toFragment(props, [hText(`Form: ${props.block?.value?.contentType?.id}`)]);
 };
-
 
 function fragment<TNode, TFragment>(props: RenderBlockProps<FragmentBlock, TNode, TFragment>, ...children: TNode[]) {
     const { block, context, renderers, h, hFragment, hText } = props;
@@ -393,6 +386,17 @@ function link<TNode, TFragment>(props: RenderBlockProps<LinkBlock, TNode, TFragm
 }
 
 link.children = childRenderer<LinkBlock>();
+
+function liquid<TNode, TFragment>(props: RenderBlockProps<LiquidBlock, TNode, TFragment>, ...children: TNode[]) {
+    const { block, context, decorator, otherDecorators, renderers, h, hFragment, hText } = props;
+    children = getChildren(children, () => liquid.children({ block, context, decorator, otherDecorators, renderers, h, hFragment, hText }));
+    return toFragment(props, children);
+}
+
+liquid.children = function <TNode, TFragment>(props: RenderBlockProps<LiquidBlock, TNode, TFragment>) {
+    const { hText } = props;
+    return toFragment(props, [hText(props.block?.value)]);
+};
 
 const list = createBlockRenderer<ListBlock>(
     (block) => (block?.properties?.listType === 'ordered' ? 'ol' : 'ul'),
@@ -484,6 +488,7 @@ function createRendererFactory<TNode, TFragment>(h: H<TNode, TFragment>, hFragme
         _image: imageWithCaption,
         _inlineEntry: inlineEntry,
         _link: link,
+        _liquid: liquid,
         _list: list,
         _listItem: listItem,
         _quote: quote,
@@ -561,6 +566,7 @@ function createElements<TNode, TFragment>() {
         image: createBlockElement<ImageBlock, TNode, TFragment>(image),
         inlineEntry: createBlockElement<InlineEntryBlock, TNode, TFragment>(inlineEntry),
         link: createBlockElement<LinkBlock, TNode, TFragment>(link),
+        liquid: createBlockElement<LiquidBlock, TNode, TFragment>(liquid),
         list: createBlockElement<ListBlock, TNode, TFragment>(list),
         listItem: createBlockElement<ListItemBlock, TNode, TFragment>(listItem),
         panel: createBlockElement<PanelBlock, TNode, TFragment>(panel),
@@ -593,19 +599,16 @@ function createElements<TNode, TFragment>() {
 
 export type {
     BlockRenderer,
-    BlockRendererWithChildren,
     BlockRenderers,
+    BlockRendererWithChildren,
     ComponentRenderer,
     ComponentRenderers,
     DecoratorRenderer,
-    DecoratorRendererWithChildren,
     DecoratorRenderers,
+    DecoratorRendererWithChildren,
     RenderBlockProps,
     RenderDecoratorProps
 };
 
-export {
-    createElements,
-    createRendererFactory
-};
+export { createElements, createRendererFactory };
 
