@@ -4,7 +4,7 @@ import { Attributes } from './models';
 
 export type LinkType = '_anchor' | '_link' | '_inlineEntry';
 
-export type LinkDataType = CanvasSettings['type.link.linkType'][0];
+export type LinkDataType = NonNullable<CanvasSettings['type.link.linkType']>[0];
 
 export function getLinkType(attributes: Attributes): LinkType {
     if (attributes['class']) {

@@ -36,7 +36,7 @@ function isEquivalentFragment(fragment1: FragmentBlock, fragment2: FragmentBlock
     if (decoratorCount1 === 0) {
         return true;
     }
-    const combinedDecorators = [...new Set([...fragment1.properties.decorators, ...fragment2.properties.decorators])];
+    const combinedDecorators = [...new Set([...(fragment1.properties?.decorators || []), ...(fragment2.properties?.decorators || [])])];
     return combinedDecorators.length === decoratorCount1;
 }
 
@@ -48,7 +48,10 @@ function mergeLists<T extends Block>(blocks: T[]): T[] {
             const lastListType = lastItem.properties?.listType || 'unordered';
             const listType = item.properties?.listType || 'unordered';
             if (lastListType === listType && !lastItem.properties?.id && !item?.properties?.id) {
+                if (item.value) {
+                    lastItem.value = lastItem.value || [];
                 lastItem.value.push(...item.value);
+                }
                 pushCurrentItem = false;
             }
         }
@@ -142,7 +145,7 @@ export function wrapInline(blocks: Block[], createBlock: () => BlockBlock): Bloc
             }
             return prev;
         },
-        { items: [], lastBlock: null } as { items: Block[]; lastBlock: BlockBlock }
+        { items: [], lastBlock: null } as { items: Block[]; lastBlock: null | BlockBlock }
     );
     items = items
         .filter((item) => isVoid(item) || !!item.value)
@@ -222,7 +225,7 @@ function trimBoundary<T extends Block>(blocks: T[], trimString: (s: string) => s
                 value = trimString(value);
             }
             if (Array.isArray(value) && !value.length) {
-                value = null;
+                value = undefined;
             }
             if (value) {
                 shouldTrim = false;

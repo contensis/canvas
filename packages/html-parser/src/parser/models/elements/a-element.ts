@@ -5,6 +5,8 @@ import { LinkType, getLinkType } from '../links';
 import { Attributes, Element } from '../models';
 import { toValue } from '../shared';
 
+type Link = Exclude<LinkBlock['properties'], undefined>['link'];
+
 export class AElement extends BaseElement {
     private linkType: LinkType;
 
@@ -67,7 +69,7 @@ export class AElement extends BaseElement {
     private addLink(parent: Element) {
         const link = this.getLink();
         const hasData = link?.sys?.uri || link?.sys?.id || link?.sys?.node?.id;
-        if (hasData && this.context.hasSetting(['type.link.linkType', link.sys.linkProperties.type])) {
+        if (hasData && link?.sys && this.context.hasSetting(['type.link.linkType', link.sys.linkProperties.type])) {
             const children = this.mergeItems(this.children).filter(isInline);
             const value = this.trimItems(children);
 
@@ -85,8 +87,8 @@ export class AElement extends BaseElement {
         }
     }
 
-    private getLink(): LinkBlock['properties']['link'] {
-        const link = tryParse<LinkBlock['properties']['link']>(this.attributes['data-link']);
+    private getLink(): null | Link {
+        const link = tryParse<Link>(this.attributes['data-link']);
         if (link) {
             return link;
         }

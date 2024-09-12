@@ -5,7 +5,12 @@ import { Attributes, Element } from '../models';
 import { toValue } from '../shared';
 
 export abstract class DecoratorElement extends BaseElement {
-    constructor(protected type: DecoratorType, name: string, attributes: Attributes, context: Context) {
+    constructor(
+        protected type: DecoratorType,
+        name: string,
+        attributes: Attributes,
+        context: Context
+    ) {
         super(name, attributes, context);
         this.popContext = context.setDecorator(type);
     }

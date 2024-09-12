@@ -12,6 +12,7 @@ import {
     ImageBlock,
     InlineEntryBlock,
     LinkBlock,
+    LiquidBlock,
     ListBlock,
     ListItemBlock,
     PanelBlock,
@@ -426,6 +427,16 @@ export function Link(props: RenderBlockPropsWithChildren<LinkBlock>) {
 
 Link.Children = RenderBlockChildrenFactory<LinkBlock>();
 
+export function Liquid(props: RenderBlockPropsWithChildren<LiquidBlock>) {    
+    return (
+        <RenderContents contents={props.children} fallback={<Liquid.Children block={props.block} />} />        
+    );
+}
+
+Liquid.Children = function (props: RenderBlockProps<LiquidBlock>) {
+    return (<>{props.block?.value}</>);
+};
+
 export function List(props: RenderBlockPropsWithChildren<ListBlock>) {
     const isOrdered = (props.block?.properties?.listType === 'ordered');
     const attributes = getAttributes(props, {
@@ -512,17 +523,6 @@ Quote.Children = function (props: RenderBlockProps<QuoteBlock>) {
             )
             : (<RenderChildren block={props.block} />)
     );
-    // return (<RenderChildren block={props.block} />);
-    // return (
-    //     <Show when={hasChildren()} fallback={<RenderChildren block={props.block} />}>
-    //         <p>
-    //             <RenderChildren block={props.block} />
-    //         </p>
-    //         <Show when={citation()} fallback={<footer>{source()}</footer>}>
-    //             <footer>{source()} <cite>{citation()}</cite></footer>
-    //         </Show>
-    //     </Show>
-    // );
 };
 
 
@@ -779,7 +779,6 @@ export function Variable(props: RenderDecoratorPropsWithChildren) {
 
 Variable.Children = DecoratorChildren;
 
-
 const BLOCK_RENDERERS: BlockRenderers = {
     '_anchor': Anchor,
     '_code': CodeWithCaption,
@@ -791,6 +790,7 @@ const BLOCK_RENDERERS: BlockRenderers = {
     '_image': ImageWithCaption,
     '_inlineEntry': InlineEntry,
     '_link': Link,
+    '_liquid': Liquid,
     '_list': List,
     '_listItem': ListItem,
     '_panel': Panel,

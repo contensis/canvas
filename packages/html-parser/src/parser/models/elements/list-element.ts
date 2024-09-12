@@ -32,9 +32,9 @@ export class ListElement extends BlockElement {
     }
 
     private getProperties(): ListBlock['properties'] {
-        const { value: listType } = this.context.fixSetting('type.list.listType', LIST_TAGS[this.name], 'unordered');
+        const { value: listType } = this.context.fixSetting('type.list.listType', LIST_TAGS[this.name as 'ol'], 'unordered');
         const properties: ListBlock['properties'] = {
-            listType
+            listType: listType || 'unordered'
         };
         if (listType === 'ordered') {
             const startAttr = this.attributes.start;

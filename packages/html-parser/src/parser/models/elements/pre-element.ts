@@ -4,12 +4,12 @@ import { BlockElement } from '../block-element';
 import { FigureElement } from './figure-element';
 
 export class PreElement extends BlockElement {
-    private _code: string;
-    private _codeAttributes: Attributes;
-    private _codeItem: CodeBlock;
+    private _code: undefined | string;
+    private _codeAttributes: undefined | Attributes;
+    private _codeItem: undefined | CodeBlock;
 
     appendTo(parent: Element) {
-        let language = '';
+        let language: string | null = null;
         const isCodeBlock = !!this._codeAttributes && this.context.canAddType('_code');
         if (isCodeBlock) {
             language = this.getLanguage();
@@ -41,11 +41,15 @@ export class PreElement extends BlockElement {
     }
 
     withCaption(caption: string) {
+        if (this._codeItem) {
         return caption ? { ...this._codeItem, value: { ...this._codeItem.value, caption } } : this._codeItem;
+        } else {
+            return undefined;
+        }
     }
 
     private getLanguage() {
-        let language = this.attributes['data-language'];
+        let language: string | null = this.attributes['data-language'];
 
         if (!language && this.attributes['class']) {
             const classList = this.attributes['class'].split(' ');

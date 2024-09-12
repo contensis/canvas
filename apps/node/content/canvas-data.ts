@@ -714,3 +714,177 @@ export const data: Block[] = [
         "value": "I feel the need, the need for speed"
     }
 ];
+
+export const emailData: Block[] = [
+    {
+        "id": "1f7b06d4",
+        "type": "_divider"
+    },
+    {
+        "id": "db6fbe71",
+        "type": "_heading",
+        "properties": {
+            "level": 1
+        },
+        "value": "Heading one"
+    },
+    {
+        "id": "3d4ca613",
+        "type": "_heading",
+        "properties": {
+            "level": 2
+        },
+        "value": "Heading two"
+    },
+    {
+        "id": "fe7a61db",
+        "type": "_paragraph",
+        "value": "Fringilla vivamus facilisi est sed mi cubilia fusce penatibus. Praesent enim id molestie suspendisse arcu luctus. Quis pede praesent etiam cras nunc molestie massa consequat mi fringilla. Consectetur dictumst pellentesque maecenas quis adipiscing efficitur ad dis gravida. Porta venenatis pretium magna dictumst nullam placerat proin elit posuere ligula amet. Penatibus blandit ad egestas duis nascetur suscipit in vivamus."
+    },
+    {
+        "id": "17184e46",
+        "type": "_list",
+        "properties": {
+            "listType": "ordered"
+        },
+        "value": [
+            {
+                "id": "f85f8d21",
+                "type": "_listItem",
+                "value": "Consectetur dictumst pellentesque maecenas quis adipiscing efficitur ad dis gravida."
+            },
+            {
+                "id": "a29cc5c8",
+                "type": "_listItem",
+                "value": "Porta venenatis pretium magna dictumst nullam placerat proin elit posuere ligula amet."
+            },
+            {
+                "id": "f5cec1e6",
+                "type": "_listItem",
+                "value": "Penatibus blandit ad egestas duis nascetur suscipit in vivamus."
+            }
+        ]
+    },
+    {
+        "id": "f58fad3c",
+        "type": "_paragraph",
+        "value": "Himenaeos et sagittis sociosqu proin ex ligula interdum condimentum porttitor. Potenti turpis vestibulum consectetuer amet laoreet dictum justo dolor. Enim euismod elementum commodo lacinia viverra. Leo montes augue facilisi massa bibendum rhoncus lobortis interdum. Ornare risus taciti adipiscing ultrices metus imperdiet laoreet condimentum. Placerat lacinia semper condimentum dictum dolor. In accumsan curae at massa mollis potenti hendrerit habitasse hac. Facilisi risus urna vitae ante auctor ultricies sagittis turpis semper."
+    },
+    {
+        "id": "96363391",
+        "type": "_list",
+        "properties": {
+            "listType": "unordered"
+        },
+        "value": [
+            {
+                "id": "ea27614d",
+                "type": "_listItem",
+                "value": "Consectetur dictumst pellentesque maecenas quis adipiscing efficitur ad dis gravida."
+            },
+            {
+                "id": "744a890f",
+                "type": "_listItem",
+                "value": "Porta venenatis pretium magna dictumst nullam placerat proin elit posuere ligula amet."
+            },
+            {
+                "id": "8a454e21",
+                "type": "_listItem",
+                "value": "Penatibus blandit ad egestas duis nascetur suscipit in vivamus."
+            }
+        ]
+    },
+    {
+        "id": "22116229",
+        "type": "_heading",
+        "properties": {
+            "level": 3
+        },
+        "value": "Heading three"
+    },
+    {
+        "id": "61a42305",
+        "type": "_table",
+        "value": [
+            {
+                "id": "92a840c2",
+                "type": "_tableCaption",
+                "value": []
+            },
+            {
+                "id": "35eb22dc",
+                "type": "_tableBody",
+                "value": [
+                    {
+                        "id": "2b74719",
+                        "type": "_tableRow",
+                        "value": [
+                            {
+                                "id": "44ee4eb5",
+                                "type": "_tableHeaderCell",
+                                "value": "Name:"
+                            },
+                            {
+                                "id": "4d9bba8b",
+                                "type": "_tableCell",
+                                "value": "{{name}}"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "1a301c54",
+                        "type": "_tableRow",
+                        "value": [
+                            {
+                                "id": "d25b6aa5",
+                                "type": "_tableCell",
+                                "value": "Email:"
+                            },
+                            {
+                                "id": "bb68de3e",
+                                "type": "_tableCell",
+                                "value": "{{email}}"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "fe1a1578",
+                        "type": "_tableRow",
+                        "value": [
+                            {
+                                "id": "1be2e16a",
+                                "type": "_tableCell",
+                                "value": "Phone:"
+                            },
+                            {
+                                "id": "cabab943",
+                                "type": "_tableCell",
+                                "value": "{{phoneNumber}}"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "2978b392",
+                        "type": "_tableRow",
+                        "value": [
+                            {
+                                "id": "c077dfed",
+                                "type": "_tableCell",
+                                "value": "Message:"
+                            },
+                            {
+                                "id": "7c56ceec",
+                                "type": "_tableCell",
+                                "value": "{{message}}"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "3f36dbd9",
+        "type": "_divider"
+    }
+];
