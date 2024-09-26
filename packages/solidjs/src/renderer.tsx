@@ -1,10 +1,19 @@
 import {
-    AnchorBlock, CodeBlock, ComponentBlock, Block, DecoratorType, DividerBlock,
+    AnchorBlock,
+    Block,
+    CodeBlock, ComponentBlock,
+    DecoratorType, DividerBlock,
+    FormContentTypeBlock,
     FragmentBlock, HeadingBlock, ImageBlock, InlineEntryBlock, LinkBlock,
-    ListBlock, ListItemBlock, PanelBlock, ParagraphBlock, QuoteBlock, TableBodyBlock,
-    TableCaptionBlock, TableCellBlock, TableBlock, TableFooterBlock,
-    TableHeaderCellBlock, TableHeaderBlock, TableRowBlock,
-    FormContentTypeBlock
+    LiquidBlock,
+    ListBlock, ListItemBlock, PanelBlock, ParagraphBlock, QuoteBlock,
+    TableBlock,
+    TableBodyBlock,
+    TableCaptionBlock, TableCellBlock,
+    TableFooterBlock,
+    TableHeaderBlock,
+    TableHeaderCellBlock,
+    TableRowBlock
 } from '@contensis/canvas-types';
 import { For, JSX, Match, Show, Switch, createContext, splitProps, useContext } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
@@ -375,6 +384,16 @@ export function Link(props: RenderBlockPropsWithChildren<LinkBlock>) {
 
 Link.Children = RenderBlockChildrenFactory<LinkBlock>();
 
+export function Liquid(props: RenderBlockPropsWithChildren<LiquidBlock>) {    
+    return (
+        <RenderContents contents={props.children} fallback={<Liquid.Children block={props.block} />} />        
+    );
+}
+
+Liquid.Children = function (props: RenderBlockProps<LiquidBlock>) {
+    return (<>{props.block?.value}</>);
+};
+
 export function List(props: RenderBlockPropsWithChildren<ListBlock>) {
     const isOrdered = () => (props.block?.properties?.listType === 'ordered');
     const attributes = getAttributes(props, () => ({
@@ -722,7 +741,6 @@ export function Variable(props: RenderDecoratorPropsWithChildren) {
 
 Variable.Children = DecoratorChildren;
 
-
 const BLOCK_RENDERERS: BlockRenderers = {
     '_anchor': Anchor,
     '_code': CodeWithCaption,
@@ -734,6 +752,7 @@ const BLOCK_RENDERERS: BlockRenderers = {
     '_image': ImageWithCaption,
     '_inlineEntry': InlineEntry,
     '_link': Link,
+    '_liquid': Liquid,
     '_list': List,
     '_listItem': ListItem,
     '_panel': Panel,

@@ -116,6 +116,7 @@ type Block =
     | ImageBlock
     | InlineEntryBlock
     | LinkBlock
+    | LiquidBlock
     | ListBlock
     | ListItemBlock
     | PanelBlock
@@ -183,7 +184,7 @@ type FormContentTypeBlock = {
     };
     value?: {
         contentType?: FormContentType;
-    }
+    };
 };
 
 type FragmentBlock = {
@@ -232,6 +233,18 @@ type LinkBlock = {
         id?: string;
         link?: Link;
         newTab?: boolean;
+    };
+};
+
+type LiquidType = 'tag' | 'variable';
+
+type LiquidBlock = {
+    type: '_liquid';
+    id: string;
+    value?: string;
+    properties?: {
+        id?: string;
+        type?: LiquidType;
     };
 };
 
@@ -378,6 +391,7 @@ export type {
     ImageBlock,
     InlineEntryBlock,
     LinkBlock,
+    LiquidBlock,
     ListBlock,
     ListItemBlock,
     PanelBlock,

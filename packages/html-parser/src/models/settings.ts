@@ -11,7 +11,7 @@ type _Values<T> = {
 };
 
 type _Array<T> = {
-    [P in keyof T]: T[P] extends boolean ? T[P] : Array<T[P]>;
+    [P in keyof T]: T[P] extends boolean ? T[P] : null | Array<T[P]>;
 };
 
 type _ValueOf<T> = T[keyof T];
@@ -51,6 +51,8 @@ type SettingNames = {
     'type.component.component': string;
     'type.component': boolean;
     'type.divider': boolean;
+    'type.formContentType.contentType': string;
+    'type.formContentType': boolean;
     'type.heading.level': number;
     'type.heading': boolean;
     'type.image': boolean;
@@ -65,12 +67,16 @@ type SettingNames = {
     'type.image.minHeight': number;
     'type.image.maxHeight': number;
     'type.image.filterPaths': string;
+    'type.image.uploadPath': string;
 
     'type.inlineEntry.contentType': string;
     'type.inlineEntry': boolean;
+    'type.link.assetContentType': string;
+    'type.link.assetFilterPaths': string;
     'type.link.contentType': string;
     'type.link.linkType': LinkType;
     'type.link': boolean;
+    'type.liquid': boolean;
     'type.list.listType': ListType;
     'type.list': boolean;
     'type.quote': boolean;
@@ -148,8 +154,8 @@ export function hasSetting(settings: CanvasSettings, setting: CanvasSetting) {
     if (parentKey && !settings[parentKey as keyof CanvasSettings]) {
         return false;
     }
-    const settingValue: any[] = settings[key];
-    return settingValue ? settingValue.includes(value) : true;
+    const settingValue = settings[key];
+    return settingValue ? (settingValue as any).includes(value) : true;
 }
 export function fixSetting<TKey extends keyof ArraySettings>(
     settings: CanvasSettings,
@@ -161,11 +167,11 @@ export function fixSetting<TKey extends keyof ArraySettings>(
     if (parentKey && !settings[parentKey as keyof CanvasSettings]) {
         return { enabled: false, value: null };
     }
-    const settingValue: any[] = settings[key];
-    if (!settingValue || settingValue.includes(value)) {
+    const settingValue = settings[key];
+    if (!settingValue || settingValue.includes(value as any)) {
         return { enabled: true, value };
     }
-    if (settingValue.includes(defaultValue)) {
+    if (settingValue.includes(defaultValue as any)) {
         return { enabled: true, value: defaultValue };
     }
     const firstValue = settingValue[0];
@@ -177,7 +183,7 @@ export function getSetting<TKey extends keyof ArraySettings>(settings: CanvasSet
     if (parentKey && !settings[parentKey as keyof CanvasSettings]) {
         return defaultValue;
     }
-    const settingValue: any[] = settings[key];
+    const settingValue = settings[key];
     return settingValue?.[0] || defaultValue;
 }
 
@@ -216,8 +222,10 @@ type CanvasTypeValidation = {
     type: CanvasType;
     languages?: CanvasValidationSetting<string>;
     components?: CanvasValidationSetting<string>;
+    formContentTypes?: CanvasValidationSetting<string>;
     levels?: CanvasValidationSetting<number>;
     imageTypes?: CanvasValidationSetting<ImageType>;
+    linkAssetContentTypes?: CanvasValidationSetting<string>;
     linkContentTypes?: CanvasValidationSetting<string>;
     linkTypes?: CanvasValidationSetting<LinkType>;
     listTypes?: CanvasValidationSetting<ListType>;
@@ -246,6 +254,7 @@ type CanvasEditorProperties = {
     uploadPath?: string;
     filterPaths?: string[];
     actions?: CanvasEditorActions;
+    types?: CanvasEditorType[];
 };
 
 type CanvasEditorActions = {
@@ -255,7 +264,17 @@ type CanvasEditorActions = {
     duplicate?: boolean;
     editorPanel?: boolean;
     order?: boolean;
-    image?: CanvasEditorImageAction[];
+};
+
+export type CanvasEditorType = {
+    type: CanvasType;
+
+    // image
+    imageActions?: CanvasEditorImageAction[];
+    uploadPath?: string;
+
+    // image and asset link
+    filterPaths?: string[];
 };
 
 type CanvasEditorAction = keyof CanvasEditorActions;
@@ -271,6 +290,10 @@ function isTypeEnabled(allowedTypes: CanvasAllowedTypesValidation, type: CanvasT
 
 function getType(allowedTypes: CanvasAllowedTypesValidation, type: CanvasType) {
     return allowedTypes?.types?.find((t) => t.type === type);
+}
+
+function getEditorType(properties: undefined | CanvasEditorProperties, type: CanvasType) {
+    return properties?.types?.find((t) => t.type === type);
 }
 
 function isDecoratorEnabled(allowedTypes: CanvasAllowedTypesValidation, decorator: CanvasDecorator) {
@@ -302,7 +325,7 @@ function isTypeEnabledAndAllowed<TAllowedKey extends AllowedKeys>(allowedTypes: 
     return isEnabled && (!values || (Array.isArray(values) && !!values.length));
 }
 
-function getLocalisedValue(dict: string | Record<string, string>) {
+function getLocalisedValue(dict: undefined | string | Record<string, string>) {
     if (!dict) {
         return '';
     }
@@ -318,9 +341,11 @@ function asArray<T>(item: T) {
 
 export function createCanvasSettings(canvasField: CanvasField): CanvasSettings {
     const allowedTypes = canvasField?.validations?.allowedTypes as CanvasAllowedTypesValidation;
-    const actions = canvasField?.editor?.properties?.actions;
-    const imageActions = actions?.image;
+    const properties = canvasField?.editor?.properties;
+    const actions = properties?.actions;
     const image = getType(allowedTypes, '_image');
+    const imageEditor = getEditorType(properties, '_image');
+    const linkEditor = getEditorType(properties, '_link');
     return {
         'actions.contentEditable': isActionEnabled(actions, 'contentEditable'),
         'actions.deleteItem': isActionEnabled(actions, 'deleteItem'),
@@ -340,7 +365,8 @@ export function createCanvasSettings(canvasField: CanvasField): CanvasSettings {
         'decorator.superscript': isDecoratorEnabled(allowedTypes, 'superscript'),
         'decorator.underline': isDecoratorEnabled(allowedTypes, 'underline'),
         'decorator.variable': isDecoratorEnabled(allowedTypes, 'variable'),
-        'editor.placeholder': [getLocalisedValue(canvasField?.editor?.properties?.placeholderText || '')],
+
+        'editor.placeholder': [getLocalisedValue(canvasField?.editor?.properties?.placeholderText)],
         'properties.friendlyId': true,
         'type.anchor': isTypeEnabled(allowedTypes, '_anchor'),
         'type.code': isTypeEnabledAndAllowed(allowedTypes, '_code', 'languages'),
@@ -348,10 +374,12 @@ export function createCanvasSettings(canvasField: CanvasField): CanvasSettings {
         'type.component': isTypeEnabledAndAllowed(allowedTypes, '_component', 'components'),
         'type.component.component': getAllowedValues(allowedTypes, '_component', 'components'),
         'type.divider': isTypeEnabled(allowedTypes, '_divider'),
+        'type.formContentType': isTypeEnabled(allowedTypes, '_formContentType'),
+        'type.formContentType.contentType': getAllowedValues(allowedTypes, '_formContentType', 'formContentTypes'),
         'type.heading': isTypeEnabledAndAllowed(allowedTypes, '_heading', 'levels'),
         'type.heading.level': getAllowedValues(allowedTypes, '_heading', 'levels'),
         'type.image': isTypeEnabled(allowedTypes, '_image'),
-        'type.image.actions': imageActions || [],
+        'type.image.actions': imageEditor?.imageActions || null,
         'type.image.altTextRequired': isTypeEnabled(allowedTypes, '_image') && image?.altTextRequired ? ['required'] : [],
         'type.image.altTextRequiredMessage':
             isTypeEnabled(allowedTypes, '_image') && image?.altTextRequired?.message?.['en-GB'] ? [image.altTextRequired.message['en-GB']] : [],
@@ -359,18 +387,26 @@ export function createCanvasSettings(canvasField: CanvasField): CanvasSettings {
         'type.image.captionRequiredMessage':
             isTypeEnabled(allowedTypes, '_image') && image?.captionRequired?.message?.['en-GB'] ? [image.captionRequired.message['en-GB']] : [],
 
-        'type.image.filterPaths': isTypeEnabled(allowedTypes, '_image') ? canvasField?.editor?.properties?.filterPaths || [] : [],
+        'type.image.filterPaths': isTypeEnabled(allowedTypes, '_image') ? imageEditor?.filterPaths || canvasField?.editor?.properties?.filterPaths || null : null,
         'type.image.minWidth': asArray(isTypeEnabled(allowedTypes, '_image') ? image?.imageDimensions?.minWidth : null),
         'type.image.maxWidth': asArray(isTypeEnabled(allowedTypes, '_image') ? image?.imageDimensions?.maxWidth : null),
         'type.image.minHeight': asArray(isTypeEnabled(allowedTypes, '_image') ? image?.imageDimensions?.minHeight : null),
         'type.image.maxHeight': asArray(isTypeEnabled(allowedTypes, '_image') ? image?.imageDimensions?.maxHeight : null),
+        'type.image.uploadPath':
+            isTypeEnabled(allowedTypes, '_image') && (imageEditor?.uploadPath || canvasField?.editor?.properties?.uploadPath)
+                ? [(imageEditor?.uploadPath || canvasField?.editor?.properties?.uploadPath) as string]
+                : null,
 
         'type.image.imageType': getAllowedValues(allowedTypes, '_image', 'imageTypes'),
         'type.inlineEntry': isTypeEnabled(allowedTypes, '_inlineEntry'),
         'type.inlineEntry.contentType': getAllowedValues(allowedTypes, '_inlineEntry', 'linkContentTypes'),
         'type.link': isTypeEnabledAndAllowed(allowedTypes, '_link', 'linkTypes'),
         'type.link.linkType': getAllowedValues(allowedTypes, '_link', 'linkTypes'),
-        'type.link.contentType': getAllowedValues(allowedTypes, '_inlineEntry', 'linkContentTypes'),
+        'type.link.assetContentType': getAllowedValues(allowedTypes, '_link', 'linkAssetContentTypes'),
+        'type.link.assetFilterPaths': linkEditor?.filterPaths || null,
+        'type.link.contentType': getAllowedValues(allowedTypes, '_link', 'linkContentTypes'),
+        'type.liquid': false,
+
         'type.list': isTypeEnabledAndAllowed(allowedTypes, '_list', 'listTypes'),
         'type.list.listType': getAllowedValues(allowedTypes, '_list', 'listTypes'),
         'type.panel': isTypeEnabledAndAllowed(allowedTypes, '_panel', 'panelTypes'),

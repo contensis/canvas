@@ -6,9 +6,9 @@ import { toValue } from '../shared';
 import { FigureElement } from './figure-element';
 
 export class BlockquoteElement extends BlockElement {
-    private _citation: string;
-    private _source: string;
-    private _quoteItem: QuoteBlock;
+    private _citation: undefined | string;
+    private _source: undefined | string;
+    private _quoteItem: undefined | QuoteBlock;
 
     constructor(name: string, attributes: Attributes, context: Context) {
         super(name, attributes, context);
@@ -44,6 +44,7 @@ export class BlockquoteElement extends BlockElement {
     }
 
     withCaption(source: string) {
+        if (this._quoteItem) {
         let properties = this._quoteItem.properties;
         if (source) {
             properties = {
@@ -61,6 +62,9 @@ export class BlockquoteElement extends BlockElement {
             ...this._quoteItem,
             properties
         };
+        } else {
+            return undefined;
+        }
     }
 
     private getProperties(): QuoteBlock['properties'] {

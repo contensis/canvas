@@ -9,6 +9,7 @@ import {
     ImageBlock,
     InlineEntryBlock,
     LinkBlock,
+    LiquidBlock,
     ListBlock,
     ListItemBlock,
     PanelBlock,
@@ -91,6 +92,11 @@ const link = createBlockRenderer<LinkBlock>(({ block, contents }) => {
     const href = block.properties?.link?.sys?.uri;
     return href ? `[${contents}](${href})` : contents;
 });
+
+const liquid = createBlockRenderer<LiquidBlock>(
+    ({ contents }) => contents,
+    ({ block }) => block?.value || ''
+);
 
 const list = function (props: RenderBlockProps<ListBlock>, ...children: string[]) {
     const { block, context, renderers, encode } = props;
@@ -194,6 +200,7 @@ const createRenderer = createRendererFactory(
         _image: image,
         _inlineEntry: inlineEntry,
         _link: link,
+        _liquid: liquid,
         _list: list,
         _listItem: listItem,
         _quote: quote,
@@ -231,12 +238,16 @@ const text = htmlEncode;
 export {
     anchor,
     code,
-    component, createRenderer, divider,
+    component,
+    createRenderer,
+    divider,
     emphasis,
     fragment,
     heading,
     image,
-    inlineCode, inlineDelete, inlineEntry,
+    inlineCode,
+    inlineDelete,
+    inlineEntry,
     insert,
     keyboard,
     lineBreak,
@@ -258,7 +269,9 @@ export {
     tableFooter,
     tableHeader,
     tableHeaderCell,
-    tableRow, text, underline,
+    tableRow,
+    text,
+    underline,
     variable
 };
 
