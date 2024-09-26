@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/contensis/canvas/compare/@contensis/canvas-html-v1.1.0...@contensis/canvas-html-v1.2.0) (2024-09-26)
+
+
+### Build
+
+* install dev dependencies as npm local package for release-please `always-link-local` manifest option to pick up changes ([57bf0fc](https://github.com/contensis/canvas/commit/57bf0fc1ca74a3a4758d3e86c2bcb14285c3fdb9))
+
 ## [1.1.0](https://github.com/contensis/canvas/compare/@contensis/canvas-html-v1.0.0...@contensis/canvas-html-v1.1.0) (2024-07-05)
 
 
