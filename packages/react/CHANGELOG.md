@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.1.0...@contensis/canvas-react-v1.2.0) (2024-09-26)
+
+
+### Features
+
+* add support for Liquid canvas blocks ([#22](https://github.com/contensis/canvas/issues/22)) ([c18c591](https://github.com/contensis/canvas/commit/c18c5918a64c4e6ad9cf00daf0f65c00af507159))
+* added default forms render ([#22](https://github.com/contensis/canvas/issues/22)) ([c18c591](https://github.com/contensis/canvas/commit/c18c5918a64c4e6ad9cf00daf0f65c00af507159))
+* updated rendering of forms within canvas and ensured canvas renderer can handle unknown types ([#22](https://github.com/contensis/canvas/issues/22)) ([c18c591](https://github.com/contensis/canvas/commit/c18c5918a64c4e6ad9cf00daf0f65c00af507159))
+
+
+### Build
+
+* use .mjs extension for ESM build - reverts change in v1.0.5 and fixes [#20](https://github.com/contensis/canvas/issues/20) `Cannot use import statement outside a module` when project specifies `type: module` ([aacbae8](https://github.com/contensis/canvas/commit/aacbae87695e8b965445b9957fc99b65563b61df))
+
 ## [1.1.0](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.0.6...@contensis/canvas-react-v1.1.0) (2024-07-05)
 
 
