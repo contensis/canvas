@@ -30,8 +30,8 @@
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
-    "@contensis/canvas-dom": "^0.0.1",
-    "@contensis/canvas-types": "^0.0.1"
+    "@contensis/canvas-dom": "file:../dom",
+    "@contensis/canvas-types": "file:../types"
   },
   "exports": {
     ".": {
