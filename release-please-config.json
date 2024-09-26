@@ -13,8 +13,7 @@
   ],
   "packages": {
     "packages/html": {
-      "component": "@contensis/canvas-html",
-      "release-as": "1.2.0"
+      "component": "@contensis/canvas-html"
     },
     "packages/react": {
       "component": "@contensis/canvas-react"
