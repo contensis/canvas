@@ -6,6 +6,7 @@
 ### Features
 
 * add support for Liquid canvas blocks ([#22](https://github.com/contensis/canvas/issues/22)) ([c18c591](https://github.com/contensis/canvas/commit/c18c5918a64c4e6ad9cf00daf0f65c00af507159))
+* parse forms in html ([#22](https://github.com/contensis/canvas/issues/22)) ([c18c591](https://github.com/contensis/canvas/commit/c18c5918a64c4e6ad9cf00daf0f65c00af507159))
 
 ## 1.0.0 (2024-08-09)
 
