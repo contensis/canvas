@@ -1,1 +1,283 @@
-{"operation":"createHtmlParser_image_content","response":[{"type":"_image","id":"b0c70104","value":{"altText":"Image of people around table having a meeting.","asset":{"sys":{"uri":"/image-library/test/et.jpg"}}}},{"type":"_paragraph","id":"3eb69962","value":"Without the support of Funds and Pools as Founders, the Frameworks wouldn’t exist. The Founders are at the heart of every Framework; from shaping the specification of services through to evaluating the Provider responses. To date 49 Funds and Pools have acted as Founders, often multiple times and on more than one Framework!"},{"type":"_paragraph","id":"55c95fbf","value":"If you feel able to volunteer to help shape the Frameworks as a Founder, or if you would like to find out more about this and the commitment involved, please do not hesitate to contact us."},{"type":"_component","id":"8e0430e0","properties":{"component":"authorBlock"},"value":{"authorItems":[{"entryTitle":"Ryan Throne","entryDescription":"Head of Operational Services and Support","entryThumbnail":null,"sys":{"id":"63a237f9-839b-47be-a152-430547b83e32","language":"en-GB","contentTypeId":"teamMember","dataFormat":"entry","uri":null}},{"entryTitle":"Bob Vorderman","entryDescription":"Director","entryThumbnail":null,"sys":{"id":"5df32eb7-33f7-47e6-b141-2a106d33c2a2","language":"en-GB","contentTypeId":"teamMember","dataFormat":"entry","uri":null}}]}},{"type":"_component","id":"bdc0886a","properties":{"component":"testimonial"},"value":{"quote":"Being a Founder is Great.","role":"Frameworks Officer","name":"Freda James","logo":{"altText":"","transformations":null,"caption":"","asset":{"entryTitle":"UK","entryDescription":null,"sys":{"id":"d6373cad-ab07-4678-8b18-a033e3543fba","language":"en-GB","contentTypeId":"image","dataFormat":"asset","uri":"/image-library/founding-authorities/uk.x4257357b.png"}}},"avatar":{"altText":"","transformations":"w=1000&h=1333&crop=1000,1000,0,167","caption":"","asset":{"entryTitle":"Freda","entryDescription":null,"sys":{"id":"a10de3a0-4a0a-4f87-b067-ed6673ced7ed","language":"en-GB","contentTypeId":"image","dataFormat":"asset","uri":"/image-library/avatars/freda.x8a35f15b.jpg?w=1000&h=1333&crop=1000,1000,0,167"}}}}}],"nockCalls":[{"scope":"https://mock-cms.cloud.contensis.com:443","method":"POST","path":"/authenticate/connect/token","body":"scope=Security_Administrator%20ContentType_Read%20ContentType_Write%20ContentType_Delete%20Entry_Read%20Entry_Write%20Entry_Delete%20Project_Read%20Project_Write%20Project_Delete%20Workflow_Administrator&grant_type=client_credentials&client_id=mock&client_secret=mock","status":200,"response":{"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImM0cHZjS0UzTTgyNkttTENDWXZsLTVJOFFZOCIsImtpZCI6ImM0cHZjS0UzTTgyNkttTENDWXZsLTVJOFFZOCJ9.eyJpc3MiOiJodHRwczovL2Ntcy1hdXRvbW90cm9uLmNsb3VkLmNvbnRlbnNpcy5jb20vYXV0aGVudGljYXRlIiwiYXVkIjoiaHR0cHM6Ly9jbXMtYXV0b21vdHJvbi5jbG91ZC5jb250ZW5zaXMuY29tL2F1dGhlbnRpY2F0ZS9yZXNvdXJjZXMiLCJleHAiOjE3MjgzODQ0MTAsIm5iZiI6MTcyODM4MDgxMCwiY2xpZW50X2lkIjoiYWFhZmJmOTMtN2JmNS00NGU4LWI2NDYtYmIyOGQzY2FlYjVjIiwiY2xpZW50X3N1YiI6ImFhYWZiZjkzLTdiZjUtNDRlOC1iNjQ2LWJiMjhkM2NhZWI1YyIsImNsaWVudF91c2VybmFtZSI6IkNhbnZhcyBwYWNrYWdlIGF1dG9tYXRlZCB0ZXN0cyIsInNjb3BlIjpbIkNvbnRlbnRUeXBlX0RlbGV0ZSIsIkNvbnRlbnRUeXBlX1JlYWQiLCJDb250ZW50VHlwZV9Xcml0ZSIsIkVudHJ5X0RlbGV0ZSIsIkVudHJ5X1JlYWQiLCJFbnRyeV9Xcml0ZSIsIlByb2plY3RfRGVsZXRlIiwiUHJvamVjdF9SZWFkIiwiUHJvamVjdF9Xcml0ZSIsIlNlY3VyaXR5X0FkbWluaXN0cmF0b3IiLCJXb3JrZmxvd19BZG1pbmlzdHJhdG9yIl19.A_33uMnNlMaq2IgDi0MG-lFoChLrtx4NKKjZLjKVwIPW4vNjTNojx9qOC9CbXxewCHD1PAmwIT6n5i5B9Qe7EhGtjlBggLQJRkP94KQo249lPIauCzXBOMCI6BG8qaPTDVD9DaACNfsn1T7a41WViXrGwghi6BQImTD-fMs-gILHEU3GH2Siqzb3VqY_eOMkjp4F8lOdARAwV0P9d-QuHmtOY8TIUhucx1YaIbNQOy7LAN6OxzPhZxa_09zQ-nSRgBN4u_q3MRZ6bJo3QKxbftaOd-3DbEdojegsej2-DHHsDxHrTr6P8owT2gr3QSpeF4ddTKruunv03gCSqo4ksw","expires_in":3600,"token_type":"Bearer"},"rawHeaders":["cache-control","no-store, no-cache, max-age=0, private","pragma","no-cache","content-length","1251","content-type","application/json; charset=utf-8","access-control-expose-headers","x-contensis-classic-token","date","Tue, 08 Oct 2024 09:46:49 GMT","x-robots-tag","noindex","x-content-type-options","nosniff","referrer-policy","strict-origin-when-cross-origin","x-backend-name","backend_tcp_automotron"],"responseIsBinary":false},{"scope":"https://mock-cms.cloud.contensis.com:443","method":"GET","path":"/api/delivery/projects/canvasPackages/contentTypes/document","body":"","status":200,"response":["1f8b080000000000040095534d6fdb300cfd2f3a0e75103bca877d5bd67528b00d3be4b4a118148976b5ca92a18f145990ff3ecab2d32c09300cf0858fe4e3d3237d203bb04e1a4daa03e1169807b1de938afc06dd80f692dc8d3082c5b4a0d9749e15c5665a56b4ac723a29f345be5c2cbf63616b84ace535c188df6298cd277436cb570b1a19bab055d23d5f539c12373956937cb19c976519390428185ea1835227600c99e5cf72775e3022633c58f2d5e0b07c3225c73b12828ca317a2e6c5365f66b4a0d38cf29c662b4a4596b319f02d179c5240097dad303cb4283faab7e61770ff1861cef48eb96f8cbfb0061c26356b21ba0f3afbb4c682fbb1ef18a53b6e65e7d3821040dcee37d22b7890a0229f8f01d2d43176a4fa7148e347fc92be6feeb999679b7d8749e2bc95ba21097b30b665fecdbc0b05026a16d429bf634a6217a6dda050486fec986eac095dffee96498d630775c9851bf23ea4c4dffacc36daf7de5ab6bf10f946f47f420953cabc828803fab805e7702163b54f389ae9938477bdf621f8595bd60cbb15c08d65f8e473dabef39449ed4fc7f8fdcba0a793f0cf4c37a197349873475ce83a63f196c75c943864b1f1d5d8971ae7a73b33da8376d27d8c27b3664ef24beffa63228386b3d3e9955cafe64bdae0a5d351b2d45c05018ffa1e14fe49c85a791b20de2bdbaae8470af147e8c07a1985c7f71fff005f4dbb0480040000"],"rawHeaders":["cache-control","no-store, must-revalidate","content-type","application/json; charset=utf-8","content-encoding","gzip","origin-content-api-version","16.102.0.7825","x-alias","automotron","access-control-allow-headers","accesstoken, authorization, content-type, *","access-control-allow-methods","*","access-control-allow-origin","*","access-control-expose-headers","surrogate-key","date","Tue, 08 Oct 2024 09:46:49 GMT","content-length","524","x-robots-tag","noindex","x-content-type-options","nosniff","referrer-policy","strict-origin-when-cross-origin","x-backend-name","backend_tcp_automotron"],"responseIsBinary":false},{"scope":"https://mock-cms.cloud.contensis.com:443","method":"GET","path":"/api/delivery/projects/canvasPackages","body":"","status":200,"response":{"id":"canvasPackages","uuid":"b67f69f8-131d-cf94-6211-50624b70df93","name":"Canvas packages","description":"Data used in automated tests for the canvas packages at github.com/contensis/canvas","primaryLanguage":"en-GB","supportedLanguages":["en-GB"],"color":"blue","deliverySysExclusions":[]},"rawHeaders":["cache-control","no-store, must-revalidate","content-length","293","content-type","application/json; charset=utf-8","origin-content-api-version","16.102.0.7825","x-alias","automotron","access-control-allow-headers","accesstoken, authorization, content-type, *","access-control-allow-methods","*","access-control-allow-origin","*","access-control-expose-headers","surrogate-key","date","Tue, 08 Oct 2024 09:46:49 GMT","x-robots-tag","noindex","x-content-type-options","nosniff","referrer-policy","strict-origin-when-cross-origin","x-backend-name","backend_tcp_automotron"],"responseIsBinary":false},{"scope":"https://mock-cms.cloud.contensis.com:443","method":"GET","path":"/api/delivery/projects/canvasPackages/entries?clientDetails=%5Bobject%20Object%5D&clientType=client_credentials&pageIndex=0&pageSize=1&zenql=sys.dataFormat%3Dasset%20and%20(sys.uri%3D%22%2Fimage-library%2Ftest%2Fet.jpg%22%20or%20(sys.properties.filePath%3D%22%2Fimage-library%2Ftest%2F%22%20and%20sys.properties.filename%3D%22et.jpg%22)%20or%20sys.id%3D%22et.jpg%22)%20and%20sys.versionStatus%3Dlatest","body":"","status":200,"response":{"pageIndex":0,"pageSize":1,"totalCount":0,"pageCount":0,"items":[]},"rawHeaders":["cache-control","no-store, must-revalidate","content-length","68","content-type","application/json","etag","\"J+vJ6Q\"","origin-content-api-version","16.102.0.7825","x-alias","automotron","access-control-allow-headers","accesstoken, authorization, content-type, *","access-control-allow-methods","*","access-control-allow-origin","*","access-control-expose-headers","surrogate-key","date","Tue, 08 Oct 2024 09:46:49 GMT","x-robots-tag","noindex","x-content-type-options","nosniff","referrer-policy","strict-origin-when-cross-origin","x-backend-name","backend_tcp_automotron"],"responseIsBinary":false}]}
+{
+  "operation": "createHtmlParser_image_content",
+  "response": [
+    {
+      "type": "_image",
+      "id": "b911001d",
+      "value": {
+        "altText": "Image of people around table having a meeting.",
+        "asset": {
+          "sys": {
+            "uri": "/image-library/test/et.jpg"
+          }
+        }
+      }
+    },
+    {
+      "type": "_paragraph",
+      "id": "5859c015",
+      "value": "Without the support of Funds and Pools as Founders, the Frameworks wouldn’t exist. The Founders are at the heart of every Framework; from shaping the specification of services through to evaluating the Provider responses. To date 49 Funds and Pools have acted as Founders, often multiple times and on more than one Framework!"
+    },
+    {
+      "type": "_paragraph",
+      "id": "6e6cf998",
+      "value": "If you feel able to volunteer to help shape the Frameworks as a Founder, or if you would like to find out more about this and the commitment involved, please do not hesitate to contact us."
+    },
+    {
+      "type": "_component",
+      "id": "bcf8bbc6",
+      "properties": {
+        "component": "authorBlock"
+      },
+      "value": {
+        "authorItems": [
+          {
+            "entryTitle": "Ryan Throne",
+            "entryDescription": "Head of Operational Services and Support",
+            "entryThumbnail": null,
+            "sys": {
+              "id": "63a237f9-839b-47be-a152-430547b83e32",
+              "language": "en-GB",
+              "contentTypeId": "teamMember",
+              "dataFormat": "entry",
+              "uri": null
+            }
+          },
+          {
+            "entryTitle": "Bob Vorderman",
+            "entryDescription": "Director",
+            "entryThumbnail": null,
+            "sys": {
+              "id": "5df32eb7-33f7-47e6-b141-2a106d33c2a2",
+              "language": "en-GB",
+              "contentTypeId": "teamMember",
+              "dataFormat": "entry",
+              "uri": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "_component",
+      "id": "493e2688",
+      "properties": {
+        "component": "testimonial"
+      },
+      "value": {
+        "quote": "Being a Founder is Great.",
+        "role": "Frameworks Officer",
+        "name": "Freda James",
+        "logo": {
+          "altText": "",
+          "transformations": null,
+          "caption": "",
+          "asset": {
+            "entryTitle": "UK",
+            "entryDescription": null,
+            "sys": {
+              "id": "d6373cad-ab07-4678-8b18-a033e3543fba",
+              "language": "en-GB",
+              "contentTypeId": "image",
+              "dataFormat": "asset",
+              "uri": "/image-library/founding-authorities/uk.x4257357b.png"
+            }
+          }
+        },
+        "avatar": {
+          "altText": "",
+          "transformations": "w=1000&h=1333&crop=1000,1000,0,167",
+          "caption": "",
+          "asset": {
+            "entryTitle": "Freda",
+            "entryDescription": null,
+            "sys": {
+              "id": "a10de3a0-4a0a-4f87-b067-ed6673ced7ed",
+              "language": "en-GB",
+              "contentTypeId": "image",
+              "dataFormat": "asset",
+              "uri": "/image-library/avatars/freda.x8a35f15b.jpg?w=1000&h=1333&crop=1000,1000,0,167"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "nockCalls": [
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "POST",
+      "path": "/authenticate/connect/token",
+      "body": "scope=Security_Administrator%20ContentType_Read%20ContentType_Write%20ContentType_Delete%20Entry_Read%20Entry_Write%20Entry_Delete%20Project_Read%20Project_Write%20Project_Delete%20Workflow_Administrator&grant_type=client_credentials&client_id=mock&client_secret=mock",
+      "status": 200,
+      "response": {
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImM0cHZjS0UzTTgyNkttTENDWXZsLTVJOFFZOCIsImtpZCI6ImM0cHZjS0UzTTgyNkttTENDWXZsLTVJOFFZOCJ9.eyJpc3MiOiJodHRwczovL2Ntcy1hdXRvbW90cm9uLmNsb3VkLmNvbnRlbnNpcy5jb20vYXV0aGVudGljYXRlIiwiYXVkIjoiaHR0cHM6Ly9jbXMtYXV0b21vdHJvbi5jbG91ZC5jb250ZW5zaXMuY29tL2F1dGhlbnRpY2F0ZS9yZXNvdXJjZXMiLCJleHAiOjE3MjgzOTM2NjUsIm5iZiI6MTcyODM5MDA2NSwiY2xpZW50X2lkIjoiYWFhZmJmOTMtN2JmNS00NGU4LWI2NDYtYmIyOGQzY2FlYjVjIiwiY2xpZW50X3N1YiI6ImFhYWZiZjkzLTdiZjUtNDRlOC1iNjQ2LWJiMjhkM2NhZWI1YyIsImNsaWVudF91c2VybmFtZSI6IkNhbnZhcyBwYWNrYWdlIGF1dG9tYXRlZCB0ZXN0cyIsInNjb3BlIjpbIkNvbnRlbnRUeXBlX0RlbGV0ZSIsIkNvbnRlbnRUeXBlX1JlYWQiLCJDb250ZW50VHlwZV9Xcml0ZSIsIkVudHJ5X0RlbGV0ZSIsIkVudHJ5X1JlYWQiLCJFbnRyeV9Xcml0ZSIsIlByb2plY3RfRGVsZXRlIiwiUHJvamVjdF9SZWFkIiwiUHJvamVjdF9Xcml0ZSIsIlNlY3VyaXR5X0FkbWluaXN0cmF0b3IiLCJXb3JrZmxvd19BZG1pbmlzdHJhdG9yIl19.mQNlfbpW13CGFh8nl7qzJxDkq23z1LVTFv-dnpHZ92zsN-EATZC-8BUw655dCzpZIt9AEbkcSFI4SBJuhDhRxZex2exCx-_Wj0xzBQAXPEcgzX165BycIC7czObbp2nQYNMaHJlUg7pVoonX6ttZ4wqXDpjRpjSqFH9jY3Zc5nCp0NYqFb4gIRj7UJf2oZxoo2VoFrzDZx_MJAhr4vcVCrDnLNecljX2vauujFOrGt9yETBktdbiQEEXS3IopfEeEHOxGWjRV5oIVghF_0RqLCl98HN9ikINcQhEJGzm7AkVZwAAFsbn_iKOyPwhrbro7cozMl9AE8VT5wBy8sHxQg",
+        "expires_in": 3600,
+        "token_type": "Bearer"
+      },
+      "rawHeaders": [
+        "cache-control",
+        "no-store, no-cache, max-age=0, private",
+        "pragma",
+        "no-cache",
+        "content-length",
+        "1251",
+        "content-type",
+        "application/json; charset=utf-8",
+        "access-control-expose-headers",
+        "x-contensis-classic-token",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages/contentTypes/document",
+      "body": "",
+      "status": 200,
+      "response": [
+        "1f8b080000000000040095534d6fdb300cfd2f3a0e75103bca877d5bd67528b00d3be4b4a118148976b5ca92a18f145990ff3ecab2d32c09300cf0858fe4e3d3237d203bb04e1a4daa03e1169807b1de938afc06dd80f692dc8d3082c5b4a0d9749e15c5665a56b4ac723a29f345be5c2cbf63616b84ace535c188df6298cd277436cb570b1a19bab055d23d5f539c12373956937cb19c976519390428185ea1835227600c99e5cf72775e3022633c58f2d5e0b07c3225c73b12828ca317a2e6c5365f66b4a0d38cf29c662b4a4596b319f02d179c5240097dad303cb4283faab7e61770ff1861cef48eb96f8cbfb0061c26356b21ba0f3afbb4c682fbb1ef18a53b6e65e7d3821040dcee37d22b7890a0229f8f01d2d43176a4fa7148e347fc92be6feeb999679b7d8749e2bc95ba21097b30b665fecdbc0b05026a16d429bf634a6217a6dda050486fec986eac095dffee96498d630775c9851bf23ea4c4dffacc36daf7de5ab6bf10f946f47f420953cabc828803fab805e7702163b54f389ae9938477bdf621f8595bd60cbb15c08d65f8e473dabef39449ed4fc7f8fdcba0a793f0cf4c37a197349873475ce83a63f196c75c943864b1f1d5d8971ae7a73b33da8376d27d8c27b3664ef24beffa63228386b3d3e9955cafe64bdae0a5d351b2d45c05018ffa1e14fe49c85a791b20de2bdbaae8470af147e8c07a1985c7f71fff005f4dbb0480040000"
+      ],
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-type",
+        "application/json; charset=utf-8",
+        "content-encoding",
+        "gzip",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "content-length",
+        "524",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages",
+      "body": "",
+      "status": 200,
+      "response": {
+        "id": "canvasPackages",
+        "uuid": "b67f69f8-131d-cf94-6211-50624b70df93",
+        "name": "Canvas packages",
+        "description": "Data used in automated tests for the canvas packages at github.com/contensis/canvas",
+        "primaryLanguage": "en-GB",
+        "supportedLanguages": [
+          "en-GB"
+        ],
+        "color": "blue",
+        "deliverySysExclusions": []
+      },
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-length",
+        "293",
+        "content-type",
+        "application/json; charset=utf-8",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages/entries?clientDetails=%5Bobject%20Object%5D&clientType=client_credentials&pageIndex=0&pageSize=1&zenql=sys.dataFormat%3Dasset%20and%20(sys.uri%3D%22%2Fimage-library%2Ftest%2Fet.jpg%22%20or%20(sys.properties.filePath%3D%22%2Fimage-library%2Ftest%2F%22%20and%20sys.properties.filename%3D%22et.jpg%22)%20or%20sys.id%3D%22et.jpg%22)%20and%20sys.versionStatus%3Dlatest",
+      "body": "",
+      "status": 200,
+      "response": {
+        "pageIndex": 0,
+        "pageSize": 1,
+        "totalCount": 0,
+        "pageCount": 0,
+        "items": []
+      },
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-length",
+        "68",
+        "content-type",
+        "application/json",
+        "etag",
+        "\"J+vJ6Q\"",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    }
+  ]
+}
