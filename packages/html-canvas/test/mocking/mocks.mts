@@ -37,7 +37,7 @@ export class NockMocker {
     if (USE_MOCKS) {
       config.rootUrl = 'https://mock-cms.cloud.contensis.com';
       config.clientDetails = { clientId: 'mock', clientSecret: 'mock' };
-      config.projectId = 'canvas'
+      config.projectId = 'canvasPackages';
     }
     return config;
   };
@@ -91,12 +91,12 @@ export class NockMocker {
       this.files.checkDir(filename);
       fs.writeFileSync(
         filename,
-        JSON.stringify(recorded)
+        JSON.stringify(recorded, null, 2)
           .replaceAll(`${process.env.clientId}`, 'mock')
           .replaceAll(`${process.env.sharedSecret}`, 'mock')
           .replaceAll(`${process.env.rootUrl}`, 'https://mock-cms.cloud.contensis.com')
       );
-    } 
+    }
   };
 
   loadMocks = () => {

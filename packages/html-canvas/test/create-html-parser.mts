@@ -191,4 +191,44 @@ describe('createHtmlParser function tests', () => {
       });
     });
   });
+
+  describe(`Scenario: Parse content with image transformations`, () => {
+    let canvas: Block[];
+    let firstBlock: Block;
+    after(() => mock.done(canvas));
+    before(async () => {
+      mock = mocks(`createHtmlParser_image_transformations`);
+      const pageHtml = readFileSync('./test/examples/image-transformed.htm', { encoding: 'utf8' });
+      const client = new Client(clientConfig);
+      const parser = await createHtmlParser({ client, contentTypeId: 'document', fieldId: 'canvas' });
+      canvas = await parser.parse(pageHtml);
+      // console.log(JSON.stringify(canvas, null, 2));
+      firstBlock = canvas[0];
+    });
+    describe(`Given I wish to convert part of my site to Canvas, when the HTML is parsed`, () => {
+      describe(`Then I expect the Canvas to locate my existing images with my transformations applied`, () => {
+        it(` returns canvas content blocks`, () => {
+          expect(canvas).to.be.an('array');
+          expect(canvas).to.have.a.lengthOf.greaterThan(0);
+        });
+        it(` has a block of type "_image"`, () => {
+          expect(firstBlock.type).to.equal('_image');
+        });
+
+        it(` the image has a uri`, () => {
+          expect(firstBlock.value).is.an('object');
+          expect(firstBlock.value.asset).is.an('object');
+          expect(firstBlock.value.asset.sys.uri).is.a('string');
+          expect(firstBlock.value.asset.sys.uri).has.a.lengthOf.greaterThan(1);
+        });
+
+        it(` the image has transformations`, () => {
+          expect(firstBlock.value).is.an('object');
+          expect(firstBlock.value.transformations).is.an('object');
+          expect(firstBlock.value.transformations.size).is.an('object');
+          expect(firstBlock.value.transformations.size.width).equals(874);
+        });
+      });
+    });
+  });
 });
