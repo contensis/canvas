@@ -1,10 +1,12 @@
 import {
     AnchorBlock,
+    AssetBlock,
     Block,
     CodeBlock,
     ComponentBlock,
     DecoratorType,
     DividerBlock,
+    EntryBlock,
     FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
@@ -43,6 +45,8 @@ type Renderers<TNode, TFragment> = {
     blocks: BlockRenderers<TNode, TFragment>;
     decorators: DecoratorRenderers<TNode, TFragment>;
     components: ComponentRenderers<TNode, TFragment>;
+    entries: EntryRenderers<TNode, TFragment>;
+    assets: AssetRenderers<TNode, TFragment>;
 };
 type WithRenderers<TNode, TFragment> = {
     renderers: Renderers<TNode, TFragment>;
@@ -74,11 +78,17 @@ type DecoratorProps<TNode, TFragment> = { block: FragmentBlock; decorators: Deco
 
 type ComponentRenderer<TNode, TFragment> = (props: RenderBlockProps<ComponentBlock, TNode, TFragment>, ...children: TNode[]) => TNode;
 type ComponentRenderers<TNode, TFragment> = Record<string, ComponentRenderer<TNode, TFragment>>;
+type EntryRenderer<TNode, TFragment> = (props: RenderBlockProps<EntryBlock, TNode, TFragment>, ...children: TNode[]) => TNode;
+type EntryRenderers<TNode, TFragment> = Record<string, EntryRenderer<TNode, TFragment>>;
+type AssetRenderer<TNode, TFragment> = (props: RenderBlockProps<AssetBlock, TNode, TFragment>, ...children: TNode[]) => TNode;
+type AssetRenderers<TNode, TFragment> = Record<string, AssetRenderer<TNode, TFragment>>;
 
 type RendererOverrides<TNode, TFragment> = {
     blocks?: Partial<BlockRenderers<TNode, TFragment>>;
     decorators?: Partial<DecoratorRenderers<TNode, TFragment>>;
     components?: ComponentRenderers<TNode, TFragment>;
+    entries?: EntryRenderers<TNode, TFragment>;
+    assets?: AssetRenderers<TNode, TFragment>;
 };
 type RenderFunction<TNode> = (props: RendererProps) => TNode;
 
@@ -240,6 +250,32 @@ function createDecoratorRenderer(tagName: string) {
 
 const anchor = createBlockRenderer<AnchorBlock>('a');
 
+function asset<TNode, TFragment>(props: RenderBlockProps<AssetBlock, TNode, TFragment>, ...children: TNode[]) {
+    const { block, context, renderers, h, hFragment, hText } = props;
+    const contentTypeId = block?.value?.sys?.contentTypeId;
+    const renderer = !!contentTypeId ? renderers?.assets?.[contentTypeId] : undefined;
+    if (renderer) {
+        return renderer(props);
+    } else {
+        const attributes = getAttributes(props);
+        return h('div', attributes, ...getChildren(children, () => asset.children({ block, context, renderers, h, hFragment, hText })));
+    }
+}
+
+asset.children = function <TNode, TFragment>(props: RenderBlockProps<AssetBlock, TNode, TFragment>) {
+    const { h, hText, block } = props;
+    const href = block?.value?.sys?.uri;
+    const entryTitle = block?.value?.entryTitle || '';
+    const entryDescription = block?.value?.entryDescription || '';
+    const els = [
+        !!href ? h('div', {}, h('a', { href }, hText(entryTitle))) : h('div', {}, hText(entryTitle))
+    ];
+    if (entryDescription) {
+        els.push(h('div', {}, hText(entryDescription)));
+    }
+    return toFragment(props, els);
+};
+
 function code<TNode, TFragment>(props: RenderBlockProps<CodeBlock, TNode, TFragment>, ...children: TNode[]) {
     const { block, context, renderers, h, hFragment, hText } = props;
     const attributes = getAttributes(props, {
@@ -294,6 +330,33 @@ function divider<TNode, TFragment>(props: RenderBlockProps<DividerBlock, TNode, 
 divider.children = function <TNode, TFragment>(_props: RenderBlockProps<DividerBlock, TNode, TFragment>) {
     return null;
 };
+
+function entry<TNode, TFragment>(props: RenderBlockProps<EntryBlock, TNode, TFragment>, ...children: TNode[]) {
+    const { block, context, renderers, h, hFragment, hText } = props;
+    const contentTypeId = block?.value?.sys?.contentTypeId;
+    const renderer = !!contentTypeId ? renderers?.entries?.[contentTypeId] : undefined;
+    if (renderer) {
+        return renderer(props);
+    } else {
+        const attributes = getAttributes(props);
+        return h('div', attributes, ...getChildren(children, () => entry.children({ block, context, renderers, h, hFragment, hText })));
+    }
+}
+
+entry.children = function <TNode, TFragment>(props: RenderBlockProps<EntryBlock, TNode, TFragment>) {
+    const { h, hText, block } = props;
+    const href = block?.value?.sys?.uri;
+    const entryTitle = block?.value?.entryTitle || '';
+    const entryDescription = block?.value?.entryDescription || '';
+    const els = [
+        !!href ? h('div', {}, h('a', { href }, hText(entryTitle))) : h('div', {}, hText(entryTitle))
+    ];
+    if (entryDescription) {
+        els.push(h('div', {}, hText(entryDescription)));
+    }
+    return toFragment(props, els);
+};
+
 
 function formContentType<TNode, TFragment>(props: RenderBlockProps<FormContentTypeBlock, TNode, TFragment>, ...children: TNode[]) {
     const { block, context, renderers, h, hFragment, hText } = props;
@@ -479,9 +542,11 @@ const variable = createDecoratorRenderer('var');
 function createRendererFactory<TNode, TFragment>(h: H<TNode, TFragment>, hFragment: TFragment, hText: HText<TNode>) {
     const defaultBlockRenderers: BlockRenderers<TNode, TFragment> = {
         _anchor: anchor,
+        _asset: asset,
         _code: codeWithCaption,
         _component: component,
         _divider: divider,
+        _entry: entry,
         _formContentType: formContentType,
         _fragment: fragment,
         _heading: heading,
@@ -529,7 +594,9 @@ function createRendererFactory<TNode, TFragment>(h: H<TNode, TFragment>, hFragme
                 ...defaultDecoratorRenderers,
                 ...(overrides?.decorators || {})
             },
-            components: overrides?.components || {}
+            components: overrides?.components || {},
+            entries: overrides?.entries || {},
+            assets: overrides?.assets || {}
         };
 
         return function (props: RendererProps) {
@@ -557,9 +624,11 @@ function createDecoratorElement<TNode, TFragment>(element: DecoratorRendererWith
 function createElements<TNode, TFragment>() {
     return {
         anchor: createBlockElement<AnchorBlock, TNode, TFragment>(anchor),
+        asset: createBlockElement<AssetBlock, TNode, TFragment>(asset),
         code: createBlockElement<CodeBlock, TNode, TFragment>(code),
         component: createBlockElement<ComponentBlock, TNode, TFragment>(component),
         divider: createBlockElement<DividerBlock, TNode, TFragment>(divider),
+        entry: createBlockElement<EntryBlock, TNode, TFragment>(entry),
         formContentType: createBlockElement<FormContentTypeBlock, TNode, TFragment>(formContentType),
         fragment: createBlockElement<FragmentBlock, TNode, TFragment>(fragment),
         heading: createBlockElement<HeadingBlock, TNode, TFragment>(heading),

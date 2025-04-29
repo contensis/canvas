@@ -1,4 +1,4 @@
-import { ComponentBlock, Block, DecoratorType, FragmentBlock } from '@contensis/canvas-types';
+import { ComponentBlock, Block, DecoratorType, FragmentBlock, EntryBlock, AssetBlock } from '@contensis/canvas-types';
 
 type Encode = (value: any) => string;
 type RenderContext = Record<string, any>;
@@ -10,6 +10,8 @@ type Renderers = {
     blocks: BlockRenderers;
     decorators: DecoratorRenderers;
     components: ComponentRenderers;
+    entries: EntryRenderers;
+    assets: AssetRenderers;
 };
 type WithRenderers = {
     renderers: Renderers;
@@ -33,11 +35,17 @@ type DecoratorRenderers = Record<DecoratorType, DecoratorRenderer>;
 type DecoratorProps = { block: FragmentBlock; decorators: DecoratorType[] } & WithContext & WithEncode & WithRenderers;
 type ComponentRenderer = (props: RenderBlockProps<ComponentBlock>, ...children: string[]) => string;
 type ComponentRenderers = Record<string, ComponentRenderer>;
+type EntryRenderer = (props: RenderBlockProps<EntryBlock>, ...children: string[]) => string;
+type EntryRenderers = Record<string, EntryRenderer>;
+type AssetRenderer = (props: RenderBlockProps<AssetBlock>, ...children: string[]) => string;
+type AssetRenderers = Record<string, AssetRenderer>;
 
 type RendererOverrides = {
     blocks?: Partial<BlockRenderers>;
     decorators?: Partial<DecoratorRenderers>;
     components?: ComponentRenderers;
+    entries?: EntryRenderers;
+    assets?: AssetRenderers;
 };
 type RenderFunction = (props: RendererProps) => string;
 
@@ -180,7 +188,9 @@ function createRendererFactory(defaultBlockRenderers: BlockRenderers, defaultDec
                 ...defaultDecoratorRenderers,
                 ...(overrides?.decorators || {})
             },
-            components: overrides?.components || {}
+            components: overrides?.components || {},
+            entries: overrides?.entries || {},
+            assets: overrides?.assets || {},
         };
 
         return function (props: RendererProps) {
@@ -214,5 +224,5 @@ export type {
     DecoratorRenderer,
     DecoratorRenderers,
     RenderBlockProps,
-    RenderDecoratorProps    
+    RenderDecoratorProps
 };
