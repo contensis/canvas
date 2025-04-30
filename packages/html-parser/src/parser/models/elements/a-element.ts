@@ -3,7 +3,7 @@ import { BaseElement } from '../base-element';
 import { Context, tryParse } from '../context';
 import { LinkType, getLinkType } from '../links';
 import { Attributes, Element } from '../models';
-import { toValue } from '../shared';
+import { toValue, wrapInline } from '../shared';
 
 type Link = Exclude<LinkBlock['properties'], undefined>['link'];
 
@@ -69,18 +69,21 @@ export class AElement extends BaseElement {
     private addLink(parent: Element) {
         const link = this.getLink();
         const hasData = link?.sys?.uri || link?.sys?.id || link?.sys?.node?.id;
-        if (hasData && link?.sys && this.context.hasSetting(['type.link.linkType', link.sys.linkProperties.type])) {
-            const children = this.mergeItems(this.children).filter(isInline);
-            const value = this.trimItems(children);
-
+        if (hasData && this.context.hasSetting(['type.link.linkType', (link as any).sys.linkProperties.type])) {
             const newTab = this.attributes['target'] === '_blank' ? true : undefined;
-            const linkBlock: LinkBlock = {
-                type: '_link',
-                id: this.id(),
-                properties: this.withFriendlyId({ link, newTab }),
-                value: toValue(value)
-            };
-            parent.append(linkBlock);
+            const variant = this.attributes['data-link-variant'];
+            let children = this.mergeItems(this.children);
+            children = this.trimItems(children);
+            children = wrapInline(children, (index) => {
+                const properties = !index ? this.withFriendlyId({ link, newTab, variant }) : { link, newTab, variant };
+                return {
+                    type: '_link',
+                    id: this.id(),
+                    properties,
+                    value: []
+                };
+            });
+            parent.append(...children);
         } else {
             const children = this.mergeItems(this.children);
             parent.append(...children);
@@ -109,7 +112,18 @@ export class AElement extends BaseElement {
             };
         }
 
-        const { path, query, fragment } = this.context.getUrl(href);
+        const { path, query, fragment, type } = this.context.getUrl(href);
+
+        if (type === 'mailto' || type === 'tel') {
+            return {
+                sys: {
+                    linkProperties: {
+                        type: 'uri'
+                    },
+                    uri: href
+                }
+            };
+        }
 
         const node = this.context.getNode(path);
         if (node) {
@@ -155,6 +169,7 @@ export class AElement extends BaseElement {
                 }
             };
         }
+
         return null;
     }
 }

@@ -33,7 +33,8 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
 
         // Get list of allowed component ids from the field validations so component data can be validated
         const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
-
+        const assetContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_asset')?.assetContentTypes?.allowed || [];
+        const entryContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_entry')?.entryContentTypes?.allowed || [];
         const formContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_formContentType')?.formContentTypes?.allowed || [];
 
         // Handle the '*' allowed type to allow any component to be parsed (which may not exist in the target project)
@@ -41,6 +42,8 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
 
         const parserSettings: ParserSettings = {
             components,
+            assetContentTypes,
+            entryContentTypes,
             formContentTypes,
             project,
             projectUuid: (project as any).uuid,
@@ -74,7 +77,8 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
 
     // Get list of allowed component ids from the field validations
     const components = field.validations?.allowedTypes?.types.find((t) => t.type === '_component')?.components?.allowed || [];
-
+    const assetContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_asset')?.assetContentTypes?.allowed || [];
+    const entryContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_entry')?.entryContentTypes?.allowed || [];
     const formContentTypes = field.validations?.allowedTypes?.types.find((t) => t.type === '_formContentType')?.formContentTypes?.allowed || [];
 
     // Handle the '*' allowed type to allow any component to be parsed (which may not exist in the target project)
@@ -83,6 +87,8 @@ export const createHtmlParser = async (opts: ParseConfiguration = {}): Promise<H
     // No client available, add ParserSettings filler
     const parserSettings: ParserSettings = {
         components,
+        assetContentTypes,
+        entryContentTypes,
         formContentTypes,
         project: {
             id: 'any',

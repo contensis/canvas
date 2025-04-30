@@ -1,9 +1,12 @@
 import {
     AnchorBlock,
+    AssetBlock,
+    Block,
     CodeBlock,
     ComponentBlock,
-    Block,
     DividerBlock,
+    EntryBlock,
+    FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
     ImageBlock,
@@ -15,20 +18,24 @@ import {
     PanelBlock,
     ParagraphBlock,
     QuoteBlock,
+    TableBlock,
     TableBodyBlock,
     TableCaptionBlock,
     TableCellBlock,
     TableCellItemBlock,
-    TableBlock,
     TableFooterBlock,
-    TableHeaderCellBlock,
     TableHeaderBlock,
+    TableHeaderCellBlock,
     TableRowBlock,
     TableSectionBlock
 } from './models';
 
 export function isAnchor(block: Block): block is AnchorBlock {
     return block?.type === '_anchor';
+}
+
+export function isAsset(block: Block): block is AssetBlock {
+    return block?.type === '_asset';
 }
 
 export function isCode(block: Block): block is CodeBlock {
@@ -41,6 +48,14 @@ export function isComponent(block: Block): block is ComponentBlock {
 
 export function isDivider(block: Block): block is DividerBlock {
     return block?.type === '_divider';
+}
+
+export function isEntry(block: Block): block is EntryBlock {
+    return block?.type === '_entry';
+}
+
+export function isFormContentType(block: Block): block is FormContentTypeBlock {
+    return block?.type === '_formContentType';
 }
 
 export function isFragment(block: Block): block is FragmentBlock {

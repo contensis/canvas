@@ -13,6 +13,7 @@ export type {
   Resolver,
   Url,
   UrlCreator,
+  UrlType
 } from "./models";
 export { ResolveContext } from "./resolve-context";
 export { RootElement } from "./root-element";

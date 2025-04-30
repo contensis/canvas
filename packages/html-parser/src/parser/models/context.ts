@@ -45,7 +45,7 @@ export class Context {
             const typeContext = this.typeContext;
             const decoratorContext = this.decoratorContext;
 
-            this.typeContext = ALLOWED_CHILDREN[type];
+            this.typeContext = ALLOWED_CHILDREN[type] || typeContext;
             this.decoratorContext = ALL_DECORATORS;
             this.elements.push({ type, element });
 
@@ -56,7 +56,7 @@ export class Context {
             };
         } else {
             // type is not allowed so keep the same context
-            return () => {};
+            return () => { };
         }
     }
 
@@ -171,7 +171,7 @@ export function tryParse<T>(json: string) {
     if (json) {
         try {
             value = JSON.parse(json);
-        } catch {}
+        } catch { }
     }
     return value as T;
 }

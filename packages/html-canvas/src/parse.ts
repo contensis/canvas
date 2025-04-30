@@ -1,4 +1,4 @@
-import { CanvasSettings, ParserSettings, CanvasPreParser, CanvasParser, DataResolver } from '@contensis/html-parser';
+import { CanvasSettings, ParserSettings, CanvasPreParser, CanvasParser, DataResolver, UrlType } from '@contensis/html-parser';
 import { HtmlWalker } from './html-walker';
 
 /** This is the main parse function */
@@ -18,29 +18,31 @@ export async function parse(html: string, settings: CanvasSettings, parserSettin
 }
 
 class UrlParser {
-    constructor(private rootUrl: string) {}
+    constructor(private rootUrl: string) { }
 
     parseUrl(path: string) {
         let url: URL | undefined;
 
         try {
             url = new URL(path);
-        } catch {}
+        } catch { }
 
         if (!url) {
             try {
                 url = new URL(this.rootUrl + path);
-            } catch {}
+            } catch { }
         }
 
         if (url) {
-            const { searchParams } = url;
+            const { searchParams, protocol } = url;
             const queryParams = Array.from(searchParams.keys()).reduce((prev, key) => {
                 const param = searchParams.get(key);
                 if (param) prev[key] = param;
                 return prev;
             }, {} as Record<string, string>);
+            const type: UrlType = protocol === 'mailto:' ? 'mailto' : protocol === 'tel:' ? 'tel' : 'http(s)';
             return {
+                type,
                 path: url.pathname,
                 query: url.search,
                 fragment: url.hash,
@@ -48,6 +50,7 @@ class UrlParser {
             };
         }
         return {
+            type: 'http(s)' as const,
             path,
             query: '',
             fragment: '',
@@ -59,11 +62,11 @@ class UrlParser {
         try {
             new URL(path);
             return path;
-        } catch {}
+        } catch { }
         try {
             new URL(this.rootUrl + path);
             return this.rootUrl + path;
-        } catch {}
+        } catch { }
         return path; // ''; // null;
     }
 }

@@ -1,26 +1,51 @@
-import { ComponentBlock, FormContentTypeBlock } from '../../../models';
+import { Asset, AssetBlock, ComponentBlock, Entry, EntryBlock, FormContentTypeBlock } from '../../../models';
 import { Attributes, Element } from '../models';
 import { Context, tryParse } from '../context';
 import { BlockElement } from '../block-element';
 
+type DivType = 'none' | 'component' | 'form' | 'asset' | 'entry';
+
 export class DivElement extends BlockElement {
-    private _isComponent: boolean;
-    private _isForm: boolean;
+    private type: DivType;
 
     constructor(name: string, attributes: Attributes, context: Context) {
         super(name, attributes, context);
-        this._isComponent = this.isComponent();
-        this._isForm = this.isForm();
-        if (this._isComponent) {
-            this.popContext = context.setType('_component', this);
-        } else if (this._isForm) {
-            this.popContext = context.setType('_formContentType', this);
+        this.type = this.getDivType();
+        switch (this.type) {
+            case 'asset': {
+                this.popContext = context.setType('_asset', this);
+                break;
+            }
+            case 'component': {
+                this.popContext = context.setType('_component', this);
+                break;
+            }
+            case 'entry': {
+                this.popContext = context.setType('_entry', this);
+                break;
+            }
+            case 'form': {
+                this.popContext = context.setType('_formContentType', this);
+                break;
+            }
+            default: {
+                break;
+            }
         }
     }
 
     appendTo(parent: Element) {
         this.popContext?.();
-        if (this._isComponent && this.context.canAddType('_component')) {
+        if (this.type === 'asset' && this.context.canAddType('_asset')) {
+            const value = this.getAsset();
+            const assetItem: AssetBlock = {
+                type: '_asset',
+                id: this.id(),
+                properties: this.withFriendlyId(),
+                value: value as Asset
+            };
+            parent.append(assetItem);
+        } else if (this.type === 'component' && this.context.canAddType('_component')) {
             const { component, value } = this.getComponentProperties();
             const componentItem: ComponentBlock = {
                 type: '_component',
@@ -29,7 +54,16 @@ export class DivElement extends BlockElement {
                 value
             };
             parent.append(componentItem);
-        } else if (this._isForm && this.context.canAddType('_formContentType')) {
+        } else if (this.type === 'entry' && this.context.canAddType('_entry')) {
+            const value = this.getEntry();
+            const entryItem: EntryBlock = {
+                type: '_entry',
+                id: this.id(),
+                properties: this.withFriendlyId(),
+                value: value as Entry
+            };
+            parent.append(entryItem);
+        } else if (this.type === 'form' && this.context.canAddType('_formContentType')) {
             const formItem: FormContentTypeBlock = {
                 type: '_formContentType',
                 id: this.id(),
@@ -46,17 +80,23 @@ export class DivElement extends BlockElement {
         }
     }
 
-    private isComponent() {
-        const classList = this.attributes['class']?.split(' ');
-        if (!classList?.includes('component')) {
-            return false;
+    private getDivType(): DivType {
+        if (this.getFormId()) {
+            return 'form';
+        } else if (this.getAsset()) {
+            return 'asset';
+        } else if (this.getEntry()) {
+            return 'entry';
+        } else {
+            const classList = this.attributes['class']?.split(' ');
+            if (classList?.includes('component')) {
+                const { component, value } = this.getComponentProperties();
+                if (!!component && !!value) {
+                    return 'component';
+                }
+            }
         }
-        const { component, value } = this.getComponentProperties();
-        return !!component && !!value;
-    }
-
-    private isForm() {
-        return !!this.getFormId();
+        return 'none';
     }
 
     private getComponentProperties(): { component: string; value: any } {
@@ -78,5 +118,31 @@ export class DivElement extends BlockElement {
             isValid = formContentTypes.includes(formId);
         }
         return isValid ? formId : null;
+    }
+
+    private getEntry(): null | Entry {
+        const entry = tryParse(this.attributes['data-entry']) as Entry;
+        if (entry?.sys?.contentTypeId) {
+            if (this.context.hasSetting(['type.entry.contentType', entry.sys.contentTypeId])) {
+                const { entryContentTypes } = this.context.parserSettings;
+                if (entryContentTypes.includes(entry.sys.contentTypeId) || entryContentTypes.includes('*')) {
+                    return entry;
+                }
+            }
+        }
+        return null;
+    }
+
+    private getAsset(): null | Asset {
+        const asset = tryParse(this.attributes['data-asset']) as Asset;
+        if (asset?.sys?.contentTypeId) {
+            if (this.context.hasSetting(['type.asset.contentType', asset.sys.contentTypeId])) {
+                const { assetContentTypes } = this.context.parserSettings;
+                if (assetContentTypes.includes(asset.sys.contentTypeId) || assetContentTypes.includes('*')) {
+                    return asset;
+                }
+            }
+        }
+        return null;
     }
 }
