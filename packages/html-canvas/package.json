@@ -1,6 +1,6 @@
 {
   "name": "@contensis/html-canvas",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Convert HTML to Contensis Canvas",
   "scripts": {
     "build": "tsup-node --dts-resolve",

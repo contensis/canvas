@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/contensis/canvas/compare/@contensis/html-canvas-v1.1.0...@contensis/html-canvas-v1.2.0) (2025-04-30)
+
+
+### Features
+
+* update html parsing to support entry and asset blocks ([ada326a](https://github.com/contensis/canvas/commit/ada326a30077862e8741a3a85e4615119e9b62f3))
+
 ## [1.1.0](https://github.com/contensis/canvas/compare/@contensis/html-canvas-v1.0.0...@contensis/html-canvas-v1.1.0) (2024-09-26)
 
 
