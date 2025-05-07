@@ -1,0 +1,519 @@
+{
+  "operation": "createHtmlParser_image_transformations",
+  "response": [
+    {
+      "type": "_image",
+      "id": "604d11b4",
+      "value": {
+        "altText": "Image of people around table having a meeting.",
+        "asset": {
+          "thumbnail": null,
+          "altText": "A closeup of a gate at Buckingham Palace",
+          "keywords": null,
+          "entryDescription": null,
+          "description": null,
+          "title": "pexels-gronemo-1560102",
+          "sys": {
+            "owner": "testzengenti",
+            "metadata": {
+              "includeInAToZ": false,
+              "includeInSearch": true,
+              "includeInSiteMap": false,
+              "includeInMenu": false,
+              "nodeId": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb"
+            },
+            "workflow": {
+              "id": "contensisEntryBasic",
+              "state": "versionComplete"
+            },
+            "dataFormat": "asset",
+            "isPublished": true,
+            "availableLanguages": [
+              "en-GB"
+            ],
+            "contentTypeId": "image",
+            "language": "en-GB",
+            "uri": "/image-library/pexels-gronemo-1560102.x6548b903.jpg",
+            "version": {
+              "publishedBy": "ServicesUser",
+              "archived": null,
+              "deleted": null,
+              "createdBy": "ServicesUser",
+              "created": "2024-10-04T11:09:19.720178Z",
+              "versionNo": "1.0",
+              "modified": "2024-10-04T11:09:20.32957Z",
+              "modifiedBy": "ServicesUser",
+              "published": "2024-10-04T11:09:30.5492109Z",
+              "archivedBy": null,
+              "deletedBy": null
+            },
+            "versionStatus": "latest",
+            "id": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb",
+            "projectId": "canvasPackages",
+            "slug": null,
+            "properties": {
+              "filename": "pexels-gronemo-1560102.jpg",
+              "fileSize": 433023,
+              "filePath": "/image-library/",
+              "width": 1919,
+              "fileId": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb",
+              "height": 1244
+            }
+          },
+          "entryTitle": "pexels-gronemo-1560102"
+        }
+      }
+    },
+    {
+      "type": "_image",
+      "id": "8ac2abf9",
+      "value": {
+        "altText": "Image of people around table having a meeting.",
+        "asset": {
+          "thumbnail": null,
+          "altText": "A closeup of a gate at Buckingham Palace",
+          "keywords": null,
+          "entryDescription": null,
+          "description": null,
+          "title": "pexels-gronemo-1560102",
+          "sys": {
+            "owner": "testzengenti",
+            "metadata": {
+              "includeInAToZ": false,
+              "includeInSearch": true,
+              "includeInSiteMap": false,
+              "includeInMenu": false,
+              "nodeId": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb"
+            },
+            "workflow": {
+              "id": "contensisEntryBasic",
+              "state": "versionComplete"
+            },
+            "dataFormat": "asset",
+            "isPublished": true,
+            "availableLanguages": [
+              "en-GB"
+            ],
+            "contentTypeId": "image",
+            "language": "en-GB",
+            "uri": "/image-library/pexels-gronemo-1560102.x6548b903.jpg",
+            "version": {
+              "publishedBy": "ServicesUser",
+              "archived": null,
+              "deleted": null,
+              "createdBy": "ServicesUser",
+              "created": "2024-10-04T11:09:19.720178Z",
+              "versionNo": "1.0",
+              "modified": "2024-10-04T11:09:20.32957Z",
+              "modifiedBy": "ServicesUser",
+              "published": "2024-10-04T11:09:30.5492109Z",
+              "archivedBy": null,
+              "deletedBy": null
+            },
+            "versionStatus": "latest",
+            "id": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb",
+            "projectId": "canvasPackages",
+            "slug": null,
+            "properties": {
+              "filename": "pexels-gronemo-1560102.jpg",
+              "fileSize": 433023,
+              "filePath": "/image-library/",
+              "width": 1919,
+              "fileId": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb",
+              "height": 1244
+            }
+          },
+          "entryTitle": "pexels-gronemo-1560102"
+        }
+      }
+    },
+    {
+      "type": "_image",
+      "id": "b94696a",
+      "value": {
+        "altText": "Image of people around table having a meeting.",
+        "asset": {
+          "thumbnail": null,
+          "altText": "A closeup of a gate at Buckingham Palace",
+          "keywords": null,
+          "entryDescription": null,
+          "description": null,
+          "title": "pexels-gronemo-1560102",
+          "sys": {
+            "owner": "testzengenti",
+            "metadata": {
+              "includeInAToZ": false,
+              "includeInSearch": true,
+              "includeInSiteMap": false,
+              "includeInMenu": false,
+              "nodeId": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb"
+            },
+            "workflow": {
+              "id": "contensisEntryBasic",
+              "state": "versionComplete"
+            },
+            "dataFormat": "asset",
+            "isPublished": true,
+            "availableLanguages": [
+              "en-GB"
+            ],
+            "contentTypeId": "image",
+            "language": "en-GB",
+            "uri": "/image-library/pexels-gronemo-1560102.x6548b903.jpg",
+            "version": {
+              "publishedBy": "ServicesUser",
+              "archived": null,
+              "deleted": null,
+              "createdBy": "ServicesUser",
+              "created": "2024-10-04T11:09:19.720178Z",
+              "versionNo": "1.0",
+              "modified": "2024-10-04T11:09:20.32957Z",
+              "modifiedBy": "ServicesUser",
+              "published": "2024-10-04T11:09:30.5492109Z",
+              "archivedBy": null,
+              "deletedBy": null
+            },
+            "versionStatus": "latest",
+            "id": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb",
+            "projectId": "canvasPackages",
+            "slug": null,
+            "properties": {
+              "filename": "pexels-gronemo-1560102.jpg",
+              "fileSize": 433023,
+              "filePath": "/image-library/",
+              "width": 1919,
+              "fileId": "0c64ce96-a40e-4a8e-9270-a482dc5f87fb",
+              "height": 1244
+            }
+          },
+          "entryTitle": "pexels-gronemo-1560102"
+        }
+      }
+    },
+    {
+      "type": "_image",
+      "id": "8b70024",
+      "value": {
+        "altText": "",
+        "caption": "The initiative seeks to provide more sustainable packaging options for the UK’s oldest company.",
+        "asset": {
+          "sys": {
+            "uri": "/work-with-us/more/media-centre/news/site-elements/img/university-of-hull-visit.xb19d41f8.jpg?crop=1920,1028,0,113"
+          }
+        }
+      }
+    }
+  ],
+  "nockCalls": [
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "POST",
+      "path": "/authenticate/connect/token",
+      "body": "scope=Security_Administrator%20ContentType_Read%20ContentType_Write%20ContentType_Delete%20Entry_Read%20Entry_Write%20Entry_Delete%20Project_Read%20Project_Write%20Project_Delete%20Workflow_Administrator&grant_type=client_credentials&client_id=mock&client_secret=mock",
+      "status": 200,
+      "response": {
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImM0cHZjS0UzTTgyNkttTENDWXZsLTVJOFFZOCIsImtpZCI6ImM0cHZjS0UzTTgyNkttTENDWXZsLTVJOFFZOCJ9.eyJpc3MiOiJodHRwczovL2Ntcy1hdXRvbW90cm9uLmNsb3VkLmNvbnRlbnNpcy5jb20vYXV0aGVudGljYXRlIiwiYXVkIjoiaHR0cHM6Ly9jbXMtYXV0b21vdHJvbi5jbG91ZC5jb250ZW5zaXMuY29tL2F1dGhlbnRpY2F0ZS9yZXNvdXJjZXMiLCJleHAiOjE3MjgzOTM2NjUsIm5iZiI6MTcyODM5MDA2NSwiY2xpZW50X2lkIjoiYWFhZmJmOTMtN2JmNS00NGU4LWI2NDYtYmIyOGQzY2FlYjVjIiwiY2xpZW50X3N1YiI6ImFhYWZiZjkzLTdiZjUtNDRlOC1iNjQ2LWJiMjhkM2NhZWI1YyIsImNsaWVudF91c2VybmFtZSI6IkNhbnZhcyBwYWNrYWdlIGF1dG9tYXRlZCB0ZXN0cyIsInNjb3BlIjpbIkNvbnRlbnRUeXBlX0RlbGV0ZSIsIkNvbnRlbnRUeXBlX1JlYWQiLCJDb250ZW50VHlwZV9Xcml0ZSIsIkVudHJ5X0RlbGV0ZSIsIkVudHJ5X1JlYWQiLCJFbnRyeV9Xcml0ZSIsIlByb2plY3RfRGVsZXRlIiwiUHJvamVjdF9SZWFkIiwiUHJvamVjdF9Xcml0ZSIsIlNlY3VyaXR5X0FkbWluaXN0cmF0b3IiLCJXb3JrZmxvd19BZG1pbmlzdHJhdG9yIl19.mQNlfbpW13CGFh8nl7qzJxDkq23z1LVTFv-dnpHZ92zsN-EATZC-8BUw655dCzpZIt9AEbkcSFI4SBJuhDhRxZex2exCx-_Wj0xzBQAXPEcgzX165BycIC7czObbp2nQYNMaHJlUg7pVoonX6ttZ4wqXDpjRpjSqFH9jY3Zc5nCp0NYqFb4gIRj7UJf2oZxoo2VoFrzDZx_MJAhr4vcVCrDnLNecljX2vauujFOrGt9yETBktdbiQEEXS3IopfEeEHOxGWjRV5oIVghF_0RqLCl98HN9ikINcQhEJGzm7AkVZwAAFsbn_iKOyPwhrbro7cozMl9AE8VT5wBy8sHxQg",
+        "expires_in": 3600,
+        "token_type": "Bearer"
+      },
+      "rawHeaders": [
+        "cache-control",
+        "no-store, no-cache, max-age=0, private",
+        "pragma",
+        "no-cache",
+        "content-length",
+        "1251",
+        "content-type",
+        "application/json; charset=utf-8",
+        "access-control-expose-headers",
+        "x-contensis-classic-token",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages/contentTypes/document",
+      "body": "",
+      "status": 200,
+      "response": [
+        "1f8b080000000000040095534d6fdb300cfd2f3a0e75103bca877d5bd67528b00d3be4b4a118148976b5ca92a18f145990ff3ecab2d32c09300cf0858fe4e3d3237d203bb04e1a4daa03e1169807b1de938afc06dd80f692dc8d3082c5b4a0d9749e15c5665a56b4ac723a29f345be5c2cbf63616b84ace535c188df6298cd277436cb570b1a19bab055d23d5f539c12373956937cb19c976519390428185ea1835227600c99e5cf72775e3022633c58f2d5e0b07c3225c73b12828ca317a2e6c5365f66b4a0d38cf29c662b4a4596b319f02d179c5240097dad303cb4283faab7e61770ff1861cef48eb96f8cbfb0061c26356b21ba0f3afbb4c682fbb1ef18a53b6e65e7d3821040dcee37d22b7890a0229f8f01d2d43176a4fa7148e347fc92be6feeb999679b7d8749e2bc95ba21097b30b665fecdbc0b05026a16d429bf634a6217a6dda050486fec986eac095dffee96498d630775c9851bf23ea4c4dffacc36daf7de5ab6bf10f946f47f420953cabc828803fab805e7702163b54f389ae9938477bdf621f8595bd60cbb15c08d65f8e473dabef39449ed4fc7f8fdcba0a793f0cf4c37a197349873475ce83a63f196c75c943864b1f1d5d8971ae7a73b33da8376d27d8c27b3664ef24beffa63228386b3d3e9955cafe64bdae0a5d351b2d45c05018ffa1e14fe49c85a791b20de2bdbaae8470af147e8c07a1985c7f71fff005f4dbb0480040000"
+      ],
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-type",
+        "application/json; charset=utf-8",
+        "content-encoding",
+        "gzip",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "content-length",
+        "524",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages",
+      "body": "",
+      "status": 200,
+      "response": {
+        "id": "canvasPackages",
+        "uuid": "b67f69f8-131d-cf94-6211-50624b70df93",
+        "name": "Canvas packages",
+        "description": "Data used in automated tests for the canvas packages at github.com/contensis/canvas",
+        "primaryLanguage": "en-GB",
+        "supportedLanguages": [
+          "en-GB"
+        ],
+        "color": "blue",
+        "deliverySysExclusions": []
+      },
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-length",
+        "293",
+        "content-type",
+        "application/json; charset=utf-8",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages/entries?clientDetails=%5Bobject%20Object%5D&clientType=client_credentials&pageIndex=0&pageSize=1&zenql=sys.dataFormat%3Dasset%20and%20(sys.uri%3D%22%2Fwork-with-us%2Fmore%2Fmedia-centre%2Fnews%2Fsite-elements%2Fimg%2Funiversity-of-hull-visit.xb19d41f8.jpg%22%20or%20(sys.properties.filePath%3D%22%2Fwork-with-us%2Fmore%2Fmedia-centre%2Fnews%2Fsite-elements%2Fimg%2F%22%20and%20sys.properties.filename%3D%22university-of-hull-visit.xb19d41f8.jpg%22)%20or%20sys.id%3D%22university-of-hull-visit.xb19d41f8.jpg%22)%20and%20sys.versionStatus%3Dlatest",
+      "body": "",
+      "status": 200,
+      "response": {
+        "pageIndex": 0,
+        "pageSize": 1,
+        "totalCount": 0,
+        "pageCount": 0,
+        "items": []
+      },
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-length",
+        "68",
+        "content-type",
+        "application/json",
+        "etag",
+        "\"J+vJ6Q\"",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages/entries?clientDetails=%5Bobject%20Object%5D&clientType=client_credentials&pageIndex=0&pageSize=1&zenql=sys.dataFormat%3Dasset%20and%20(sys.uri%3D%22%2Fimage-library%2Fpexels-gronemo-1560102.jpg%22%20or%20(sys.properties.filePath%3D%22%2Fimage-library%2F%22%20and%20sys.properties.filename%3D%22pexels-gronemo-1560102.jpg%22)%20or%20sys.id%3D%22pexels-gronemo-1560102.jpg%22)%20and%20sys.versionStatus%3Dlatest",
+      "body": "",
+      "status": 200,
+      "response": [
+        "1f8b08000000000004008d54db6ee23010fd15e4e7843a215cc25be95eb4d2768504fbc2aa0f83330417c78e6c874b2bfe7dc75c4a2bd8551fe7cc99eb19fb95d550e20f5de0960d7974b026f205d9308998371ed48369b43f98c177b1a4c7cab1e19f57e6974d35d720151bea46a98881f253dc128dddb784320e9bba65162d6895e0b105be356ac44aea7209556b0c0a04b288ad70b731b670e724a8bddd7d4127acacbd34fa8c17d790975e51c7acc62d2a1797d668ac4c9c747b3ce129e5763b4afbcacc46a3259e47e75f5097544292b7420f05780814a9856a0a5ac8fdd4ccd87001ca6174412708562cd9d0dbe6034ccb7884fa9aff88ba7943b521a8a0fa5cf43281792f868c639cc100e33ced7332076921ba8b417f3167fb88d13e560b653687c642a030daa376d27d0dcb198193224ce769ade45da375b4950753d50a09a10c61ac6fc65610c400e7d0135fba713357d22db1384f026b920fe60a7f822e1bd239284b12c4df47ec293ad5f5d35d7d1c405644a14ceac426e8c88d58632559770746ace4dc82dddddd16a6bded75b3c13ce79df6735d52ec6980306e7dee70b4a37413b46b29d0fd76a41f754b1ac875e8fe7c1261de375358a485dc8c3cb9c891f2348b131ef36c9a24439e0f93bcdd4f79d21fcc2e9dfc32c44cda3c1c8929e442de0e4d79bb93e6ddfeec1def56f5fab2f6eb241ddeee66799af07cf66ec490e6c3906760ffd6e484e46f482f52231c7610f8d347463d59f38cc21f6415a0d7e0c62056870ba0cb524d79ae4fc41aad9778784a0ba95043f5ef57779234f08eff49d6e9f0b47344c6e097d75742f48d2c8227c993fcc8fcfc7b89d81265b90c9f539a65fbfde90799feff6fd83fedff026d9e594703050000"
+      ],
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-type",
+        "application/json",
+        "content-encoding",
+        "gzip",
+        "etag",
+        "\"wgPuMg\"",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "content-length",
+        "639",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages/entries?clientDetails=%5Bobject%20Object%5D&clientType=client_credentials&pageIndex=0&pageSize=1&zenql=sys.dataFormat%3Dasset%20and%20(sys.uri%3D%22pexels-gronemo-1560102.jpg%22%20or%20(sys.properties.filename%3D%22pexels-gronemo-1560102.jpg%22%20or%20sys.id%3D%22pexels-gronemo-1560102.jpg%22))%20and%20sys.versionStatus%3Dlatest",
+      "body": "",
+      "status": 200,
+      "response": [
+        "1f8b08000000000004008d54db6ee23010fd15e4e7843a215cc25be95eb4d2768504fbc2aa0f83330417c78e6c874b2bfe7dc75c4a2bd8551fe7cc99eb19fb95d550e20f5de0960d7974b026f205d9308998371ed48369b43f98c177b1a4c7cab1e19f57e6974d35d720151bea46a98881f253dc128dddb784320e9bba65162d6895e0b105be356ac44aea7209556b0c0a04b288ad70b731b670e724a8bddd7d4127acacbd34fa8c17d790975e51c7acc62d2a1797d668ac4c9c747b3ce129e5763b4afbcacc46a3259e47e75f5097544292b7420f05780814a9856a0a5ac8fdd4ccd87001ca6174412708562cd9d0dbe6034ccb7884fa9aff88ba7943b521a8a0fa5cf43281792f868c639cc100e33ced7332076921ba8b417f3167fb88d13e560b653687c642a030daa376d27d0dcb198193224ce769ade45da375b4950753d50a09a10c61ac6fc65610c400e7d0135fba713357d22db1384f026b920fe60a7f822e1bd239284b12c4df47ec293ad5f5d35d7d1c405644a14ceac426e8c88d58632559770746ace4dc82dddddd16a6bded75b3c13ce79df6735d52ec6980306e7dee70b4a37413b46b29d0fd76a41f754b1ac875e8fe7c1261de375358a485dc8c3cb9c891f2348b131ef36c9a24439e0f93bcdd4f79d21fcc2e9dfc32c44cda3c1c8929e442de0e4d79bb93e6ddfeec1def56f5fab2f6eb241ddeee66799af07cf66ec490e6c3906760ffd6e484e46f482f52231c7610f8d347463d59f38cc21f6415a0d7e0c62056870ba0cb524d79ae4fc41aad9778784a0ba95043f5ef57779234f08eff49d6e9f0b47344c6e097d75742f48d2c8227c993fcc8fcfc7b89d81265b90c9f539a65fbfde90799feff6fd83fedff026d9e594703050000"
+      ],
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-type",
+        "application/json",
+        "content-encoding",
+        "gzip",
+        "etag",
+        "\"wgPuMg\"",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "content-length",
+        "639",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    },
+    {
+      "scope": "https://mock-cms.cloud.contensis.com:443",
+      "method": "GET",
+      "path": "/api/delivery/projects/canvasPackages/entries?clientDetails=%5Bobject%20Object%5D&clientType=client_credentials&pageIndex=0&pageSize=1&zenql=sys.dataFormat%3Dasset%20and%20(sys.uri%3D%22%2Fapi%2Fimage%2F0c64ce96-a40e-4a8e-9270-a482dc5f87fb%22%20or%20(sys.properties.filePath%3D%22%2Fapi%2Fimage%2F%22%20and%20sys.properties.filename%3D%220c64ce96-a40e-4a8e-9270-a482dc5f87fb%22)%20or%20sys.id%3D%220c64ce96-a40e-4a8e-9270-a482dc5f87fb%22)%20and%20sys.versionStatus%3Dlatest",
+      "body": "",
+      "status": 200,
+      "response": [
+        "1f8b08000000000004008d54db6ee23010fd15e4e7843a215cc25be95eb4d2768504fbc2aa0f83330417c78e6c874b2bfe7dc75c4a2bd8551fe7cc99eb19fb95d550e20f5de0960d7974b026f205d9308998371ed48369b43f98c177b1a4c7cab1e19f57e6974d35d720151bea46a98881f253dc128dddb784320e9bba65162d6895e0b105be356ac44aea7209556b0c0a04b288ad70b731b670e724a8bddd7d4127acacbd34fa8c17d790975e51c7acc62d2a1797d668ac4c9c747b3ce129e5763b4afbcacc46a3259e47e75f5097544292b7420f05780814a9856a0a5ac8fdd4ccd87001ca6174412708562cd9d0dbe6034ccb7884fa9aff88ba7943b521a8a0fa5cf43281792f868c639cc100e33ced7332076921ba8b417f3167fb88d13e560b653687c642a030daa376d27d0dcb198193224ce769ade45da375b4950753d50a09a10c61ac6fc65610c400e7d0135fba713357d22db1384f026b920fe60a7f822e1bd239284b12c4df47ec293ad5f5d35d7d1c405644a14ceac426e8c88d58632559770746ace4dc82dddddd16a6bded75b3c13ce79df6735d52ec6980306e7dee70b4a37413b46b29d0fd76a41f754b1ac875e8fe7c1261de375358a485dc8c3cb9c891f2348b131ef36c9a24439e0f93bcdd4f79d21fcc2e9dfc32c44cda3c1c8929e442de0e4d79bb93e6ddfeec1def56f5fab2f6eb241ddeee66799af07cf66ec490e6c3906760ffd6e484e46f482f52231c7610f8d347463d59f38cc21f6415a0d7e0c62056870ba0cb524d79ae4fc41aad9778784a0ba95043f5ef57779234f08eff49d6e9f0b47344c6e097d75742f48d2c8227c993fcc8fcfc7b89d81265b90c9f539a65fbfde90799feff6fd83fedff026d9e594703050000"
+      ],
+      "rawHeaders": [
+        "cache-control",
+        "no-store, must-revalidate",
+        "content-type",
+        "application/json",
+        "content-encoding",
+        "gzip",
+        "etag",
+        "\"wgPuMg\"",
+        "origin-content-api-version",
+        "16.102.0.7825",
+        "x-alias",
+        "automotron",
+        "access-control-allow-headers",
+        "accesstoken, authorization, content-type, *",
+        "access-control-allow-methods",
+        "*",
+        "access-control-allow-origin",
+        "*",
+        "access-control-expose-headers",
+        "surrogate-key",
+        "date",
+        "Tue, 08 Oct 2024 12:21:04 GMT",
+        "content-length",
+        "639",
+        "x-robots-tag",
+        "noindex",
+        "x-content-type-options",
+        "nosniff",
+        "referrer-policy",
+        "strict-origin-when-cross-origin",
+        "x-backend-name",
+        "backend_tcp_automotron"
+      ],
+      "responseIsBinary": false
+    }
+  ]
+}
