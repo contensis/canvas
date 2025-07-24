@@ -1,14 +1,43 @@
 {
   "name": "@contensis/canvas-markdown",
-  "version": "0.0.1",
-  "main": "src/index.ts",
+  "version": "0.0.2",
+  "description": "Render canvas content to Markdown",
+  "keywords": [
+    "contensis",
+    "canvas",
+    "markdown",
+    "render"
+  ],
+  "homepage": "https://github.com/contensis/canvas/tree/main/packages/markdown",
+  "author": {
+    "name": "Zengenti",
+    "url": "https://www.contensis.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/contensis/canvas.git"
+  },
+  "license": "ISC",
+  "main": "dist/canvas-markdown.js",
+  "module": "dist/canvas-markdown.mjs",
+  "types": "dist/canvas-markdown.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-		"tsc": "npx tsc"
-	},
-  "dependencies": {
-    "@contensis/canvas-text": "^0.0.1"
+    "prebuild": "npm run tsc",
+    "build": "tsup --dts-resolve",
+    "tsc": "tsc --noEmit"
   },
   "devDependencies": {
-    "@contensis/canvas-types": "^0.0.1"
+    "@contensis/canvas-text": "file:../text",
+    "@contensis/canvas-types": "file:../types"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/canvas-markdown.js",
+      "import": "./dist/canvas-markdown.mjs",
+      "types": "./dist/canvas-markdown.d.ts"
+    }
   }
 }

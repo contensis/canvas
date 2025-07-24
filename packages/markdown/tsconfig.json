@@ -6,6 +6,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noEmit": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@contensis/canvas-text": ["../text"],
+      "@contensis/canvas-types": ["../types"]
+    }
   }
 }
