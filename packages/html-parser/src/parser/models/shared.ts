@@ -4,6 +4,7 @@ import {
     HEADING_TAGS as HEADING_TAGS1,
     InlineBlock,
     LIST_TAGS as LIST_TAGS1,
+    LinkBlock,
     ListType,
     ParagraphBlock,
     isInline,
@@ -50,7 +51,7 @@ function mergeLists<T extends Block>(blocks: T[]): T[] {
             if (lastListType === listType && !lastItem.properties?.id && !item?.properties?.id) {
                 if (item.value) {
                     lastItem.value = lastItem.value || [];
-                lastItem.value.push(...item.value);
+                    lastItem.value.push(...item.value);
                 }
                 pushCurrentItem = false;
             }
@@ -126,16 +127,17 @@ function mergeFragments(fragment1: FragmentBlock, fragment2: FragmentBlock, newI
     };
 }
 
-type BlockBlock = Pick<ParagraphBlock, 'type' | 'id'> & {
+type BlockBlock = Pick<ParagraphBlock | LinkBlock | FragmentBlock, 'type' | 'id'> & {
     value: InlineBlock[];
 };
 
-export function wrapInline(blocks: Block[], createBlock: () => BlockBlock): Block[] {
+export function wrapInline(blocks: Block[], createBlock: (index: number) => BlockBlock): Block[] {
+    let counter = 0;
     let { items } = blocks.reduce(
         (prev, item) => {
             if (isInline(item)) {
                 if (!prev.lastBlock) {
-                    prev.lastBlock = createBlock();
+                    prev.lastBlock = createBlock(counter++);
                     prev.items.push(prev.lastBlock);
                 }
                 prev.lastBlock.value.push(item);
@@ -151,10 +153,10 @@ export function wrapInline(blocks: Block[], createBlock: () => BlockBlock): Bloc
         .filter((item) => isVoid(item) || !!item.value)
         .map(
             (item) =>
-                ({
-                    ...item,
-                    value: Array.isArray(item.value) ? toValue(item.value) : item.value
-                } as Block)
+            ({
+                ...item,
+                value: Array.isArray(item.value) ? toValue(item.value) : item.value
+            } as Block)
         );
     return items;
 }

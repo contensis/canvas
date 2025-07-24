@@ -1,9 +1,11 @@
 import { RenderBlockProps, createBlockRenderer, createDecoratorRenderer, createRendererFactory, fragment, getContents, renderBlocks } from '@contensis/canvas-text';
 import {
     AnchorBlock,
+    AssetBlock,
     CodeBlock,
     ComponentBlock,
     DividerBlock,
+    EntryBlock,
     FormContentTypeBlock,
     HeadingBlock,
     ImageBlock,
@@ -27,6 +29,22 @@ import {
 import { htmlEncode } from './html';
 
 const anchor = createBlockRenderer<AnchorBlock>(({ contents }) => contents);
+
+const asset = createBlockRenderer<AssetBlock>(
+    ({ block, contents, renderers, encode }) => {
+        const contentTypeId = block?.value?.sys?.contentTypeId;
+        const renderer = !!contentTypeId ? renderers?.assets?.[contentTypeId] : undefined;
+        if (renderer) {
+            return renderer({ block, renderers, context, encode });
+        } else {
+            const href = block?.value?.sys?.uri;
+            return href ? `[${contents}](${href})\n\n` : `${contents}\n\n`;
+        }
+    },
+    ({ block, encode }) => encode(block.value?.entryTitle || '')
+);
+
+
 const code = createBlockRenderer<CodeBlock>(
     ({ block, contents }) => `${'```'}${block.value?.language || ''}\n${contents}${'```'}\n\n`,
     ({ block, encode }) => encode(block?.value?.code)
@@ -48,6 +66,20 @@ const component = createBlockRenderer<ComponentBlock>(
 const divider = createBlockRenderer<DividerBlock>(
     () => `---\n\n`,
     () => ''
+);
+
+const entry = createBlockRenderer<EntryBlock>(
+    ({ block, contents, renderers, encode }) => {
+        const contentTypeId = block?.value?.sys?.contentTypeId;
+        const renderer = !!contentTypeId ? renderers?.entries?.[contentTypeId] : undefined;
+        if (renderer) {
+            return renderer({ block, renderers, context, encode });
+        } else {
+            const href = block?.value?.sys?.uri;
+            return href ? `[${contents}](${href})\n\n` : `${contents}\n\n`;
+        }
+    },
+    ({ block, encode }) => encode(block.value?.entryTitle || '')
 );
 
 const formContentType = createBlockRenderer<FormContentTypeBlock>(
@@ -191,9 +223,11 @@ const variable = createDecoratorRenderer('%');
 const createRenderer = createRendererFactory(
     {
         _anchor: anchor,
+        _asset: asset,
         _code: code,
         _component: component,
         _divider: divider,
+        _entry: entry,
         _formContentType: formContentType,
         _fragment: fragment,
         _heading: heading,

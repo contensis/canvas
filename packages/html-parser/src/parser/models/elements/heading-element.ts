@@ -28,7 +28,19 @@ export class HeadingElement extends BlockElement {
     }
 
     private getProperties(): HeadingBlock['properties'] {
-        const { value: level } = this.context.fixSetting('type.heading.level', HEADING_TAGS[this.name as 'h1'], 1);
-        return !!level ? { level } : {};
+        let headingLevel = HEADING_TAGS[this.name as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'];
+        while (headingLevel) {
+            const fixedSetting = this.context.fixSetting('type.heading.level', headingLevel, 1);
+            if (headingLevel === fixedSetting.value) {
+                break;
+            } else {
+                headingLevel = headingLevel - 1;
+            }
+        }
+        if (!headingLevel) {
+            const fixedSetting = this.context.fixSetting('type.heading.level', headingLevel, 1);
+            headingLevel = fixedSetting.value as number;
+        }
+        return { level: headingLevel };
     }
 }

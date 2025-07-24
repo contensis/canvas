@@ -16,6 +16,7 @@ export const LANGUAGES: LanguageAlias[] = [
     { id: 'python', alias: ['py'] },
     { id: 'scss' },
     { id: 'sass' },
+    { id: 'shell', alias: ['sh'] },
     { id: 'sql' },
     { id: 'typescript', alias: ['ts'] },
     { id: 'tsx' },

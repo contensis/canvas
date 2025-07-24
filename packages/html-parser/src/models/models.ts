@@ -112,9 +112,11 @@ type Link = BaseEntry<LinkSys>;
 
 type Block =
     | AnchorBlock
+    | AssetBlock
     | CodeBlock
     | ComponentBlock
     | DividerBlock
+    | EntryBlock
     | FormContentTypeBlock
     | FragmentBlock
     | HeadingBlock
@@ -149,6 +151,15 @@ type AnchorBlock = {
 
 type LanguageAlias = { id: string; alias?: string[] };
 
+type AssetBlock = {
+    type: '_asset';
+    id: string;
+    value?: Asset;
+    properties?: {
+        id?: string;
+    };
+};
+
 type CodeBlock = {
     type: '_code';
     id: string;
@@ -176,6 +187,15 @@ type DividerBlock = {
     type: '_divider';
     id: string;
     value?: undefined;
+    properties?: {
+        id?: string;
+    };
+};
+
+type EntryBlock = {
+    type: '_entry';
+    id: string;
+    value?: Entry;
     properties?: {
         id?: string;
     };
@@ -242,6 +262,7 @@ type LinkBlock = {
         id?: string;
         link?: Link;
         newTab?: boolean;
+        variant?: string;
     };
 };
 
@@ -396,9 +417,11 @@ export {
     InlineBlock,
     UrlBlock,
     AnchorBlock,
+    AssetBlock,
     CodeBlock,
     ComponentBlock,
     DividerBlock,
+    EntryBlock,
     FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,

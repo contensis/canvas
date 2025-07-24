@@ -1,8 +1,10 @@
 import {
     AnchorBlock,
+    AssetBlock,
     CodeBlock,
     ComponentBlock,
     DividerBlock,
+    EntryBlock,
     FormContentTypeBlock,
     HeadingBlock,
     ImageBlock,
@@ -26,6 +28,12 @@ import {
 import { createBlockRenderer, createDecoratorRenderer, createRendererFactory, fragment, getContents, RenderBlockProps, renderBlocks } from './renderer';
 
 const anchor = createBlockRenderer<AnchorBlock>(({ contents }) => contents);
+
+const asset = createBlockRenderer<AssetBlock>(
+    ({ contents }) => contents,
+    ({ block, encode }) => encode(block.value?.entryTitle || '')
+);
+
 const code = createBlockRenderer<CodeBlock>(
     ({ contents }) => `${contents}\n`,
     ({ block, encode }) => encode(block?.value?.code)
@@ -47,6 +55,11 @@ const component = createBlockRenderer<ComponentBlock>(
 const divider = createBlockRenderer<DividerBlock>(
     () => `\n`,
     () => ''
+);
+
+const entry = createBlockRenderer<EntryBlock>(
+    ({ contents }) => contents,
+    ({ block, encode }) => encode(block.value?.entryTitle || '')
 );
 
 const formContentType = createBlockRenderer<FormContentTypeBlock>(
@@ -149,9 +162,11 @@ const variable = createDecoratorRenderer('');
 const createRenderer = createRendererFactory(
     {
         _anchor: anchor,
+        _asset: asset,
         _code: code,
         _component: component,
         _divider: divider,
+        _entry: entry,
         _formContentType: formContentType,
         _fragment: fragment,
         _heading: heading,
@@ -228,3 +243,4 @@ export {
     underline,
     variable
 };
+

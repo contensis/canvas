@@ -11,6 +11,8 @@ export type CmsUrlData = {
 export interface IResolver {
     isAbsoluteUrl(text: string): boolean;
     isLocalUrl(text: string): boolean;
+    isEmailUrl(text: string): boolean;
+    isTelUrl(text: string): boolean;
     isAsset(url: string): Promise<boolean>;
     isEntry(url: string): Promise<boolean>;
     isNode(url: string): Promise<boolean>;

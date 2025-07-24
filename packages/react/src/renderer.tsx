@@ -1,11 +1,13 @@
 import React, { ClassType, ComponentClass, FunctionComponent, Component as ReactComponent, createContext, useContext } from 'react';
 import {
     AnchorBlock,
+    AssetBlock,
     Block,
     CodeBlock,
     ComponentBlock,
     DecoratorType,
     DividerBlock,
+    EntryBlock,
     FormContentTypeBlock,
     FragmentBlock,
     HeadingBlock,
@@ -59,17 +61,25 @@ type DecoratorRenderers = Record<DecoratorType, DecoratorRenderer>;
 
 type ComponentRenderer = Renderer<RenderBlockPropsWithChildren<ComponentBlock>>;
 type ComponentRenderers = Record<string, ComponentRenderer>;
+type EntryRenderer = Renderer<RenderBlockPropsWithChildren<EntryBlock>>;
+type EntryRenderers = Record<string, EntryRenderer>;
+type AssetRenderer = Renderer<RenderBlockPropsWithChildren<AssetBlock>>;
+type AssetRenderers = Record<string, AssetRenderer>;
 
 type RendererContextValue = {
     blocks?: BlockRenderers,
     decorators?: DecoratorRenderers,
-    components?: ComponentRenderers
+    components?: ComponentRenderers,
+    entries?: EntryRenderers,
+    assets?: AssetRenderers,
 };
 
 type RendererOverridesContextValue = {
     blocks?: Partial<BlockRenderers>,
     decorators?: Partial<DecoratorRenderers>,
-    components?: ComponentRenderers
+    components?: ComponentRenderers,
+    entries?: EntryRenderers,
+    assets?: AssetRenderers,
 };
 
 type RendererContextProviderProps = WithChildren & RendererOverridesContextValue;
@@ -112,7 +122,7 @@ export function RenderContextProvider(props: RendererContextProviderProps) {
             return prev;
         }, {} as DecoratorRenderers);
 
-    const value = { blocks, decorators, components: props.components };
+    const value = { blocks, decorators, components: props.components, entries: props.entries, assets: props?.assets };
 
     return (
         <RendererContext.Provider value={value}>
@@ -134,6 +144,16 @@ function useDecorators() {
 function useComponents() {
     const value = useContext(RendererContext);
     return value.components || {};
+}
+
+function useEntries() {
+    const value = useContext(RendererContext);
+    return value.entries || {};
+}
+
+function useAssets() {
+    const value = useContext(RendererContext);
+    return value.assets || {};
 }
 
 function RenderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
@@ -235,6 +255,32 @@ export function Anchor(props: RenderBlockPropsWithChildren<AnchorBlock>) {
 
 Anchor.Children = RenderBlockChildrenFactory<AnchorBlock>();
 
+export function Asset(props: RenderBlockPropsWithChildren<AssetBlock>) {
+    const contentTypeId = props?.block?.value?.sys?.contentTypeId;
+    const components = useAssets();
+    const AssetElement = !!contentTypeId ? components?.[contentTypeId] : undefined;
+    const attributes = getAttributes(props);
+    return (!!AssetElement)
+        ? <AssetElement {...props} />
+        : (
+            <div {...attributes}>
+                <RenderContents contents={props.children} fallback={<Asset.Children block={props.block} />} />
+            </div>
+        );
+}
+
+Asset.Children = function (props: RenderBlockProps<AssetBlock>) {
+    const href = props?.block?.value?.sys?.uri;
+    const entryTitle = props?.block?.value?.entryTitle || '';
+    const entryDescription = props?.block?.value?.entryDescription || '';
+    return (<>
+        <div>
+            {!!href ? <a href={href}>{entryTitle}</a> : entryTitle}
+        </div>
+        {!!entryDescription ? <div>{entryDescription}</div> : null}
+    </>);
+};
+
 export function Code(props: RenderBlockPropsWithChildren<CodeBlock>) {
     const attributes = getAttributes(props, {
         'data-language': props.block?.value?.language
@@ -294,6 +340,32 @@ export function Divider(props: RenderBlockPropsWithChildren<DividerBlock>) {
 }
 
 Divider.Children = EmptyChildrenFactory<DividerBlock>();
+
+export function Entry(props: RenderBlockPropsWithChildren<EntryBlock>) {
+    const contentTypeId = props?.block?.value?.sys?.contentTypeId;
+    const components = useEntries();
+    const EntryElement = !!contentTypeId ? components?.[contentTypeId] : undefined;
+    const attributes = getAttributes(props);
+    return (!!EntryElement)
+        ? <EntryElement {...props} />
+        : (
+            <div {...attributes}>
+                <RenderContents contents={props.children} fallback={<Entry.Children block={props.block} />} />
+            </div>
+        );
+}
+
+Entry.Children = function (props: RenderBlockProps<EntryBlock>) {
+    const href = props?.block?.value?.sys?.uri;
+    const entryTitle = props?.block?.value?.entryTitle || '';
+    const entryDescription = props?.block?.value?.entryDescription || '';
+    return (<>
+        <div>
+            {!!href ? <a href={href}>{entryTitle}</a> : entryTitle}
+        </div>
+        {!!entryDescription ? <div>{entryDescription}</div> : null}
+    </>);
+};
 
 export function FormContentType(_props: RenderBlockPropsWithChildren<FormContentTypeBlock>) {
     return null;
@@ -427,9 +499,9 @@ export function Link(props: RenderBlockPropsWithChildren<LinkBlock>) {
 
 Link.Children = RenderBlockChildrenFactory<LinkBlock>();
 
-export function Liquid(props: RenderBlockPropsWithChildren<LiquidBlock>) {    
+export function Liquid(props: RenderBlockPropsWithChildren<LiquidBlock>) {
     return (
-        <RenderContents contents={props.children} fallback={<Liquid.Children block={props.block} />} />        
+        <RenderContents contents={props.children} fallback={<Liquid.Children block={props.block} />} />
     );
 }
 
@@ -781,9 +853,11 @@ Variable.Children = DecoratorChildren;
 
 const BLOCK_RENDERERS: BlockRenderers = {
     '_anchor': Anchor,
+    '_asset': Asset,
     '_code': CodeWithCaption,
     '_component': Component,
     '_divider': Divider,
+    '_entry': Entry,
     '_formContentType': FormContentType,
     '_fragment': Fragment,
     '_heading': Heading,

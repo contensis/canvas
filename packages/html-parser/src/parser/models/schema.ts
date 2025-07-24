@@ -2,12 +2,14 @@ import { Block, DecoratorType, CanvasSettings, isInlineType } from '../../models
 
 export type AllowedTypes = Record<Block['type'], boolean>;
 export type AllowedDecorators = Record<DecoratorType, boolean>;
-export type AllowedChildren = Record<Block['type'], AllowedTypes>;
+export type AllowedChildren = Record<Block['type'], AllowedTypes | null>;
 
 const DEFAULT_ALLOWED_CHILDREN: AllowedTypes = {
+    _asset: isInlineType('_asset'),
     _code: isInlineType('_code'),
     _component: isInlineType('_component'),
     _divider: isInlineType('_divider'),
+    _entry: isInlineType('_entry'),
     _formContentType: isInlineType('_formContentType'),
     _heading: isInlineType('_heading'),
     _image: isInlineType('_image'),
@@ -32,9 +34,11 @@ const DEFAULT_ALLOWED_CHILDREN: AllowedTypes = {
 };
 
 const NO_CHILDREN: AllowedTypes = {
+    _asset: false,
     _code: false,
     _component: false,
     _divider: false,
+    _entry: false,
     _formContentType: false,
     _heading: false,
     _image: false,
@@ -59,9 +63,11 @@ const NO_CHILDREN: AllowedTypes = {
 };
 
 export const ROOT_CHILDREN: AllowedTypes = {
+    _asset: true,
     _code: true,
     _component: true,
     _divider: true,
+    _entry: true,
     _formContentType: true,
     _heading: true,
     _image: true,
@@ -86,9 +92,11 @@ export const ROOT_CHILDREN: AllowedTypes = {
 };
 
 export const DECORATOR_CHILDREN: AllowedTypes = {
+    _asset: false,
     _code: false,
     _component: false,
     _divider: false,
+    _entry: false,
     _formContentType: false,
     _heading: false,
     _image: false,
@@ -114,8 +122,10 @@ export const DECORATOR_CHILDREN: AllowedTypes = {
 
 export const ALLOWED_CHILDREN: AllowedChildren = {
     _code: DEFAULT_ALLOWED_CHILDREN,
+    _asset: NO_CHILDREN,
     _component: NO_CHILDREN,
     _divider: NO_CHILDREN,
+    _entry: NO_CHILDREN,
     _formContentType: NO_CHILDREN,
     _heading: DEFAULT_ALLOWED_CHILDREN,
     _image: NO_CHILDREN,
@@ -142,7 +152,7 @@ export const ALLOWED_CHILDREN: AllowedChildren = {
     _tableRow: { ...NO_CHILDREN, _tableCell: true, _tableHeaderCell: true },
     _anchor: { ...NO_CHILDREN, _fragment: true },
     _fragment: DEFAULT_ALLOWED_CHILDREN,
-    _link: { ...NO_CHILDREN, _fragment: true },
+    _link: null, // set this to null this will mean it will use the current allowed children then the fixing is handled inside the AElement
     _inlineEntry: { ...NO_CHILDREN, _fragment: true }
 };
 
@@ -164,9 +174,11 @@ export const ALL_DECORATORS: AllowedDecorators = {
 
 export function settingsToTypes(settings: CanvasSettings): AllowedTypes {
     return {
+        _asset: settings['type.asset'],
         _code: settings['type.code'],
         _component: settings['type.component'],
         _divider: settings['type.divider'],
+        _entry: settings['type.entry'],
         _formContentType: settings['type.formContentType'],
         _heading: settings['type.heading'],
         _image: settings['type.image'],

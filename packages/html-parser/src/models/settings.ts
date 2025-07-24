@@ -2,7 +2,7 @@ import { ListType, PanelType, ParagraphType, Block, DecoratorType } from './mode
 import { ParserSettings } from '../parser';
 
 type ImageType = 'managed' | 'external';
-type LinkType = 'anchor' | 'uri' | 'entry' | 'node';
+type LinkType = 'anchor' | 'uri' | 'entry' | 'node' | 'asset';
 type CanvasEditorImageAction = 'crop' | 'upload';
 type Required = 'required' | '';
 
@@ -46,11 +46,18 @@ type SettingNames = {
     'properties.friendlyId': boolean;
 
     'type.anchor': boolean;
+    'type.asset.actions': CanvasEditorImageAction;
+    'type.asset.contentType': string;
+    'type.asset.filterPaths': string;
+    'type.asset.uploadPath': string;
+    'type.asset': boolean;
     'type.code.language': string;
     'type.code': boolean;
     'type.component.component': string;
     'type.component': boolean;
     'type.divider': boolean;
+    'type.entry.contentType': string;
+    'type.entry': boolean;
     'type.formContentType.contentType': string;
     'type.formContentType': boolean;
     'type.heading.level': number;
@@ -222,6 +229,8 @@ type CanvasTypeValidation = {
     type: CanvasType;
     languages?: CanvasValidationSetting<string>;
     components?: CanvasValidationSetting<string>;
+    assetContentTypes?: CanvasValidationSetting<string>;
+    entryContentTypes?: CanvasValidationSetting<string>;
     formContentTypes?: CanvasValidationSetting<string>;
     levels?: CanvasValidationSetting<number>;
     imageTypes?: CanvasValidationSetting<ImageType>;
@@ -344,6 +353,7 @@ export function createCanvasSettings(canvasField: CanvasField): CanvasSettings {
     const properties = canvasField?.editor?.properties;
     const actions = properties?.actions;
     const image = getType(allowedTypes, '_image');
+    const assetEditor = getEditorType(properties, '_asset');
     const imageEditor = getEditorType(properties, '_image');
     const linkEditor = getEditorType(properties, '_link');
     return {
@@ -369,11 +379,21 @@ export function createCanvasSettings(canvasField: CanvasField): CanvasSettings {
         'editor.placeholder': [getLocalisedValue(canvasField?.editor?.properties?.placeholderText)],
         'properties.friendlyId': true,
         'type.anchor': isTypeEnabled(allowedTypes, '_anchor'),
+        'type.asset': isTypeEnabled(allowedTypes, '_asset'),
+        'type.asset.actions': assetEditor?.imageActions || null,
+        'type.asset.contentType': getAllowedValues(allowedTypes, '_asset', 'assetContentTypes'),
+        'type.asset.filterPaths': isTypeEnabled(allowedTypes, '_asset') ? assetEditor?.filterPaths || canvasField?.editor?.properties?.filterPaths || null : null,
+        'type.asset.uploadPath':
+            isTypeEnabled(allowedTypes, '_asset') && (assetEditor?.uploadPath || canvasField?.editor?.properties?.uploadPath)
+                ? [(assetEditor?.uploadPath || canvasField?.editor?.properties?.uploadPath) as string]
+                : null,
         'type.code': isTypeEnabledAndAllowed(allowedTypes, '_code', 'languages'),
         'type.code.language': getAllowedValues(allowedTypes, '_code', 'languages'),
         'type.component': isTypeEnabledAndAllowed(allowedTypes, '_component', 'components'),
         'type.component.component': getAllowedValues(allowedTypes, '_component', 'components'),
         'type.divider': isTypeEnabled(allowedTypes, '_divider'),
+        'type.entry': isTypeEnabled(allowedTypes, '_entry'),
+        'type.entry.contentType': getAllowedValues(allowedTypes, '_entry', 'entryContentTypes'),
         'type.formContentType': isTypeEnabled(allowedTypes, '_formContentType'),
         'type.formContentType.contentType': getAllowedValues(allowedTypes, '_formContentType', 'formContentTypes'),
         'type.heading': isTypeEnabledAndAllowed(allowedTypes, '_heading', 'levels'),

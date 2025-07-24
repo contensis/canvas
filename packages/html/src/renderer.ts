@@ -31,9 +31,11 @@ type DecoratorRendererWithChildren = DomDecoratorRendererWithChildren<string, Ht
 
 const { 
     anchor,
+    asset,
     code,
     component,
     divider,
+    entry,
     formContentType,
     fragment,
     heading,
@@ -85,12 +87,14 @@ export type {
 
 export {
     anchor,
+    asset,
     attr,
     code,
     component,
     createRenderer,
     divider,
     emphasis,
+    entry,
     formContentType,
     fragment,
     h,

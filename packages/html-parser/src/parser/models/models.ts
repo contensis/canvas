@@ -15,6 +15,8 @@ export type VoidFn = () => void;
 
 export type ParserSettings = {
     components: string[];
+    assetContentTypes: string[];
+    entryContentTypes: string[];
     formContentTypes: string[];
     project: Project;
     rootUrl: string;
@@ -64,14 +66,16 @@ export interface Resolver {
     resolve(): void;
 }
 
+export type UrlType = 'http(s)' | 'mailto' | 'tel';
+
 export type Url = {
     // origin: string;
     // pathname: string;
     // search: string;
+    type: UrlType;
     path: string;
     query: string;
     fragment: string;
-
     queryParams: Record<string, string>;
 };
 
