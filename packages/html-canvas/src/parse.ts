@@ -29,7 +29,9 @@ class UrlParser {
 
         if (!url) {
             try {
-                url = new URL(this.rootUrl + path);
+                // Append a rootUrl so we can parse the path 
+                // with URL api and properly destructure its parts
+                url = new URL(`${this.rootUrl || 'http://parseUrl'}` + path);
             } catch { }
         }
 
