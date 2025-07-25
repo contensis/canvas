@@ -1,6 +1,7 @@
 extension:
   - mts
   - mjs
-import: tsx/esm
-require: dotenv/config
+require:
+  - dotenv/config
+  - tsx/esm
 #reporter: nyan
