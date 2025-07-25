@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/contensis/canvas/compare/@contensis/canvas-html-v1.2.0...@contensis/canvas-html-v1.3.0) (2025-07-25)
+
+
+### Features
+
+* add entry and asset blocks ([4e05e84](https://github.com/contensis/canvas/commit/4e05e84de3b5ec97246efaf71f4f8aa2ddd4d273))
+
 ## [1.2.0](https://github.com/contensis/canvas/compare/@contensis/canvas-html-v1.1.0...@contensis/canvas-html-v1.2.0) (2024-09-26)
 
 
