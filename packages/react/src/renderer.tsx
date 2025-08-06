@@ -200,6 +200,25 @@ function RenderText(props: RenderTextProps) {
  * 
  * */
 export function Renderer(props: RendererProps) {
+    const allBlocksHaveValue = Array.isArray(props.data) && props.data.every(
+        block => {
+            if (block && typeof block === 'object' && 'value' in block) {
+                if (Array.isArray(block.value)) {
+                    return block.value.length > 0;
+                }
+                if (typeof block.value === 'string') {
+                    return block.value.trim() !== '';
+                }
+                return !!block.value;
+            }
+            return false;
+        }
+    );
+
+    if (!Array.isArray(props.data) || props.data.length === 0 || !allBlocksHaveValue) {
+        return null;
+    }
+
     return (<RenderBlocks blocks={props.data} />);
 }
 
