@@ -55,6 +55,7 @@ const {
     tableHeader,
     tableHeaderCell,
     tableRow,
+    abbreviation,
     inlineCode,
     inlineDelete,
     emphasis,
@@ -86,6 +87,7 @@ export type {
 };
 
 export {
+    abbreviation,
     anchor,
     asset,
     attr,

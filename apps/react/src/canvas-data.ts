@@ -719,17 +719,20 @@ export const data: Block[] = [
                     {
                         "id": "16b816d8",
                         "type": "_fragment",
-                        "value": "She was a "
+                        "value": "She was a well-known "
                     },
                     {
                         "id": "1c60208c",
                         "type": "_fragment",
                         "properties": {
                             "decorators": [
-                                "strikethrough"
-                            ]
+                                "abbreviation"
+                            ],
+                            "abbreviation": {
+                                "title": "Television"
+                            }
                         },
-                        "value": "well-known TV"
+                        "value": "TV"
                     },
                     {
                         "id": "80a6e8ef",

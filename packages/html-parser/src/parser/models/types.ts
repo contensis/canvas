@@ -1,6 +1,7 @@
 import { BLOCK_TAGS, IGNORE_TAGS } from '../../models';
 import { BlockElement } from './block-element';
 import {
+    AbbreviationElement,
     DelElement,
     EmElement,
     InsElement,
@@ -65,6 +66,7 @@ const ELEMENT_NODES: Record<string, ElementConstructor> = {
     ...IGNORE_NODES,
     body: RootElement,
     a: AElement,
+    abbr: AbbreviationElement,
     aside: AsideElement,
     blockquote: BlockquoteElement,
     br: BrElement,

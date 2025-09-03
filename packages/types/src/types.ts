@@ -3,6 +3,7 @@ type InlineBlock = FragmentBlock | AnchorBlock | LinkBlock | InlineEntryBlock;
 type InlineChildren = string | InlineBlock[];
 
 type DecoratorTypeMap<T> = {
+    abbreviation: T;
     code: T;
     delete: T;
     emphasis: T;
@@ -214,6 +215,9 @@ type FragmentBlock = {
     properties?: {
         id?: string;
         decorators?: DecoratorType[];
+        abbreviation?: {
+            title?: string;
+        };
     };
 };
 

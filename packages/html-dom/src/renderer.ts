@@ -26,7 +26,7 @@ type DecoratorRenderer = DomDecoratorRenderer<Node, HtmlFragment>;
 type ComponentRenderer = DomComponentRenderer<Node, HtmlFragment>;
 
 const { 
-    anchor, code, component, divider, fragment, heading, image, inlineEntry, link, list, listItem, panel, paragraph,
+    abbreviation, anchor, code, component, divider, fragment, heading, image, inlineEntry, link, list, listItem, panel, paragraph,
     quote, table, tableBody, tableCaption, tableCell, tableFooter, tableHeader, tableHeaderCell, tableRow,
     inlineCode, inlineDelete, emphasis, insert, keyboard, lineBreak, mark, strikethrough, strong, subscript, superscript,
     underline, variable
@@ -41,7 +41,7 @@ export type {
 };
 
 export {
-    anchor, code, component, createRenderer, divider, emphasis, fragment, h, heading, image, inlineCode, inlineDelete,
+    abbreviation, anchor, code, component, createRenderer, divider, emphasis, fragment, h, heading, image, inlineCode, inlineDelete,
     inlineEntry, insert, keyboard, lineBreak, link, list, listItem, mark, panel, paragraph, quote, strikethrough, strong,
     subscript, superscript, table, tableBody, tableCaption, tableCell, tableFooter, tableHeader, tableHeaderCell,
     tableRow, underline, variable, text

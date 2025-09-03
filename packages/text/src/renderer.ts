@@ -53,6 +53,9 @@ function newContext(parent: undefined | RenderContext, isRoot?: boolean) {
     const context: RenderContext = Object.create(parent || null);
     if (isRoot) {
         context.$root = context;
+        context.$global = {
+            $footer: []
+        };
     } else {
         context.$parent = parent;
     }
@@ -72,7 +75,9 @@ function getContents(children: string | string[], defaultChildren: () => string 
 function render(props: RenderBlocksProps) {
     let { blocks, context, renderers, encode } = props;
     context = newContext(context || {}, true);
-    return concat(renderBlocks({ blocks, context, renderers, encode }));
+    const markdown = concat(renderBlocks({ blocks, context, renderers, encode }));
+    const footer = concat(context.$global.$footer);
+    return concat([markdown, footer]);
 }
 
 function renderBlocks(props: RenderBlocksProps) {

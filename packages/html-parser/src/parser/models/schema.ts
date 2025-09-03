@@ -157,6 +157,7 @@ export const ALLOWED_CHILDREN: AllowedChildren = {
 };
 
 export const ALL_DECORATORS: AllowedDecorators = {
+    abbreviation: true,
     code: true,
     delete: true,
     emphasis: true,
@@ -205,6 +206,7 @@ export function settingsToTypes(settings: CanvasSettings): AllowedTypes {
 
 export function settingsToDecorators(settings: CanvasSettings): AllowedDecorators {
     return {
+        abbreviation: settings['decorator.abbreviation'],
         code: settings['decorator.code'],
         delete: settings['decorator.delete'],
         emphasis: settings['decorator.emphasis'],

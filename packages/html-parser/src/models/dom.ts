@@ -15,6 +15,7 @@ export const LIST_TAGS: Record<'OL' | 'UL', ListType> = {
 };
 
 export const DECORATOR_TAGS: Record<string, DecoratorType> = {
+    ABBR: 'abbreviation',
     CODE: 'code',
     DEL: 'delete',
     EM: 'emphasis',
