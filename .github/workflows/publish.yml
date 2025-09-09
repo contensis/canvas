@@ -21,8 +21,10 @@ on:
         type: choice
         options:
           - '["packages/html"]'
+          - '["packages/html-canvas"]'
+          - '["packages/markdown"]'
           - '["packages/react"]'
-          - '["packages/html","packages/react"]'
+          - '["packages/html","packages/html-canvas","packages/markdown","packages/react"]'
       npm_tag:
         description: Publish the package with npm tag
         required: true
@@ -32,7 +34,7 @@ on:
           - latest
           - prerelease
       release:
-        description: 'Publish the package version'
+        description: 'Publish the package version to npm'
         required: true
         type: boolean
 
