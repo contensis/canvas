@@ -24,5 +24,5 @@
   },
   "plugins": ["node-workspace"],
   "pull-request-header": ":robot: Merge this PR to release a new version",
-  "pull-request-title-pattern": "chore: ${scope} release${component} v${version}"
+  "pull-request-title-pattern": "chore: ${scope} release ${component} v${version}"
 }
