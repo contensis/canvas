@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.2.0...@contensis/canvas-react-v1.3.0) (2025-09-09)
+
+
+### Features
+
+* add entry and asset blocks ([4e05e84](https://github.com/contensis/canvas/commit/4e05e84de3b5ec97246efaf71f4f8aa2ddd4d273))
+* added abbreviation rendering ([#30](https://github.com/contensis/canvas/issues/30)) ([d060c73](https://github.com/contensis/canvas/commit/d060c73d4d365feb4c73fab7ddfc1dbc19e581c4))
+
 ## [1.2.0](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.1.0...@contensis/canvas-react-v1.2.0) (2024-09-26)
 
 
