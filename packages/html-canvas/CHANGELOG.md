@@ -13,19 +13,6 @@
 
 * parse image tags with transformations ([#25](https://github.com/contensis/canvas/issues/25)) ([ecbfe5e](https://github.com/contensis/canvas/commit/ecbfe5e54bd9b4761c936e908bdf607c90a8700e))
 
-## [1.2.0](https://github.com/contensis/canvas/compare/@contensis/html-canvas-v1.1.0...@contensis/html-canvas-v1.2.0) (2025-09-09)
-
-
-### Features
-
-* added abbreviation rendering ([#30](https://github.com/contensis/canvas/issues/30)) ([d060c73](https://github.com/contensis/canvas/commit/d060c73d4d365feb4c73fab7ddfc1dbc19e581c4))
-* update html parsing to support entry and asset blocks ([ada326a](https://github.com/contensis/canvas/commit/ada326a30077862e8741a3a85e4615119e9b62f3))
-
-
-### Bug Fixes
-
-* parse image tags with transformations ([#25](https://github.com/contensis/canvas/issues/25)) ([ecbfe5e](https://github.com/contensis/canvas/commit/ecbfe5e54bd9b4761c936e908bdf607c90a8700e))
-
 ## [1.1.0](https://github.com/contensis/canvas/compare/@contensis/html-canvas-v1.0.0...@contensis/html-canvas-v1.1.0) (2024-09-26)
 
 
