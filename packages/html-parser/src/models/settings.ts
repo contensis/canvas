@@ -27,6 +27,7 @@ type SettingNames = {
     'actions.editorPanel': boolean;
     'actions.order': boolean;
 
+    'decorator.abbreviation': boolean;
     'decorator.code': boolean;
     'decorator.delete': boolean;
     'decorator.emphasis': boolean;
@@ -362,6 +363,7 @@ export function createCanvasSettings(canvasField: CanvasField): CanvasSettings {
         'actions.duplicate': isActionEnabled(actions, 'duplicate'),
         'actions.editorPanel': isActionEnabled(actions, 'editorPanel'),
         'actions.order': isActionEnabled(actions, 'contentEditable'),
+        'decorator.abbreviation': isDecoratorEnabled(allowedTypes, 'abbreviation'),
         'decorator.code': isDecoratorEnabled(allowedTypes, 'code'),
         'decorator.delete': isDecoratorEnabled(allowedTypes, 'delete'),
         'decorator.emphasis': isDecoratorEnabled(allowedTypes, 'emphasis'),

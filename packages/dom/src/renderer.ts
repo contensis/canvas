@@ -229,9 +229,10 @@ function createBlockRenderer<T extends Block>(tagName: string | ((block: T) => s
     return result;
 }
 
-function createDecoratorRenderer(tagName: string) {
+function createDecoratorRenderer(tagName: string, extraAttributes?: (props: RenderDecoratorProps<any, any>) => Record<string, any>) {
     const result = function <TNode, TFragment>(props: RenderDecoratorProps<TNode, TFragment>, ...children: TNode[]) {
-        const attributes = getAttributes(props);
+        const extra = extraAttributes?.(props) || {};
+        const attributes = getAttributes(props, extra);
         const { block, context, decorator, otherDecorators, renderers, h, hFragment, hText } = props;
         return h(
             tagName,
@@ -515,6 +516,10 @@ const tableHeader = createBlockRenderer<TableHeaderBlock>('thead');
 const tableHeaderCell = createBlockRenderer<TableHeaderCellBlock>('th');
 const tableRow = createBlockRenderer<TableRowBlock>('tr');
 
+const abbreviation = createDecoratorRenderer('abbr', (props) => {
+    const title = props?.block?.properties?.abbreviation?.title;
+    return { title };
+});
 const inlineCode = createDecoratorRenderer('code');
 const inlineDelete = createDecoratorRenderer('del');
 const emphasis = createDecoratorRenderer('em');
@@ -569,6 +574,7 @@ function createRendererFactory<TNode, TFragment>(h: H<TNode, TFragment>, hFragme
         _tableRow: tableRow
     };
     const defaultDecoratorRenderers: DecoratorRenderers<TNode, TFragment> = {
+        abbreviation: abbreviation,
         code: inlineCode,
         delete: inlineDelete,
         emphasis: emphasis,
@@ -650,6 +656,7 @@ function createElements<TNode, TFragment>() {
         tableHeaderCell: createBlockElement<TableHeaderCellBlock, TNode, TFragment>(tableHeaderCell),
         tableRow: createBlockElement<TableRowBlock, TNode, TFragment>(tableRow),
 
+        abbreviation: createDecoratorElement<TNode, TFragment>(abbreviation),
         inlineCode: createDecoratorElement<TNode, TFragment>(inlineCode),
         inlineDelete: createDecoratorElement<TNode, TFragment>(inlineDelete),
         emphasis: createDecoratorElement<TNode, TFragment>(emphasis),

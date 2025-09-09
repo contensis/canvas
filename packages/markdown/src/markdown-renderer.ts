@@ -1,4 +1,4 @@
-import { RenderBlockProps, createBlockRenderer, createDecoratorRenderer, createRendererFactory, fragment, getContents, renderBlocks } from '@contensis/canvas-text';
+import { RenderBlockProps, RenderDecoratorProps, createBlockRenderer, createDecoratorRenderer, createRendererFactory, fragment, getContents, renderBlocks } from '@contensis/canvas-text';
 import {
     AnchorBlock,
     AssetBlock,
@@ -198,6 +198,21 @@ const tableRow = createBlockRenderer<TableRowBlock>(
     }
 );
 
+const _abbreviation = createDecoratorRenderer('');
+
+function abbreviation(props: RenderDecoratorProps, ...children: string[]) {
+    const contents = abbreviation.children(props);
+    const title = props.block?.properties?.abbreviation?.title;
+    if (title) {
+        props.context.$root.$global.$footer.push(`*[${contents}]: ${props.encode(title)}\n`);
+    }
+    return _abbreviation(props, ...children);
+}
+
+abbreviation.children = function (props: RenderDecoratorProps) {
+    return _abbreviation.children(props);
+};
+
 const inlineCode = createDecoratorRenderer('`');
 const inlineDelete = createDecoratorRenderer('--');
 const emphasis = createDecoratorRenderer('*');
@@ -250,6 +265,7 @@ const createRenderer = createRendererFactory(
         _tableRow: tableRow
     },
     {
+        abbreviation: abbreviation,
         code: inlineCode,
         delete: inlineDelete,
         emphasis: emphasis,

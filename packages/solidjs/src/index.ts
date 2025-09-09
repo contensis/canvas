@@ -3,6 +3,7 @@ export {
     RendererContext,
     RenderContextProvider,
     
+    Abbreviation,
     Anchor,
     Code,
     Component,

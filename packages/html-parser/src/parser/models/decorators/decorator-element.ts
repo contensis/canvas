@@ -30,6 +30,10 @@ export abstract class DecoratorElement extends BaseElement {
         this.children.push(...children);
     }
 
+    getProperties(): Partial<FragmentBlock['properties']> {
+        return {};
+    }
+
     private createFragment(children: InlineBlock[]): FragmentBlock {
         const decorators: DecoratorType[] = [this.type];
         let value: InlineChildren | undefined;
@@ -40,10 +44,11 @@ export abstract class DecoratorElement extends BaseElement {
         } else {
             value = toValue(children);
         }
+        const properties = this.getProperties();
         return {
             type: '_fragment',
             id: this.id(),
-            properties: this.withFriendlyId({ decorators }),
+            properties: this.withFriendlyId({ ...properties, decorators }),
             value
         };
     }

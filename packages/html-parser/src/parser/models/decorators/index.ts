@@ -1,3 +1,4 @@
+export { AbbreviationElement } from './abbreviation-element';
 export { DecoratorElement } from './decorator-element';
 export { DelElement } from './del-element';
 export { EmElement } from './em-element';
@@ -10,3 +11,4 @@ export { SubElement } from './sub-element';
 export { SupElement } from './sup-element';
 export { UElement } from './u-element';
 export { VarElement } from './var-element';
+

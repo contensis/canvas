@@ -682,6 +682,20 @@ function DecoratorChildren(props: RenderDecoratorPropsWithChildren) {
     return (<Decorators block={props.block} decorators={props.otherDecorators} />)
 }
 
+export function Abbreviation(props: RenderDecoratorPropsWithChildren) {
+    const attributes = getAttributes(props, () => {
+        const title = props?.block?.properties?.abbreviation?.title;
+        return { title };
+    });
+    return (
+        <code {...(attributes())}>
+            <RenderContents contents={props.children} fallback={<InlineCode.Children block={props.block} decorator={props.decorator} otherDecorators={props.otherDecorators} />} />
+        </code>
+    );
+}
+
+Abbreviation.Children = DecoratorChildren;
+
 export function InlineCode(props: RenderDecoratorPropsWithChildren) {
     const attributes = getAttributes(props);
     return (
@@ -853,6 +867,7 @@ const BLOCK_RENDERERS: BlockRenderers = {
 };
 
 const DECORATOR_RENDERERS: DecoratorRenderers = {
+    'abbreviation': Abbreviation,
     'code': InlineCode,
     'delete': Delete,
     'emphasis': Emphasis,

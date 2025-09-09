@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { CanvasField, parseHtml } from '@contensis/html-canvas';
-import { Block, HeadingBlock, LinkBlock, ParagraphBlock } from '@contensis/canvas-types';
+import { Block, FragmentBlock, HeadingBlock, LinkBlock, ParagraphBlock } from '@contensis/canvas-types';
 import { Client, Config } from 'contensis-delivery-api';
 import { readFileSync } from 'fs';
 import { NockMocker, mocks } from './mocking/mocks.mts';
@@ -101,6 +101,7 @@ describe('parseHtml function tests', () => {
   describe(`Scenario: Parse realistic web page content`, () => {
     let canvas: Block[];
     let links: LinkBlock[];
+    let absoluteLinks: LinkBlock[];
     after(() => mock.done(canvas));
     before(async () => {
       mock = mocks(`parseHtml_webpage_content`);
@@ -108,6 +109,7 @@ describe('parseHtml function tests', () => {
       const client = new Client(clientConfig);
       canvas = await parseHtml({ client, contentTypeId: 'document', fieldId: 'canvas', html: pageHtml });
       links = getAllLinkBlocks(canvas);
+      absoluteLinks = links.filter((l) => l.properties?.link?.sys?.uri?.startsWith('https://www.ludlow.ac.uk'));
     });
     describe(`Given I wish to convert part of my site to Canvas, when the HTML is parsed`, () => {
       describe(`Then I expect the Canvas to accurately represent my HTML content`, () => {
@@ -123,7 +125,7 @@ describe('parseHtml function tests', () => {
           expect(blockTypes).to.include('_link');
 
           expect(blockTypes.filter((t) => t === '_heading')).to.have.lengthOf(5);
-          expect(blockTypes.filter((t) => t === '_paragraph')).to.have.lengthOf(5);
+          expect(blockTypes.filter((t) => t === '_paragraph')).to.have.lengthOf(6);
           expect(blockTypes.filter((t) => t === '_list')).to.have.lengthOf(7);
           expect(blockTypes.filter((t) => t === '_link')).to.have.lengthOf(7);
         });
@@ -134,8 +136,12 @@ describe('parseHtml function tests', () => {
       describe(`Given my HTML content contains links to other content`, () => {
         describe(`Then I expect the Canvas to contain all of my links`, () => {
           it(` which were provided as absolute urls`, () => {
-            const absolute = links.filter((l) => l.properties?.link?.sys?.uri?.startsWith('https://www.ludlow.ac.uk'));
-            expect(absolute).to.have.a.lengthOf(3);
+            // const absolute = links.filter((l) => l.properties?.link?.sys?.uri?.startsWith('https://www.ludlow.ac.uk'));
+            expect(absoluteLinks).to.have.a.lengthOf(3);
+          });
+          it(` and target="_blank" attribute is preserved`, () => {
+            const linkWithTarget = absoluteLinks[0];
+            expect(linkWithTarget.properties).to.have.a.property('newTab').and.is.true;
           });
           // it(` which have been resolved in site view`, () => {
           //   console.log(JSON.stringify(canvas));
@@ -149,6 +155,22 @@ describe('parseHtml function tests', () => {
             const mailto = links.filter((l) => l.properties?.link?.sys?.uri?.startsWith('mailto:'));
             expect(mailto).to.have.a.lengthOf(1);
           });
+        });
+      });
+      describe(`Given my HTML content contains abbreviations`, () => {
+        it(`Then I expect the produced Canvas retains the abbreviations`, () => {
+          const abbrParagraph = canvas.pop() as ParagraphBlock;
+          // console.log(JSON.stringify(abbrParagraph));
+
+          expect(abbrParagraph.type).to.equal('_paragraph');
+          expect(abbrParagraph.value).to.be.an('array').and.have.a.lengthOf.greaterThan(2);
+
+          const paragraphValue = abbrParagraph.value as FragmentBlock[];
+          const abbrFragments = paragraphValue.filter((fragment) => fragment.properties?.abbreviation);
+
+          expect(abbrFragments).to.be.an('array').and.have.a.lengthOf(2);
+          expect(abbrFragments.every((f) => f.properties?.decorators?.includes('abbreviation'))).to.be.true;
+          expect(abbrFragments.every((f) => typeof f.value === 'string' && f.value.length > 0)).to.be.true;
         });
       });
     });

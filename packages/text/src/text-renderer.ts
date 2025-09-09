@@ -25,7 +25,7 @@ import {
     TableHeaderCellBlock,
     TableRowBlock
 } from '@contensis/canvas-types';
-import { createBlockRenderer, createDecoratorRenderer, createRendererFactory, fragment, getContents, RenderBlockProps, renderBlocks } from './renderer';
+import { createBlockRenderer, createDecoratorRenderer, createRendererFactory, fragment, getContents, RenderBlockProps, renderBlocks, RenderDecoratorProps } from './renderer';
 
 const anchor = createBlockRenderer<AnchorBlock>(({ contents }) => contents);
 
@@ -79,7 +79,10 @@ const inlineEntry = createBlockRenderer<InlineEntryBlock>(
     ({ block, encode }) => encode(block.value?.entryTitle || '')
 );
 
-const link = createBlockRenderer<LinkBlock>(({ contents }) => contents);
+const link = createBlockRenderer<LinkBlock>(({ block, contents, encode }) => {
+    const href = block.properties?.link?.sys?.uri;
+    return !!href ? `${contents} (${encode(href)})` : contents;
+});
 
 const liquid = createBlockRenderer<LiquidBlock>(
     ({ contents }) => contents,
@@ -137,6 +140,18 @@ const tableRow = createBlockRenderer<TableRowBlock>(
     }
 );
 
+const _abbreviation = createDecoratorRenderer('');
+
+function abbreviation(props: RenderDecoratorProps) {
+    const contents = abbreviation.children(props);
+    const title = props.block?.properties?.abbreviation?.title;
+    return !!title ? `${contents} (${props.encode(title)})` : contents;
+}
+
+abbreviation.children = function (props: RenderDecoratorProps) {
+    return _abbreviation.children(props);
+};
+
 const inlineCode = createDecoratorRenderer('');
 const inlineDelete = createDecoratorRenderer('');
 const emphasis = createDecoratorRenderer('');
@@ -189,6 +204,7 @@ const createRenderer = createRendererFactory(
         _tableRow: tableRow
     },
     {
+        abbreviation: abbreviation,
         code: inlineCode,
         delete: inlineDelete,
         emphasis: emphasis,
