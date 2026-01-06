@@ -1,32 +1,52 @@
-name: Node.js build
+# This workflow is configured with npm trusted publishing which allows only one workflow to be configured
+# The workflow filename must be the parent that was triggered by the event and not the workflow that contains the npm publish step
+
+name: Node.js build and npm publish
 
 on:
   push:
     # branches:
     #   - main
+  workflow_dispatch: # manual trigger was previously in publish.yml but is moved here to support npm trusted publishing
+    inputs:
+      package_paths:
+        description: 'Publish the package in this folder'
+        required: true
+        type: choice
+        options:
+          - '["packages/html"]'
+          - '["packages/html-canvas"]'
+          - '["packages/markdown"]'
+          - '["packages/react"]'
+          - '["packages/html","packages/html-canvas","packages/markdown","packages/react"]'
+      npm_tag:
+        description: Publish the package with npm tag
+        required: true
+        type: choice
+        default: latest
+        options:
+          - latest
+          - prerelease
+      release:
+        description: 'Publish the package version to npm'
+        required: true
+        type: boolean
 
 jobs:
   build:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created == 'true' }}
       paths_released: ${{ steps.release.outputs.paths_released }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '20.x'
-
-      - name: Cache NPM
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: '22.x'
 
       - name: Install dependencies
         run: npm ci --prefer-offline
@@ -61,10 +81,13 @@ jobs:
           echo "paths_released=${{ steps.release.outputs.paths_released }}" >> $GITHUB_OUTPUT
 
   publish:
+    if: always() && (needs.build.result == 'success' || github.event_name == 'workflow_dispatch')
     needs: build
     uses: ./.github/workflows/publish.yml
     with:
-      package_paths: ${{ needs.build.outputs.paths_released }}
-      npm_tag: ${{ needs.build.outputs.releases_created != 'true' && 'prerelease' || 'latest' }}
-      release: ${{ needs.build.outputs.releases_created == 'true' }}
+      package_paths: ${{ github.event_name == 'workflow_dispatch' && inputs.package_paths || needs.build.outputs.paths_released }}
+      npm_tag: ${{ github.event_name == 'workflow_dispatch' && inputs.npm_tag || (needs.build.outputs.releases_created != 'true' && 'prerelease' || 'latest') }}
+      release: ${{ github.event_name == 'workflow_dispatch' && inputs.release || needs.build.outputs.releases_created == 'true' }}
     secrets: inherit
+    permissions:
+      id-token: write # for npm trusted publishing

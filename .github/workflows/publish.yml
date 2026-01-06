@@ -13,36 +13,13 @@ on:
         required: true
         type: boolean
 
-  workflow_dispatch:
-    inputs:
-      package_paths:
-        description: 'Publish the package in this folder'
-        required: true
-        type: choice
-        options:
-          - '["packages/html"]'
-          - '["packages/html-canvas"]'
-          - '["packages/markdown"]'
-          - '["packages/react"]'
-          - '["packages/html","packages/html-canvas","packages/markdown","packages/react"]'
-      npm_tag:
-        description: Publish the package with npm tag
-        required: true
-        type: choice
-        default: latest
-        options:
-          - latest
-          - prerelease
-      release:
-        description: 'Publish the package version to npm'
-        required: true
-        type: boolean
+permissions:
+  id-token: write # for npm trusted publishing
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     if: ${{ inputs.package_paths != '[]' }}
-    # name: Will ${{ inputs.package_paths == '[]' && 'not ' || ' '}}publish ${{ inputs.package_paths }}
 
     strategy:
       fail-fast: false
@@ -50,20 +27,13 @@ jobs:
         path: ${{ fromJson(inputs.package_paths) }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '20.x'
-
-      - name: Cache NPM
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: npm ci --prefer-offline
@@ -80,8 +50,4 @@ jobs:
 
       - name: Publish ${{ inputs.npm_tag }} ${{ steps.build.outputs.name }}@${{ steps.build.outputs.version }}
         if: ${{ inputs.release == true }}
-        run: |
-          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish --tag ${{ inputs.npm_tag }} --ignore-scripts --workspace ${{ matrix.path }} --access=public
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag ${{ inputs.npm_tag }} --ignore-scripts --access=public --workspace ${{ matrix.path }}
