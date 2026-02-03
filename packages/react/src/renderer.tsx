@@ -677,9 +677,7 @@ export function TableHeader(props: RenderBlockPropsWithChildren<TableHeaderBlock
 TableHeader.Children = RenderBlockChildrenFactory<TableHeaderBlock>();
 
 export function TableHeaderCell(props: RenderBlockPropsWithChildren<TableHeaderCellBlock>) {
-    console.log('Table header cell');
     const renderContext = useContext(BlockRenderContext);
-    console.log('Ancestors:', renderContext.ancestors);
     const sectionAncestor = findAncestorOfType(renderContext.ancestors, ['_tableHeader', '_tableBody', '_tableFooter']);
     const attributes = getAttributes(props, { scope: sectionAncestor?.type === '_tableHeader' ? 'col' : 'row' });
     return (
