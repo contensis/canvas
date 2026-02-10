@@ -88,6 +88,12 @@ export type { BlockRenderer, RenderBlockProps, RenderBlockPropsWithChildren, Ren
 
 export const RendererContext = createContext<RendererContextValue>({});
 
+const BlockRenderContext = createContext<{ ancestors: Block[] }>({ ancestors: [] });
+
+function findAncestorOfType<T extends Block>(ancestors: Block[], types: T['type'][]): T | undefined {
+    return ancestors?.slice().reverse().find(ancestor => types.includes(ancestor.type as T['type'])) as T | undefined;
+}
+
 /** 
  * Provides context to the <Renderer> component to return Canvas data as React components
  *
@@ -159,7 +165,13 @@ function useAssets() {
 function RenderBlock<TBlock extends Block>(props: RenderBlockProps<TBlock>) {
     const blocks = useBlocks();
     const Component = blocks[props.block.type] as BlockRenderer<TBlock>;
-    return !!Component ? (<Component block={props.block} />) : null;
+    const renderContext = useContext(BlockRenderContext);
+    const ancestors = [...renderContext.ancestors, props.block];
+    return !!Component ? (
+        <BlockRenderContext.Provider value={{ ancestors }}>
+            <Component block={props.block} />
+        </BlockRenderContext.Provider>
+    ) : null;
 }
 
 function RenderBlocks(props: RenderBlocksProps) {
@@ -665,7 +677,9 @@ export function TableHeader(props: RenderBlockPropsWithChildren<TableHeaderBlock
 TableHeader.Children = RenderBlockChildrenFactory<TableHeaderBlock>();
 
 export function TableHeaderCell(props: RenderBlockPropsWithChildren<TableHeaderCellBlock>) {
-    const attributes = getAttributes(props);
+    const renderContext = useContext(BlockRenderContext);
+    const sectionAncestor = findAncestorOfType(renderContext.ancestors, ['_tableHeader', '_tableBody', '_tableFooter']);
+    const attributes = getAttributes(props, { scope: sectionAncestor?.type === '_tableHeader' ? 'col' : 'row' });
     return (
         <th {...attributes}>
             <RenderContents contents={props.children} fallback={<TableHeaderCell.Children block={props.block} />} />
@@ -710,7 +724,7 @@ function DecoratorChildren(props: RenderDecoratorPropsWithChildren) {
     return (<Decorators block={props.block} decorators={props.otherDecorators} />)
 }
 
-export function Abbreviation(props: RenderDecoratorPropsWithChildren) {    
+export function Abbreviation(props: RenderDecoratorPropsWithChildren) {
     const title = props?.block?.properties?.abbreviation?.title;
     const attributes = getAttributes(props, { title });
     return (
