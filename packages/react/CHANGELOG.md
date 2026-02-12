@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.3.0...@contensis/canvas-react-v1.3.1) (2026-02-12)
+
+
+### Bug Fixes
+
+* add scope to table headers [#34](https://github.com/contensis/canvas/issues/34) [@dantkid](https://github.com/dantkid) ([5c5393f](https://github.com/contensis/canvas/commit/5c5393f156b1d0bd6c2805f6e8fd9dd3e4e65589))
+
 ## [1.3.0](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.2.0...@contensis/canvas-react-v1.3.0) (2025-09-09)
 
 
