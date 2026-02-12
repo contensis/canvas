@@ -91,9 +91,7 @@ export const RendererContext = createContext<RendererContextValue>({});
 const BlockRenderContext = createContext<{ ancestors: Block[] }>({ ancestors: [] });
 
 function findAncestorOfType<T extends Block>(ancestors: Block[], types: T['type'][]): T | undefined {
-    return ancestors?.slice().reverse().find(
-        ancestor => types.includes(ancestor.type as T['type'])
-    ) as T | undefined;
+    return ancestors?.slice().reverse().find(ancestor => types.includes(ancestor.type as T['type'])) as T | undefined;
 }
 
 /** 
