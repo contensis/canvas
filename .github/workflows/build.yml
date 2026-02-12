@@ -46,7 +46,10 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          # issue with npm version < 11.6.3, this node version contains 11.8.0
+          # https://github.com/npm/cli/issues/8805#issuecomment-3627531136
+          # Trusted package publishing requires npm > 11.5.1
+          node-version: '24.13.1'
 
       - name: Install dependencies
         run: npm ci --prefer-offline
