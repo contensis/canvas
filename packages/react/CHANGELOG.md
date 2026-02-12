@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.3.1...@contensis/canvas-react-v1.3.2) (2026-02-12)
+
+
+### Bug Fixes
+
+* now using NPM Trusted Publishing ([18a88cc](https://github.com/contensis/canvas/commit/18a88cc3e19c3ebf15a7f5d2ce18b67b55353206))
+
 ## [1.3.1](https://github.com/contensis/canvas/compare/@contensis/canvas-react-v1.3.0...@contensis/canvas-react-v1.3.1) (2026-02-12)
 
 
