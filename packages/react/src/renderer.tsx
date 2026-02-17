@@ -212,6 +212,11 @@ function RenderText(props: RenderTextProps) {
  * 
  * */
 export function Renderer(props: RendererProps) {
+    if (!Array.isArray(props.data) || props.data.length === 0) return null;
+
+    const blocksWithArrayValue = props.data.filter(block => Array.isArray(block.value));
+    if (blocksWithArrayValue.length > 0 && blocksWithArrayValue.every(block => block.value.length === 0)) return null;
+
     return (<RenderBlocks blocks={props.data} />);
 }
 
